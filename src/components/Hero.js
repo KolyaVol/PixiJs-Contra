@@ -4,6 +4,7 @@ let graphics = new Graphics();
 
 export default class Hero extends Container {
   maxSpeed = 4;
+  startFallSpeed = 1;
   state = { isJump: false };
   constructor() {
     super();
