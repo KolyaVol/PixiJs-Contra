@@ -38,6 +38,7 @@ export default class Movement {
         break;
 
       default:
+        console.log(e.code);
         break;
     }
   }

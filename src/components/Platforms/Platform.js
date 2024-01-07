@@ -1,6 +1,6 @@
 import { Container, Graphics } from "pixi.js";
 
-let graphics = new Graphics();
+const graphics = new Graphics();
 
 export default class Platform extends Container {
   constructor(lineStyle, drawRect) {
