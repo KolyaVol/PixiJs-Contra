@@ -1,6 +1,7 @@
 import Bullet from "../components/Bullets/Bullet";
 
 export default class Shooting {
+  isControlDown = false;
   isShooting = false;
   itemArr;
   shooter;
@@ -12,7 +13,8 @@ export default class Shooting {
   hadleKeyDown(e) {
     switch (e.code) {
       case "ControlLeft":
-        this.addBullet();
+        this.isControlDown = true;
+
         break;
 
       default:
@@ -22,7 +24,8 @@ export default class Shooting {
   hadleKeyUp(e) {
     switch (e.code) {
       case "ControlLeft":
-        this.isShooting = false;
+        this.isControlDown = false;
+
         break;
 
       default:
@@ -36,13 +39,24 @@ export default class Shooting {
 
   addBullet() {
     const bullet = new Bullet(this.app, 10);
-    bullet.currentBullet.bulletForm.x = this.shooter.x;
-    bullet.currentBullet.bulletForm.y = this.shooter.y;
+    bullet.currentBullet.bulletForm.x = this.shooter.x + 30;
+    bullet.currentBullet.bulletForm.y =
+      this.shooter.y + this.shooter.height / 2.4;
     const newBullet = bullet.drawBullet();
     this.itemArr.push(newBullet);
   }
 
   startShooting() {
+    if (this.isControlDown) {
+      if (!this.isShooting) {
+        this.addBullet();
+        this.isShooting = true;
+        setTimeout(() => {
+          this.isShooting = false;
+        }, 250);
+      }
+    }
+
     this.itemArr.forEach((item) => {
       item.x += 10;
     });

@@ -5,7 +5,6 @@ import Collision from "./mechanics/Collision";
 import Movement from "./mechanics/Movement";
 import PlatformFactory from "./components/Platforms/PlatformFactory";
 import Shooting from "./mechanics/Shooting";
-import Bullet from "./components/Bullets/Bullet";
 
 const platformArr = [
   { lineWidth: 1, lineColor: 0xff1111, x: 100, y: 300, width: 100, height: 10 },
@@ -33,9 +32,7 @@ const platform = new Platform(
 platformFactory.createPlatforms(platformArr);
 const movement = new Movement(hero, hero.maxSpeed, hero.startFallSpeed);
 movement.startObserve();
-const bullet = new Bullet(app, 6);
-const b1 = bullet.drawBullet();
-const bulletArr = [b1];
+const bulletArr = [];
 const shooting = new Shooting(app, bulletArr, hero);
 shooting.startObserve();
 // load the texture we need
