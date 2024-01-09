@@ -1,15 +1,15 @@
 import Gravitation from "./Gravitation";
 
 export default class Movement {
-  constructor(item, heroMaxSpeed, heroStartFallSpeed) {
+  constructor(item, itemMaxSpeed, itemStartFallSpeed) {
     this.item = item;
-    this.speed = heroMaxSpeed;
+    this.speed = itemMaxSpeed;
     this.isMoveRight = false;
     this.isMoveLeft = false;
     this.isArrowLeft = false;
     this.isArrowRight = false;
     this.IsArrowUp = false;
-    this.grav = new Gravitation(item, heroStartFallSpeed);
+    this.grav = new Gravitation(item, itemStartFallSpeed);
   }
   hadleKeyDown(e) {
     switch (e.code) {
@@ -84,6 +84,7 @@ export default class Movement {
       this.grav.stay(isCollide);
       this.IsArrowUp ? this.grav.jump() : "";
     } else this.grav.fall();
+
     if (this.isMoveRight) {
       this.right();
     } else if (this.isMoveLeft) {

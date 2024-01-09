@@ -47,5 +47,6 @@ hero.y = app.renderer.height / 2;
 app.ticker.add(() => {
   const col = new Collision(hero, platform.drawRect);
   movement.startMove(col.isCollide());
+  movement.startMove(col.isCollideWithArr(platformArr));
   shooting.startShooting();
 });
