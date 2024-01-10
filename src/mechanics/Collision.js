@@ -1,30 +1,56 @@
 export default class Collision {
-  constructor(entity, area) {
-    this.entity = entity;
-    this.area = area;
+  constructor() {}
+
+  isCollideWithArr(areaArr, entity) {
+    let a = null;
+    if (entity) {
+      areaArr.forEach((area) => {
+        if (
+          entity.x < area.x + area.width &&
+          entity.x + entity.width > area.x &&
+          entity.y < area.y + area.height &&
+          entity.y + entity.height > area.y
+        )
+          a = area;
+      });
+    }
+    return a ? a : "";
   }
-  isCollideWithArr(areaArr) {
-    const newArr = areaArr.map((area) => {
-      return this.entity.x < area.x + area.width &&
-        this.entity.x + this.entity.width > area.x &&
-        this.entity.y < area.y + area.height &&
-        this.entity.y + this.entity.height > area.y
-        ? area.y
-        : false;
+
+  bulletCollision(areaArr, entity, shooter) {
+    let a = null;
+    areaArr.forEach((area) => {
+      console.log(shooter.y + entity.y + entity.height);
+      console.log(area.y + area.height);
+
+      if (
+        shooter.x + entity.x < area.x + area.width &&
+        shooter.x + entity.x + entity.width > area.x &&
+        shooter.y + entity.y < area.y + area.height &&
+        shooter.y + entity.y + entity.height > area.y
+      ) {
+        a = true;
+        console.log(a);
+      }
     });
-    for (let i = 0; i < newArr.length; i++) {
-      const element = newArr[i];
-      if (element) {
-        return element;
+    return a;
+  }
+
+  isArrCollideWithArr(areaArr, entityArr) {
+    /*
+    for (let i = 0; i < entityArr.length; i++) {
+      
+      if (this.isCollideWithArr(areaArr, entityArr[i])) {
+        console.log({
+          entity: this.isCollideWithArr(areaArr, entityArr[i]),
+          id: i,
+        });
+        return { entity: this.isCollideWithArr(areaArr, entityArr[i]), id: i };
       }
     }
-  }
-  isCollide() {
-    return this.entity.x < this.area.x + this.area.width &&
-      this.entity.x + this.entity.width > this.area.x &&
-      this.entity.y < this.area.y + this.area.height &&
-      this.entity.y + this.entity.height > this.area.y
-      ? this.area.y
-      : false;
+  }*/
+    console.log(areaArr);
+    console.log(entityArr);
+    entityArr ? console.log(this.isCollideWithArr(areaArr, entityArr[0])) : "";
   }
 }

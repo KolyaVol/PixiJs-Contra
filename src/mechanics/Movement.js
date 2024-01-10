@@ -81,7 +81,7 @@ export default class Movement {
   }
   startMove(isCollide) {
     if (isCollide) {
-      this.grav.stay(isCollide);
+      this.grav.stay(isCollide.y);
       this.IsArrowUp ? this.grav.jump() : "";
     } else this.grav.fall();
 
