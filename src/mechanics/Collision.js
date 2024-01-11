@@ -4,15 +4,27 @@ export default class Collision {
   isCollideWithArr(areaArr, entity) {
     let a = null;
     if (entity) {
-      areaArr.forEach((area) => {
-        if (
-          entity.x < area.x + area.width &&
-          entity.x + entity.width > area.x &&
-          entity.y < area.y + area.height &&
-          entity.y + entity.height > area.y
-        )
-          a = area;
-      });
+      if (entity.stats) {
+        areaArr.forEach((area) => {
+          if (
+            entity.x < area.x + area.width &&
+            entity.x + entity.stats.width > area.x &&
+            entity.y < area.y + area.height &&
+            entity.y + entity.stats.height > area.y
+          )
+            a = area;
+        });
+      } else {
+        areaArr.forEach((area) => {
+          if (
+            entity.x < area.x + area.width &&
+            entity.x + entity.width > area.x &&
+            entity.y < area.y + area.height &&
+            entity.y + entity.height > area.y
+          )
+            a = area;
+        });
+      }
     }
     return a ? a : "";
   }
@@ -20,9 +32,6 @@ export default class Collision {
   bulletCollision(areaArr, entity, shooter) {
     let a = null;
     areaArr.forEach((area) => {
-      console.log(shooter.y + entity.y + entity.height);
-      console.log(area.y + area.height);
-
       if (
         shooter.x + shooter.width + entity.x < area.x + area.width &&
         shooter.x + shooter.width + entity.x > area.x &&
@@ -30,7 +39,6 @@ export default class Collision {
         shooter.y + entity.y + entity.height > area.y
       ) {
         a = true;
-        console.log(a);
       }
     });
     return a;
