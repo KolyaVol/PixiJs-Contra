@@ -81,7 +81,12 @@ export default class Movement {
   }
   startMove(isCollide) {
     if (isCollide) {
-      this.grav.stay(isCollide.y);
+      if (this.item.stats) {
+        if (this.item.y + this.item.stats.height / 4 < isCollide.y) {
+          this.grav.stay(isCollide.y);
+        }
+      }
+
       this.IsArrowUp ? this.grav.jump() : "";
     } else this.grav.fall();
 

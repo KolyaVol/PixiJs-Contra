@@ -9,6 +9,7 @@ export default class Gravitation {
   }
   stay(platformY) {
     this.item.state.isJump = false;
+    
     this.item.y = platformY - this.item.height;
     this.fallSpeed = 0;
   }
