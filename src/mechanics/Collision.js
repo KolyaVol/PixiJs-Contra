@@ -24,8 +24,8 @@ export default class Collision {
       console.log(area.y + area.height);
 
       if (
-        shooter.x + entity.x < area.x + area.width &&
-        shooter.x + entity.x + entity.width > area.x &&
+        shooter.x + shooter.width + entity.x < area.x + area.width &&
+        shooter.x + shooter.width + entity.x > area.x &&
         shooter.y + entity.y < area.y + area.height &&
         shooter.y + entity.y + entity.height > area.y
       ) {

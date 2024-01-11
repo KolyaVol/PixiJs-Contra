@@ -66,8 +66,6 @@ export default class Shooting {
 
     for (let i = 0; i < this.itemArr.length; i++) {
       const item = this.itemArr[i];
-      item.x += 10;
-
       if (
         this.col.bulletCollision(
           [
@@ -118,7 +116,7 @@ export default class Shooting {
       ) {
         item.removeFromParent();
         this.itemArr.splice(i, 1);
-      }
+      } else item.x += 10;
     }
   }
 }

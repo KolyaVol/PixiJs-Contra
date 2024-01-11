@@ -1,4 +1,4 @@
-import { Application } from "pixi.js";
+import { Application, Container } from "pixi.js";
 import Hero from "./components/Hero";
 import Collision from "./mechanics/Collision";
 import Movement from "./mechanics/Movement";
@@ -6,8 +6,14 @@ import PlatformFactory from "./components/Platforms/PlatformFactory";
 import Shooting from "./mechanics/Shooting";
 
 const app = new Application();
-const hero = new Hero(app);
-const platformFactory = new PlatformFactory(app);
+const worldContainer = new Container();
+const hero = new Hero(worldContainer);
+app.stage.addChild(worldContainer);
+const platformFactory = new PlatformFactory(worldContainer);
+const movement = new Movement(hero, hero.maxSpeed, hero.startFallSpeed);
+const bulletArr = [];
+const shooting = new Shooting(app, bulletArr, hero);
+const col = new Collision();
 const platformArr = [
   {
     lineWidth: 2,
@@ -34,23 +40,22 @@ hero.drawGun();
 document.body.appendChild(app.view);
 
 platformFactory.createPlatforms(platformArr);
-const movement = new Movement(hero, hero.maxSpeed, hero.startFallSpeed);
+
 movement.startObserve();
-const bulletArr = [];
-const shooting = new Shooting(app, bulletArr, hero);
+
 shooting.startObserve();
 // load the texture we need
 // const texture = await Assets.load(icon);
 
 // Setup the position of the hero
+
 hero.x = app.renderer.width / 2;
 hero.y = app.renderer.height / 2;
 
 // Add the hero to the scene we are building
 
 app.ticker.add(() => {
-  const col = new Collision();
-
+  console.log(hero.y);
   col.isCollideWithArr(platformArr, bulletArr[0]);
   movement.startMove(col.isCollideWithArr(platformArr, hero));
   shooting.startShooting();

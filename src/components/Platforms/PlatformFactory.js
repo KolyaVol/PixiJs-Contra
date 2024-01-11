@@ -1,8 +1,8 @@
 import Platform from "./Platform";
 
 export default class PlatformFactory {
-  constructor(app) {
-    this.app = app;
+  constructor(worldContainer) {
+    this.worldContainer = worldContainer;
   }
   createPlatforms(platformArr) {
     platformArr.forEach((element) => {
@@ -15,7 +15,7 @@ export default class PlatformFactory {
           height: element.height,
         }
       );
-      this.app.stage.addChild(platform);
+      this.worldContainer.addChild(platform);
     });
   }
 }

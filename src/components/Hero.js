@@ -4,7 +4,8 @@ const heroGraphics = new Graphics();
 const gunGraphics = new Graphics();
 
 export default class Hero extends Container {
-  app;
+  stats = { width: 20, height: 60 };
+  worldContainer;
   maxSpeed = 4;
   startFallSpeed = 1;
   state = { isJump: false, isWithGun: false };
@@ -13,17 +14,17 @@ export default class Hero extends Container {
     lineStyle: { lineWidth: 10, lineColor: 0xff0000 },
     gunForm: { x: 10, y: 30, width: 30, height: 0 },
   };
-  constructor(app) {
+  constructor(worldContainer) {
     super();
-    this.app = app;
+    this.worldContainer = worldContainer;
   }
 
   drawHero() {
     heroGraphics.lineStyle(2, 0xff0000);
-    heroGraphics.drawRect(0, 0, 20, 60);
+    heroGraphics.drawRect(0, 0, this.stats.width, this.stats.height);
     // heroGraphics.transform.skew.x = -0.1;
     this.addChild(heroGraphics);
-    this.app.stage.addChild(this);
+    this.worldContainer.addChild(this);
   }
 
   drawGun() {
@@ -39,7 +40,6 @@ export default class Hero extends Container {
         this.currentGun.gunForm.height
       );
       //gunGraphics.rotation = -0.1;
-
       this.addChild(gunGraphics);
     }
   }
