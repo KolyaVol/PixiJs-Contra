@@ -55,7 +55,6 @@ hero.y = app.renderer.height / 2;
 // Add the hero to the scene we are building
 
 app.ticker.add(() => {
-  console.log(hero.y);
   col.isCollideWithArr(platformArr, bulletArr[0]);
   movement.startMove(col.isCollideWithArr(platformArr, hero));
   shooting.startShooting();

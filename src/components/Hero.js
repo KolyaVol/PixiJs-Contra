@@ -4,7 +4,11 @@ const heroGraphics = new Graphics();
 const gunGraphics = new Graphics();
 
 export default class Hero extends Container {
-  stats = { width: 20, height: 60 };
+  stats = {
+    lineStyle: { lineWidth: 2, lineColor: 0xff0000 },
+    width: 20,
+    height: 60,
+  };
   worldContainer;
   maxSpeed = 4;
   startFallSpeed = 1;
@@ -21,7 +25,10 @@ export default class Hero extends Container {
   }
 
   drawHero() {
-    heroGraphics.lineStyle(2, 0xff0000);
+    heroGraphics.lineStyle(
+      this.stats.lineStyle.lineWidth,
+      this.stats.lineStyle.lineColor
+    );
     heroGraphics.drawRect(0, 0, this.stats.width - 2, this.stats.height - 2);
     // heroGraphics.transform.skew.x = -0.1;
     this.addChild(heroGraphics);
