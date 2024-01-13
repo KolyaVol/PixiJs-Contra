@@ -79,12 +79,19 @@ export default class Movement {
     document.addEventListener("keydown", (e) => this.hadleKeyDown(e));
     document.addEventListener("keyup", (e) => this.hadleKeyUp(e));
   }
+
+  right() {
+    this.item.x += this.speed;
+  }
+
+  left() {
+    this.item.x += -this.speed;
+  }
+
   startMove(isCollide) {
-    if (isCollide) {
-      if (this.item.stats) {
-        if (this.item.y + this.item.stats.height / 4 < isCollide.y) {
-          this.grav.stay(isCollide.y);
-        }
+    if (isCollide && this.item.stats) {
+      if (this.item.y + this.item.stats.height / 4 < isCollide.area.y) {
+        this.grav.stay(isCollide.area.y);
       }
 
       this.IsArrowUp ? this.grav.jump() : "";
@@ -95,11 +102,5 @@ export default class Movement {
     } else if (this.isMoveLeft) {
       this.left();
     }
-  }
-  right() {
-    this.item.x += this.speed;
-  }
-  left() {
-    this.item.x += -this.speed;
   }
 }

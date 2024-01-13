@@ -57,5 +57,5 @@ hero.y = app.renderer.height / 2;
 app.ticker.add(() => {
   col.isCollideWithArr(platformArr, bulletArr[0]);
   movement.startMove(col.isCollideWithArr(platformArr, hero));
-  shooting.startShooting();
+  shooting.startShooting(platformArr);
 });

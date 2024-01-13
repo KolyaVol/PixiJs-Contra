@@ -53,7 +53,7 @@ export default class Shooting {
     this.app.stage.removeChild(item);
   }
 
-  startShooting() {
+  startShooting(platformArr) {
     if (this.isControlDown) {
       if (!this.isShooting) {
         this.addBullet();
@@ -68,48 +68,7 @@ export default class Shooting {
       const item = this.itemArr[i];
       if (
         this.col.bulletCollision(
-          [
-            {
-              lineWidth: 2,
-              lineColor: 0xfffff,
-              x: this.app.renderer.width / 2.2,
-              y: 500,
-              width: 600,
-              height: 30,
-            },
-            {
-              lineWidth: 1,
-              lineColor: 0xff1111,
-              x: 100,
-              y: 300,
-              width: 100,
-              height: 10,
-            },
-            {
-              lineWidth: 1,
-              lineColor: 0xf22221,
-              x: 200,
-              y: 400,
-              width: 100,
-              height: 20,
-            },
-            {
-              lineWidth: 1,
-              lineColor: 0xf33331,
-              x: 300,
-              y: 500,
-              width: 100,
-              height: 30,
-            },
-            {
-              lineWidth: 4,
-              lineColor: 0x77777,
-              x: 600,
-              y: 300,
-              width: 100,
-              height: 400,
-            },
-          ],
+          platformArr,
           item,
           this.shooter
         )

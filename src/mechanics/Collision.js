@@ -2,7 +2,25 @@ export default class Collision {
   constructor() {}
 
   isCollideWithArr(areaArr, entity) {
-    let a = null;
+    /*const collisionResult = {
+      horizontal: false,
+      vertical: false,
+    };
+
+    if (!this.isCheckAABB(aaRect, bbRect)) {
+      return collisionResult;
+    }
+
+    aaRect.y = aaPrevPoint.y;
+    if (!this.isCheckAABB(aaRect, bbRect)) {
+      collisionResult.vertical = true;
+      return collisionResult;
+    }
+
+    collisionResult.horizontal = true;
+    return collisionResult;
+    */
+    let result = null;
     if (entity) {
       if (entity.stats) {
         areaArr.forEach((area) => {
@@ -11,8 +29,23 @@ export default class Collision {
             entity.x + entity.stats.width > area.x &&
             entity.y < area.y + area.height &&
             entity.y + entity.stats.height > area.y
-          )
-            a = area;
+          ) {
+            result = {
+              area: area,
+              colDirection: "both",
+            };
+            if (
+              entity.x == area.x + area.width &&
+              entity.x + entity.stats.width == area.x
+            ) {
+              result.colDirection = "horizontal";
+            } else if (
+              entity.y < area.y + area.height &&
+              entity.y + entity.stats.height > area.y
+            ) {
+              result.colDirection = "vertical";
+            }
+          }
         });
       } else {
         areaArr.forEach((area) => {
@@ -22,15 +55,16 @@ export default class Collision {
             entity.y < area.y + area.height &&
             entity.y + entity.height > area.y
           )
-            a = area;
+            result = area;
         });
       }
     }
-    return a ? a : "";
+
+    return result ? result : "";
   }
 
   bulletCollision(areaArr, entity, shooter) {
-    let a = null;
+    let result = null;
     areaArr.forEach((area) => {
       if (
         shooter.x + shooter.width + entity.x < area.x + area.width &&
@@ -38,27 +72,10 @@ export default class Collision {
         shooter.y + entity.y < area.y + area.height &&
         shooter.y + entity.y + entity.height > area.y
       ) {
-        a = true;
+        result = true;
       }
     });
-    return a;
+    return result;
   }
 
-  isArrCollideWithArr(areaArr, entityArr) {
-    /*
-    for (let i = 0; i < entityArr.length; i++) {
-      
-      if (this.isCollideWithArr(areaArr, entityArr[i])) {
-        console.log({
-          entity: this.isCollideWithArr(areaArr, entityArr[i]),
-          id: i,
-        });
-        return { entity: this.isCollideWithArr(areaArr, entityArr[i]), id: i };
-      }
-    }
-  }*/
-    console.log(areaArr);
-    console.log(entityArr);
-    entityArr ? console.log(this.isCollideWithArr(areaArr, entityArr[0])) : "";
-  }
 }
