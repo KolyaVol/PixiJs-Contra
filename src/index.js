@@ -8,9 +8,14 @@ import Shooting from "./mechanics/Shooting";
 const app = new Application();
 const worldContainer = new Container();
 const hero = new Hero(worldContainer);
+
 app.stage.addChild(worldContainer);
 const platformFactory = new PlatformFactory(worldContainer);
-const movement = new Movement(hero, hero.maxSpeed, hero.startFallSpeed);
+const movement = new Movement(
+  hero,
+  hero.stats.maxSpeed,
+  hero.stats.startFallSpeed
+);
 const bulletArr = [];
 const shooting = new Shooting(app, bulletArr, hero);
 const col = new Collision();
@@ -34,7 +39,7 @@ const platformArr = [
 // and the root stage PIXI.Container
 
 hero.drawHero();
-hero.drawGun();
+
 // The application will create a canvas element for you that you
 // can then insert into the DOM
 document.body.appendChild(app.view);
