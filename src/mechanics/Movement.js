@@ -1,15 +1,15 @@
 import Gravitation from "./Gravitation";
 
 export default class Movement {
-  constructor(item, itemMaxSpeed, itemStartFallSpeed) {
+  constructor(item, itemSpeed) {
     this.item = item;
-    this.speed = itemMaxSpeed;
+    this.speed = itemSpeed;
     this.isMoveRight = false;
     this.isMoveLeft = false;
     this.isArrowLeft = false;
     this.isArrowRight = false;
     this.IsArrowUp = false;
-    this.grav = new Gravitation(item, itemStartFallSpeed);
+    this.grav = new Gravitation();
   }
   hadleKeyDown(e) {
     switch (e.code) {
@@ -34,7 +34,7 @@ export default class Movement {
         break;
       case "ArrowUp":
         this.IsArrowUp = true;
-        this.grav.jump();
+        this.grav.jump(this.item);
         break;
 
       default:
@@ -67,7 +67,7 @@ export default class Movement {
         break;
       case "ArrowUp":
         this.IsArrowUp = false;
-        this.grav.fall();
+        this.grav.fall(this.item);
         break;
 
       default:
@@ -88,18 +88,24 @@ export default class Movement {
     this.item.x += -this.speed;
   }
 
-  startMove(isCollide) {
-    if (isCollide && this.item.stats) {
-      if (this.item.y + this.item.stats.height / 4 < isCollide.area.y) {
-        this.grav.stay(isCollide.area.y);
-      }
-
-      this.IsArrowUp ? this.grav.jump() : "";
-    } else this.grav.fall();
+  startMove(collisionResult) {
+    if (collisionResult.vertical) {
+      this.grav.stay(this.item, this.item.prevPoint.y + this.item.stats.height);
+      this.IsArrowUp ? this.grav.jump(this.item) : "";
+    }
+    if (collisionResult.horizontal) {
+      this.item.x = this.item.prevPoint.x;
+    }
+    if (!collisionResult.vertical && !collisionResult.horizontal) {
+      this.item.prevPoint.y = this.item.y;
+      this.grav.fall(this.item);
+    }
 
     if (this.isMoveRight) {
+      this.item.prevPoint.x = this.item.x;
       this.right();
     } else if (this.isMoveLeft) {
+      this.item.prevPoint.x = this.item.x;
       this.left();
     }
   }

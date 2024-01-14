@@ -11,11 +11,7 @@ const hero = new Hero(worldContainer);
 
 app.stage.addChild(worldContainer);
 const platformFactory = new PlatformFactory(worldContainer);
-const movement = new Movement(
-  hero,
-  hero.stats.maxSpeed,
-  hero.stats.startFallSpeed
-);
+const movement = new Movement(hero, hero.stats.speed);
 const bulletArr = [];
 const shooting = new Shooting(app, bulletArr, hero);
 const col = new Collision();
@@ -60,7 +56,7 @@ hero.y = app.renderer.height / 2;
 // Add the hero to the scene we are building
 
 app.ticker.add(() => {
-  col.isCollideWithArr(platformArr, bulletArr[0]);
-  movement.startMove(col.isCollideWithArr(platformArr, hero));
-  shooting.startShooting(platformArr);
+  //hero.update();
+  movement.startMove(col.checkCollisionOrientation(hero, platformArr[0]));
+  //shooting.startShooting(platformArr);
 });

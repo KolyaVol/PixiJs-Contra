@@ -10,9 +10,10 @@ export default class Hero extends Container {
     lineStyle: { lineWidth: 2, lineColor: 0xff0000 },
     width: 20,
     height: 60,
-    maxSpeed: 4,
-    startFallSpeed: 1,
+    speed: 4,
+    fallSpeed: 0,
   };
+  prevPoint = { x: 0, y: 0 };
 
   state = { isJump: false, isWithGun: false };
 
@@ -31,7 +32,15 @@ export default class Hero extends Container {
     this.addChild(heroGraphics);
     this.worldContainer.addChild(this);
     this.worldContainer.addChild(this);
+    this.width = this.stats.width;
+
     const gun = new Gun(this);
     gun.drawGun(true);
+  }
+
+  update() {
+    //need check speed!!!
+    this.prevPoint.x = this.x;
+    this.prevPoint.y = this.y;
   }
 }

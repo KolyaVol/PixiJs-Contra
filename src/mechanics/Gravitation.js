@@ -1,20 +1,16 @@
 export default class Gravitation {
-  constructor(item, fallSpeed = 0) {
-    this.item = item;
-    this.fallSpeed = fallSpeed;
+  constructor() {}
+  fall(item) {
+    item.y += item.stats.fallSpeed;
+    item.stats.fallSpeed += 0.2;
   }
-  fall() {
-    this.item.y += this.fallSpeed;
-    this.fallSpeed += 0.2;
+  stay(item, platformY) {
+    item.stats.fallSpeed = 0;
+    item.state.isJump = false;
+    item.y = platformY - item.height;
   }
-  stay(platformY) {
-    this.item.state.isJump = false;
-    
-    this.item.y = platformY - this.item.height;
-    this.fallSpeed = 0;
-  }
-  jump() {
-    !this.item.state.isJump ? (this.fallSpeed = -6) : "";
-    this.item.state.isJump = true;
+  jump(item) {
+    !item.state.isJump ? (item.stats.fallSpeed = -6) : "";
+    item.state.isJump = true;
   }
 }
