@@ -89,16 +89,23 @@ export default class Movement {
   }
 
   startMove(collisionResult) {
-    if (collisionResult.vertical) {
-      this.grav.stay(this.item, this.item.prevPoint.y + this.item.stats.height);
-      this.IsArrowUp ? this.grav.jump(this.item) : "";
-    }
-    if (collisionResult.horizontal) {
-      this.item.x = this.item.prevPoint.x;
-    }
     if (!collisionResult.vertical && !collisionResult.horizontal) {
       this.item.prevPoint.y = this.item.y;
-      this.grav.fall(this.item);
+    }
+
+    if (collisionResult.vertical) {
+      if (collisionResult.area) {
+        this.grav.stay(this.item, collisionResult.area.y);
+      } else
+        this.grav.stay(
+          this.item,
+          this.item.prevPoint.y + this.item.stats.height
+        );
+
+      this.IsArrowUp ? this.grav.jump(this.item) : "";
+    } else this.grav.fall(this.item);
+    if (collisionResult.horizontal) {
+      this.item.x = this.item.prevPoint.x;
     }
 
     if (this.isMoveRight) {

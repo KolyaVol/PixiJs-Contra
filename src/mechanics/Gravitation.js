@@ -7,10 +7,10 @@ export default class Gravitation {
   stay(item, platformY) {
     item.stats.fallSpeed = 0;
     item.state.isJump = false;
-    item.y = platformY - item.height;
+    item.y = platformY - item.stats.height;
   }
   jump(item) {
-    !item.state.isJump ? (item.stats.fallSpeed = -6) : "";
+    !item.state.isJump ? (item.stats.fallSpeed = item.stats.jumpPower) : "";
     item.state.isJump = true;
   }
 }

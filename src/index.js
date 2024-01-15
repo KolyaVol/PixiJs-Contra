@@ -57,6 +57,7 @@ hero.y = app.renderer.height / 2;
 
 app.ticker.add(() => {
   //hero.update();
-  movement.startMove(col.checkCollisionOrientation(hero, platformArr[0]));
+  movement.startMove(col.checkArrCollisionOrientation(hero, platformArr));
+  
   //shooting.startShooting(platformArr);
 });
