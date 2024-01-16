@@ -12,11 +12,11 @@ export default class Hero extends Container {
     height: 60,
     speed: 4,
     fallSpeed: 0,
-    jumpPower: -8
+    jumpPower: -8,
   };
   prevPoint = { x: 0, y: 0 };
 
-  state = { isJump: false, isWithGun: false };
+  state = { isJump: false, isFly: false, isWithGun: false };
 
   constructor(worldContainer) {
     super();

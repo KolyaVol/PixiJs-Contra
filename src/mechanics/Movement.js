@@ -89,22 +89,26 @@ export default class Movement {
   }
 
   startMove(collisionResult) {
+    if (this.item.stats.fallSpeed > 0) {
+      this.item.state.isJump = false;
+    }
     if (!collisionResult.vertical && !collisionResult.horizontal) {
       this.item.prevPoint.y = this.item.y;
-      this.item.state.isJump = true;
+      this.item.state.isFly = true;
     }
 
     if (collisionResult.vertical) {
       if (collisionResult.area) {
-        this.grav.stay(this.item, collisionResult.area.y);
+        this.grav.stay(this.item, collisionResult.area);
       } else
         this.grav.stay(
           this.item,
-          this.item.prevPoint.y + this.item.stats.height
+          this.item.prevPoint
         );
 
       this.IsArrowUp ? this.grav.jump(this.item) : "";
     } else this.grav.fall(this.item);
+  
     if (collisionResult.horizontal) {
       this.item.x = this.item.prevPoint.x;
     }
