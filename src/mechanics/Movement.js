@@ -91,6 +91,7 @@ export default class Movement {
   startMove(collisionResult) {
     if (!collisionResult.vertical && !collisionResult.horizontal) {
       this.item.prevPoint.y = this.item.y;
+      this.item.state.isJump = true;
     }
 
     if (collisionResult.vertical) {
