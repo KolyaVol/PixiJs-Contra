@@ -5,10 +5,7 @@ export default class Gravitation {
     item.stats.fallSpeed += 0.2;
   }
   stay(item, platform) {
-    console.log(`${item.y} + ${platform.y}
-    =======`);
     if (item.y >= platform.y) {
-      
       item.y = platform.y + platform.height;
       item.stats.fallSpeed = 2;
       item.y += 1;
@@ -19,9 +16,9 @@ export default class Gravitation {
     }
   }
   jump(item) {
-    item.state.isJump && item.state.isFly
-      ? ""
-      : (item.stats.fallSpeed = item.stats.jumpPower);
-    item.state.isJump = true;
+    if (!item.state.isJump && !item.state.isFly) {
+      item.stats.fallSpeed = item.stats.jumpPower;
+      item.state.isJump = true;
+    }
   }
 }

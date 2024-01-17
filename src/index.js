@@ -4,6 +4,7 @@ import Collision from "./mechanics/Collision";
 import Movement from "./mechanics/Movement";
 import PlatformFactory from "./components/Platforms/PlatformFactory";
 import Shooting from "./mechanics/Shooting";
+import Camera from "./mechanics/Camera";
 
 const app = new Application();
 const worldContainer = new Container();
@@ -21,13 +22,13 @@ const platformArr = [
     lineColor: 0xfffff,
     x: app.renderer.width / 2.2,
     y: 500,
-    width: 600,
+    width: 1600,
     height: 30,
   },
-  { lineWidth: 1, lineColor: 0xff1111, x: 100, y: 300, width: 100, height: 10 },
+  { lineWidth: 1, lineColor: 0xff1111, x: 100, y: 300, width: 600, height: 10 },
   { lineWidth: 1, lineColor: 0xf22221, x: 200, y: 400, width: 100, height: 20 },
   { lineWidth: 1, lineColor: 0xf33331, x: 300, y: 500, width: 100, height: 30 },
-  { lineWidth: 4, lineColor: 0x77777, x: 600, y: 300, width: 100, height: 400 },
+  { lineWidth: 4, lineColor: 0x77777, x: 600, y: 400, width: 100, height: 400 },
 ];
 
 // The application will create a renderer using WebGL, if possible,
@@ -54,10 +55,19 @@ hero.x = app.renderer.width / 2;
 hero.y = app.renderer.height / 2;
 
 // Add the hero to the scene we are building
+const cameraSettings = {
+  target: hero,
+  world: worldContainer,
+  screenSize: app.screen,
+  maxWorldWidth: worldContainer.width,
+  isBackScrollX: true,
+};
+const camera = new Camera(cameraSettings);
 
 app.ticker.add(() => {
   //hero.update();
   movement.startMove(col.checkArrCollisionOrientation(hero, platformArr));
-  
-  //shooting.startShooting(platformArr);
+
+  shooting.startShooting(platformArr);
+  camera.update();
 });
