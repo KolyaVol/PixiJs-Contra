@@ -7,10 +7,11 @@ export default class Shooting {
   itemArr;
   shooter;
   col = new Collision();
-  constructor(app, itemArr, shooter) {
+  constructor(app, itemArr, shooter, camera) {
     this.app = app;
     this.itemArr = itemArr;
     this.shooter = shooter;
+    this.camera = camera;
   }
   hadleKeyDown(e) {
     switch (e.code) {
@@ -41,7 +42,10 @@ export default class Shooting {
 
   addBullet() {
     const bullet = new Bullet(this.app, 10);
-    bullet.currentBullet.bulletForm.x = this.shooter.x + 30;
+    console.log(`====
+    ${this.shooter.x + 30}`);
+    bullet.currentBullet.bulletForm.x =
+      this.shooter.x + 30 + this.camera.world.x;
     bullet.currentBullet.bulletForm.y =
       this.shooter.y + this.shooter.height / 2.4;
     const newBullet = bullet.drawBullet();
@@ -66,13 +70,7 @@ export default class Shooting {
 
     for (let i = 0; i < this.itemArr.length; i++) {
       const item = this.itemArr[i];
-      if (
-        this.col.bulletCollision(
-          platformArr,
-          item,
-          this.shooter
-        )
-      ) {
+      if (this.col.bulletCollision(platformArr, item, this.shooter)) {
         item.removeFromParent();
         this.itemArr.splice(i, 1);
       } else item.x += 10;
