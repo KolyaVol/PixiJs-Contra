@@ -100,24 +100,20 @@ export default class Movement {
     if (collisionResult.vertical) {
       if (collisionResult.area) {
         this.grav.stay(this.item, collisionResult.area);
-      } else
-        this.grav.stay(
-          this.item,
-          this.item.prevPoint
-        );
+      } else this.grav.stay(this.item, this.item.prevPoint);
 
       this.IsArrowUp ? this.grav.jump(this.item) : "";
     } else this.grav.fall(this.item);
-  
+
     if (collisionResult.horizontal) {
       this.item.x = this.item.prevPoint.x;
     }
 
     if (this.isMoveRight) {
-      this.item.prevPoint.x = this.item.x;
+      this.item.updatePrevPointX();
       this.right();
     } else if (this.isMoveLeft) {
-      this.item.prevPoint.x = this.item.x;
+      this.item.updatePrevPointX();
       this.left();
     }
   }

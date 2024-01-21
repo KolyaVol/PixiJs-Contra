@@ -1,9 +1,10 @@
-import { Container, Graphics } from "pixi.js";
+import { Graphics } from "pixi.js";
 import Gun from "./Gun";
+import Entity from "./Entity";
 
 const heroGraphics = new Graphics();
 
-export default class Hero extends Container {
+export default class Hero extends Entity {
   worldContainer;
 
   stats = {
@@ -14,9 +15,14 @@ export default class Hero extends Container {
     fallSpeed: 0,
     jumpPower: -8,
   };
-  prevPoint = { x: 0, y: 0 };
 
-  state = { isJump: false, isFly: false, isWithGun: false };
+  state = {
+    isMoveRight: false,
+    isMoveLeft: false,
+    isJump: false,
+    isFly: false,
+    isWithGun: false,
+  };
 
   constructor(worldContainer) {
     super();
@@ -31,7 +37,6 @@ export default class Hero extends Container {
     heroGraphics.drawRect(0, 0, this.stats.width - 2, this.stats.height - 2);
     // heroGraphics.transform.skew.x = -0.1;
     this.addChild(heroGraphics);
-    this.worldContainer.addChild(this);
     this.worldContainer.addChild(this);
     this.width = this.stats.width;
 

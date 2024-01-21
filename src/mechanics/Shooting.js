@@ -7,8 +7,8 @@ export default class Shooting {
   itemArr;
   shooter;
   col = new Collision();
-  constructor(app, itemArr, shooter, camera) {
-    this.app = app;
+  constructor(worldContainer, itemArr, shooter, camera) {
+    this.worldContainer = worldContainer;
     this.itemArr = itemArr;
     this.shooter = shooter;
     this.camera = camera;
@@ -41,20 +41,16 @@ export default class Shooting {
   }
 
   addBullet() {
-    const bullet = new Bullet(this.app, 10);
-    console.log(`====
-    ${this.shooter.x + 30}`);
-    bullet.currentBullet.bulletForm.x =
-      this.shooter.x + 30 + this.camera.world.x;
-    bullet.currentBullet.bulletForm.y =
-      this.shooter.y + this.shooter.height / 2.4;
-    const newBullet = bullet.drawBullet();
-    this.itemArr.push(newBullet);
+    const bullet = new Bullet(this.worldContainer, 10);
+    bullet.prevPoint.x = this.shooter.x + this.shooter.stats.width * 0.7;
+    bullet.prevPoint.y = this.shooter.y + this.shooter.height / 2.4;
+    bullet.drawBullet();
+    this.itemArr.push(bullet);
   }
 
   removeBullet(item, id) {
     this.itemArr.splice(id, 1);
-    this.app.stage.removeChild(item);
+    this.worldContainer.removeChild(item);
   }
 
   startShooting(platformArr) {
@@ -69,11 +65,19 @@ export default class Shooting {
     }
 
     for (let i = 0; i < this.itemArr.length; i++) {
-      const item = this.itemArr[i];
-      if (this.col.bulletCollision(platformArr, item, this.shooter)) {
-        item.removeFromParent();
-        this.itemArr.splice(i, 1);
-      } else item.x += 10;
+      if (this.itemArr[i]) {
+        const item = this.itemArr[i];
+        item.update(this.shooter);
+
+        if (
+          this.col.checkArrCollisionOrientation(item, platformArr).horizontal ||
+          item.prevPoint.x > 2000
+        ) {
+          this.removeBullet(item, i);
+        } else {
+          item.x += item.bulletSpeed;
+        }
+      }
     }
   }
 }

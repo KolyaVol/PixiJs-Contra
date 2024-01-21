@@ -1,26 +1,6 @@
 export default class Collision {
   constructor() {}
 
-  /*isCollideWithArr(entity, areaArr) {
-    let result = null;
-    for (let i = 0; i < areaArr.length; i++) {
-      const collisionOrientation = this.checkCollisionOrientation(
-        entity,
-        areaArr[i],
-        entity.prevPoint
-      );
-      if (
-        collisionOrientation.horizontal === false &&
-        collisionOrientation.vertical === false
-      ) {
-        continue;
-      } else {
-        result = { area: areaArr[i], collisionOrientation };
-      }
-    }
-    return result ? result : "";
-  }*/
-
   checkArrCollisionOrientation(entity, areaArr) {
     const collisionResult = {
       area: null,
@@ -65,12 +45,15 @@ export default class Collision {
   }
 
   isCollide(entity, area) {
-    return (
-      entity.x < area.x + area.width &&
-      entity.x + entity.stats.width > area.x &&
-      entity.y < area.y + area.height &&
-      entity.y + entity.stats.height > area.y
-    );
+    return entity.stats.name === "bullet"
+      ? entity.collisionPoint.x < area.x + area.width &&
+          entity.collisionPoint.x + entity.stats.width > area.x &&
+          entity.prevPoint.y < area.y + area.height &&
+          entity.prevPoint.y + entity.stats.height > area.y
+      : entity.x < area.x + area.width &&
+          entity.x + entity.stats.width > area.x &&
+          entity.y < area.y + area.height &&
+          entity.y + entity.stats.height > area.y;
   }
 
   bulletCollision(areaArr, entity, shooter) {
