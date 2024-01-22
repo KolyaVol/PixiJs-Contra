@@ -35,6 +35,7 @@ export default class Hero extends Entity {
       this.stats.lineStyle.lineColor
     );
     heroGraphics.drawRect(0, 0, this.stats.width - 2, this.stats.height - 2);
+    heroGraphics.pivot.x = 11;
     // heroGraphics.transform.skew.x = -0.1;
     this.addChild(heroGraphics);
     this.worldContainer.addChild(this);
@@ -45,8 +46,17 @@ export default class Hero extends Entity {
   }
 
   update() {
-    //need check speed!!!
-    this.prevPoint.x = this.x;
-    this.prevPoint.y = this.y;
+    if (this.state.isMoveRight) {
+      heroGraphics.transform.skew.x = -0.1;
+      
+      
+      this.addChild(heroGraphics);
+      this.worldContainer.addChild(this);
+    } else if (this.state.isMoveLeft) {
+      heroGraphics.transform.skew.x = 0.1;
+      heroGraphics.transform.scale.x = -1;
+      this.addChild(heroGraphics);
+      this.worldContainer.addChild(this);
+    }
   }
 }

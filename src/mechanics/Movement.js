@@ -4,32 +4,35 @@ export default class Movement {
   constructor(item, itemSpeed) {
     this.item = item;
     this.speed = itemSpeed;
-    this.isMoveRight = false;
-    this.isMoveLeft = false;
     this.isArrowLeft = false;
     this.isArrowRight = false;
     this.IsArrowUp = false;
     this.grav = new Gravitation();
   }
+
   hadleKeyDown(e) {
     switch (e.code) {
       case "ArrowRight":
         this.isArrowRight = true;
         if (this.isArrowLeft) {
-          this.isMoveLeft = false;
-          this.isMoveRight = true;
+          this.item.state.isMoveLeft = false;
+          this.item.state.isMoveRight = true;
+          this.item.update();
         } else {
-          this.isMoveRight = true;
+          this.item.state.isMoveRight = true;
+          this.item.update();
         }
 
         break;
       case "ArrowLeft":
         this.isArrowLeft = true;
         if (this.isArrowRight) {
-          this.isMoveRight = false;
-          this.isMoveLeft = true;
+          this.item.state.isMoveRight = false;
+          this.item.state.isMoveLeft = true;
+          this.item.update();
         } else {
-          this.isMoveLeft = true;
+          this.item.state.isMoveLeft = true;
+          this.item.update();
         }
         break;
       case "ArrowUp":
@@ -42,27 +45,29 @@ export default class Movement {
         break;
     }
   }
+
   hadleKeyUp(e) {
     switch (e.code) {
       case "ArrowRight":
         this.isArrowRight = false;
         if (this.isArrowLeft) {
-          this.isMoveLeft = true;
-          this.isMoveRight = false;
+          this.item.state.isMoveLeft = true;
+          this.item.state.isMoveRight = false;
         } else {
-          this.isMoveRight = false;
-          this.isMoveLeft = false;
+          this.item.state.isMoveRight = false;
+          this.item.state.isMoveLeft = false;
         }
 
         break;
       case "ArrowLeft":
         this.isArrowLeft = false;
         if (this.isArrowRight) {
-          this.isMoveRight = true;
-          this.isMoveLeft = false;
+          this.item.state.isMoveRight = true;
+
+          this.item.state.isMoveLeft = false;
         } else {
-          this.isMoveRight = false;
-          this.isMoveLeft = false;
+          this.item.state.isMoveRight = false;
+          this.item.state.isMoveLeft = false;
         }
         break;
       case "ArrowUp":
@@ -109,12 +114,14 @@ export default class Movement {
       this.item.x = this.item.prevPoint.x;
     }
 
-    if (this.isMoveRight) {
+    if (this.item.state.isMoveRight) {
       this.item.updatePrevPointX();
       this.right();
-    } else if (this.isMoveLeft) {
+      this.item.update();
+    } else if (this.item.state.isMoveLeft) {
       this.item.updatePrevPointX();
       this.left();
+      this.item.update();
     }
   }
 }

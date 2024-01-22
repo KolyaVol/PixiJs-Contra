@@ -56,18 +56,5 @@ export default class Collision {
           entity.y + entity.stats.height > area.y;
   }
 
-  bulletCollision(areaArr, entity, shooter) {
-    let result = null;
-    areaArr.forEach((area) => {
-      if (
-        shooter.x + shooter.width + entity.x < area.x + area.width &&
-        shooter.x + shooter.width + entity.x > area.x &&
-        shooter.y + entity.y < area.y + area.height &&
-        shooter.y + entity.y + entity.height > area.y
-      ) {
-        result = true;
-      }
-    });
-    return result;
-  }
+  
 }
