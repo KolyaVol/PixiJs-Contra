@@ -1,4 +1,3 @@
-/* eslint-disable no-dupe-class-members */
 import { Container } from "pixi.js";
 
 export default class Entity extends Container {

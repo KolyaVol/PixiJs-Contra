@@ -35,12 +35,13 @@ export default class Hero extends Entity {
       this.stats.lineStyle.lineColor
     );
     heroGraphics.drawRect(0, 0, this.stats.width - 2, this.stats.height - 2);
-    heroGraphics.pivot.x = 11;
     // heroGraphics.transform.skew.x = -0.1;
     this.addChild(heroGraphics);
     this.worldContainer.addChild(this);
     this.width = this.stats.width;
-
+    this.isActive = true;
+    this.isDead = false;
+    this.pivot.x = 11;
     const gun = new Gun(this);
     gun.drawGun(true);
   }
@@ -48,13 +49,11 @@ export default class Hero extends Entity {
   update() {
     if (this.state.isMoveRight) {
       heroGraphics.transform.skew.x = -0.1;
-      
-      
+      this.transform.scale.x = 1;
       this.addChild(heroGraphics);
       this.worldContainer.addChild(this);
     } else if (this.state.isMoveLeft) {
-      heroGraphics.transform.skew.x = 0.1;
-      heroGraphics.transform.scale.x = -1;
+      this.transform.scale.x = -1;
       this.addChild(heroGraphics);
       this.worldContainer.addChild(this);
     }
