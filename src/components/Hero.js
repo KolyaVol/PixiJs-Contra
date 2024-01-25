@@ -46,16 +46,5 @@ export default class Hero extends Entity {
     gun.drawGun(true);
   }
 
-  update() {
-    if (this.state.isMoveRight) {
-      heroGraphics.transform.skew.x = -0.1;
-      this.transform.scale.x = 1;
-      this.addChild(heroGraphics);
-      this.worldContainer.addChild(this);
-    } else if (this.state.isMoveLeft) {
-      this.transform.scale.x = -1;
-      this.addChild(heroGraphics);
-      this.worldContainer.addChild(this);
-    }
-  }
+  update() {}
 }

@@ -11,6 +11,19 @@ export default class Entity extends Container {
     super();
     this._view = view;
   }
+  /*get x() {
+    return this._view.x;
+  }
+  set x(value) {
+    this._view.x = value;
+  }
+
+  get y() {
+    return this._view.y;
+  }
+  set y(value) {
+    this._view.y = value;
+  }*/
 
   dead() {
     this.isDead = true;
