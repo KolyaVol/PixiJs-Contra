@@ -1,6 +1,6 @@
 import { Graphics } from "pixi.js";
-import Gun from "./Gun";
-import Entity from "./Entity";
+import Gun from "../Gun";
+import Entity from "../Entity";
 
 const heroGraphics = new Graphics();
 

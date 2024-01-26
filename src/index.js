@@ -1,10 +1,10 @@
 import { Application, Container } from "pixi.js";
-import Hero from "./components/Hero";
 import Collision from "./mechanics/Collision";
 import Movement from "./mechanics/Movement";
 import PlatformFactory from "./components/Platforms/PlatformFactory";
 import Shooting from "./mechanics/Shooting";
 import Camera from "./mechanics/Camera";
+import Hero from "./components/Hero/Hero";
 
 const app = new Application();
 const worldContainer = new Container();
