@@ -1,4 +1,4 @@
-import { Container, Graphics } from "pixi.js";
+import { Container, Graphics } from "../../../libs/pixi.mjs";
 
 const graphics = new Graphics();
 

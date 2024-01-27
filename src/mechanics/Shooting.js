@@ -1,5 +1,5 @@
-import Bullet from "../components/Bullets/Bullet";
-import Collision from "./Collision";
+import Bullet from "../components/Bullets/Bullet.js";
+import Collision from "./Collision.js";
 
 export default class Shooting {
   isControlDown = false;

@@ -1,5 +1,5 @@
-import { Graphics } from "pixi.js";
-import Entity from "../Entity";
+import { Graphics } from "../../../libs/pixi.mjs";
+import Entity from "../Entity.js";
 
 export default class Bullet extends Entity {
   app;

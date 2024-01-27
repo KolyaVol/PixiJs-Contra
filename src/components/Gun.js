@@ -1,4 +1,4 @@
-import { Container, Graphics } from "pixi.js";
+import { Container, Graphics } from "../../libs/pixi.mjs";
 
 const gunGraphics = new Graphics();
 export default class Gun extends Container {

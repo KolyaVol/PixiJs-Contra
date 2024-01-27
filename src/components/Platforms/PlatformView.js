@@ -1,4 +1,4 @@
-import { Container } from "../../../lib/pixi.mjs";
+import { Container } from "../../../libs/pixi.mjs";
 
 export default class PlatformView extends Container{
 

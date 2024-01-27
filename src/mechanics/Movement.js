@@ -1,4 +1,4 @@
-import Gravitation from "./Gravitation";
+import Gravitation from "./Gravitation.js";
 
 export default class Movement {
   constructor(item, itemSpeed) {

@@ -1,4 +1,4 @@
-import { Container } from "pixi.js";
+import { Container } from "../../libs/pixi.mjs";
 
 export default class Entity extends Container {
   _view;
