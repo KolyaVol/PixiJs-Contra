@@ -5,6 +5,7 @@ import PlatformFactory from "./components/Platforms/PlatformFactory.js";
 import Shooting from "./mechanics/Shooting.js";
 import Camera from "./mechanics/Camera.js";
 import Hero from "./components/Hero/Hero.js";
+import HeroFactory from "./components/Hero/HeroFactory.js";
 import AssetsFactory from "./AssetsFactory.js";
 //import HeroFactory from "./components/Hero/HeroFactory";
 
@@ -12,10 +13,14 @@ await Assets.load("../assets/atlas.json");
 
 const app = new Application();
 const worldContainer = new Container();
-const hero = new Hero(worldContainer);
-//const assets = new AssetsFactory();
-//const heroFactory = new HeroFactory(worldContainer, assets);
 app.stage.addChild(worldContainer);
+
+const assets = new AssetsFactory();
+
+const hero = new Hero(worldContainer);
+const heroFactory = new HeroFactory(worldContainer, assets);
+heroFactory.createHero(100, 100);
+
 const platformFactory = new PlatformFactory(worldContainer);
 const movement = new Movement(hero, hero.stats.speed);
 const bulletArr = [];
@@ -78,7 +83,7 @@ shooting.startObserve();
 
 app.ticker.add(() => {
   //hero.update();
-  //heroFactory.createHero();
+
   movement.startMove(col.checkArrCollisionOrientation(hero, platformArr));
 
   shooting.startShooting(platformArr);

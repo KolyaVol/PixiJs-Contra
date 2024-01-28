@@ -5,8 +5,8 @@ export default class AssetsFactory {
 
   constructor() {
     this.#spritesheet = new Spritesheet(
-      BaseTexture.from("./assets/atlas.png"),
-      Assets.cache.get("./assets/atlas.json").data
+      BaseTexture.from("../assets/atlas.png"),
+      Assets.cache.get("../assets/atlas.json").data
     );
     this.#spritesheet.parse();
   }

@@ -4,15 +4,15 @@ export default class HeroView extends Container {
   worldContainer;
   #assets;
   #rootNode;
-  constructor(worldContainer, assets) {
+  constructor(assets) {
     super();
     this.#assets = assets;
-    this.worldContainer = worldContainer;
     this.#getStayImage();
     this.#createNodeStructure();
   }
 
   #getStayImage() {
+    
     const view = new Sprite(this.#assets.getTexture("stay0000"));
     return view;
   }

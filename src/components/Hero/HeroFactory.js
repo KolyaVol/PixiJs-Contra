@@ -1,15 +1,18 @@
-import Hero from "./Hero";
-import HeroView from "./HeroView";
+import Hero from "./Hero.js";
+import HeroView from "./HeroView.js";
 
 export default class HeroFactory {
   worldContainer;
-  assets;
+  #assets;
   constructor(worldContainer, assets) {
-    this.assets = assets;
+    this.#assets = assets;
     this.worldContainer = worldContainer;
+    
   }
+  
   createHero(x, y) {
-    const heroView = new HeroView(this.assets);
+    console.log(this.#assets);
+    const heroView = new HeroView(this.#assets);
     this.worldContainer.addChild(heroView);
     const hero = new Hero(heroView);
     hero.x = x;
