@@ -24,12 +24,12 @@ export default class Hero extends Entity {
     isWithGun: false,
   };
 
-  constructor(worldContainer) {
-    super();
-    this.worldContainer = worldContainer;
+  constructor(view) {
+    super(view);
+    this.view = view;
   }
 
-  drawHero() {
+  /*drawHero() {
     heroGraphics.lineStyle(
       this.stats.lineStyle.lineWidth,
       this.stats.lineStyle.lineColor
@@ -44,7 +44,7 @@ export default class Hero extends Entity {
     this.pivot.x = 11;
     const gun = new Gun(this);
     gun.drawGun(true);
-  }
+  }*/
 
   update() {}
 }

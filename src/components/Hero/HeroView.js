@@ -9,15 +9,48 @@ export default class HeroView extends Container {
   worldContainer;
   #assets;
   #rootNode;
+
+  #bounds = {
+    width: 0,
+    height: 0,
+  };
+
+  #collisionBox = {
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  };
+
+  #hitBox = {
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+    shiftX: 0,
+    shiftY: 0,
+  };
   #stm = {
     currentState: "default",
     states: {},
   };
+
+  #bulletPointShift = {
+    x: 0,
+    y: 0,
+  };
   constructor(assets) {
     super();
-    this.#assets = assets;
-    this.#getStayImage();
     this.#createNodeStructure();
+    this.#assets = assets;
+    this.#rootNode.x = 10;
+    this.#bounds.width = 20;
+    this.#bounds.height = 90;
+
+    this.#collisionBox.width = this.#bounds.width;
+    this.#collisionBox.height = this.#bounds.height;
+
+    this.#rootNode.pivot.x = 10;
 
     this.#stm.states.stay = this.#getStayImage();
     this.#stm.states.stayUp = this.#getStayUpImage();
@@ -47,6 +80,114 @@ export default class HeroView extends Container {
     this.addChild(rootNode);
     this.#rootNode = rootNode;
   }
+
+  #setBulletPointShift(x, y) {
+    this.#bulletPointShift.x =
+      (x + this.#rootNode.pivot.x * this.#rootNode.scale.x) *
+      this.#rootNode.scale.x;
+    this.#bulletPointShift.y = y;
+  }
+
+  showStay() {
+    this.#toState("stay");
+    this.#setBulletPointShift(50, 29);
+
+    this.#hitBox.width = 20;
+    this.#hitBox.height = 90;
+    this.#hitBox.shiftX = 0;
+    this.#hitBox.shiftY = 0;
+  }
+
+  showStayUp() {
+    this.#toState("stayUp");
+    this.#setBulletPointShift(18, -30);
+
+    this.#hitBox.width = 20;
+    this.#hitBox.height = 90;
+    this.#hitBox.shiftX = 0;
+    this.#hitBox.shiftY = 0;
+  }
+
+  showRun() {
+    this.#toState("run");
+    this.#setBulletPointShift(65, 30);
+
+    this.#hitBox.width = 20;
+    this.#hitBox.height = 90;
+    this.#hitBox.shiftX = 0;
+    this.#hitBox.shiftY = 0;
+  }
+
+  showRunShoot() {
+    this.#toState("runShoot");
+    this.#setBulletPointShift(50, 29);
+
+    this.#hitBox.width = 20;
+    this.#hitBox.height = 90;
+    this.#hitBox.shiftX = 0;
+    this.#hitBox.shiftY = 0;
+  }
+
+  showRunUp() {
+    this.#toState("runUp");
+    this.#setBulletPointShift(40, 0);
+
+    this.#hitBox.width = 20;
+    this.#hitBox.height = 90;
+    this.#hitBox.shiftX = 0;
+    this.#hitBox.shiftY = 0;
+  }
+
+  showRunDown() {
+    this.#toState("runDown");
+    this.#setBulletPointShift(47, 50);
+
+    this.#hitBox.width = 20;
+    this.#hitBox.height = 90;
+    this.#hitBox.shiftX = 0;
+    this.#hitBox.shiftY = 0;
+  }
+
+  showLay() {
+    this.#toState("lay");
+    this.#setBulletPointShift(50, 70);
+
+    this.#hitBox.width = 90;
+    this.#hitBox.height = 20;
+    this.#hitBox.shiftX = -45;
+    this.#hitBox.shiftY = 70;
+  }
+
+  showJump() {
+    this.#toState("jump");
+    this.#setBulletPointShift(-2, 40);
+
+    this.#hitBox.width = 40;
+    this.#hitBox.height = 40;
+    this.#hitBox.shiftX = -10;
+    this.#hitBox.shiftY = 25;
+  }
+
+  showFall() {
+    this.#toState("fall");
+
+    this.#hitBox.width = 20;
+    this.#hitBox.height = 90;
+    this.#hitBox.shiftX = 0;
+    this.#hitBox.shiftY = 0;
+  }
+
+  #toState(key) {
+    if (this.#stm.currentState == key) {
+      return;
+    }
+    for (let key in this.#stm.states) {
+      this.#stm.states[key].visible = false;
+    }
+    this.#stm.states[key].visible = true;
+    this.#stm.currentState = key;
+  }
+
   #getStayImage() {
     const view = new Sprite(this.#assets.getTexture("stay0000"));
     return view;

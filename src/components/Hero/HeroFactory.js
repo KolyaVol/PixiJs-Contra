@@ -7,12 +7,12 @@ export default class HeroFactory {
   constructor(worldContainer, assets) {
     this.#assets = assets;
     this.worldContainer = worldContainer;
-    
   }
-  
+
   createHero(x, y) {
     console.log(this.#assets);
     const heroView = new HeroView(this.#assets);
+    heroView.showStay();
     this.worldContainer.addChild(heroView);
     const hero = new Hero(heroView);
     hero.x = x;
