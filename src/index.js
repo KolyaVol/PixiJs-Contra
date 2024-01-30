@@ -17,12 +17,12 @@ app.stage.addChild(worldContainer);
 
 const assets = new AssetsFactory();
 
-const hero = new Hero(worldContainer);
+//const hero = new Hero(worldContainer);
 const heroFactory = new HeroFactory(worldContainer, assets);
-heroFactory.createHero(100, 100);
+const hero = heroFactory.createHero(100, 100);
 
 const platformFactory = new PlatformFactory(worldContainer);
-const movement = new Movement(hero, hero.stats.speed);
+//const movement = new Movement(hero, hero.stats.speed);
 const bulletArr = [];
 
 const col = new Collision();
@@ -61,12 +61,12 @@ document.body.appendChild(app.view);
 
 platformFactory.createPlatforms(platformArr);
 
-movement.startObserve();
-
+//movement.startObserve();
+hero.startObserve();
 // load the texture we need
 // const texture = await Assets.load(icon);
-hero.x = app.renderer.width / 2;
-hero.y = app.renderer.height / 2;
+//hero.x = app.renderer.width / 2;
+//hero.y = app.renderer.height / 2;
 // Setup the position of the hero
 const cameraSettings = {
   target: hero,
@@ -84,7 +84,7 @@ shooting.startObserve();
 app.ticker.add(() => {
   //hero.update();
 
-  movement.startMove(col.checkArrCollisionOrientation(hero, platformArr));
+  hero.startMove(col.checkArrCollisionOrientation(hero, platformArr));
 
   shooting.startShooting(platformArr);
   camera.update();
