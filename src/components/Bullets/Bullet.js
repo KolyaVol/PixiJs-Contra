@@ -9,11 +9,11 @@ export default class Bullet extends Entity {
     lineStyle: { lineWidth: 1, lineColor: 0xff0000 },
   };
   collisionPoint = { x: 0, y: 0 };
-  bulletSpeed;
-  constructor(worldContainer, bulletSpeed) {
-    super();
-    this.bulletSpeed = bulletSpeed;
-    this.worldContainer = worldContainer;
+  bulletSpeed = 10;
+
+  constructor(view) {
+    super(view);
+    this.view = view;
   }
 
   drawBullet() {
@@ -32,6 +32,7 @@ export default class Bullet extends Entity {
     this.addChild(bulletGraphics);
     this.worldContainer.addChild(this);
   }
+  
   update(shooter) {
     this.collisionPoint.x =
       shooter.x + shooter.stats.width * 1.6 + this.prevPoint.x;

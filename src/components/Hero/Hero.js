@@ -79,7 +79,7 @@ export default class Hero extends Entity {
         break;
       case "ArrowUp":
         this.IsArrowUp = true;
-        this.grav.jump(this.view);
+        this.grav.jump(this);
         break;
 
       default:
@@ -157,7 +157,6 @@ export default class Hero extends Entity {
     }
 
     if (this.state.isMoveRight) {
-      console.log(this.prevPoint.x);
       this.updatePrevPointX();
       this.right();
       //this.item.update();
