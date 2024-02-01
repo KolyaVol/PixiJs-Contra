@@ -33,8 +33,8 @@ const platformArr = [
     width: 1600,
     height: 30,
   },
-  { lineWidth: 1, lineColor: 0xff1111, x: 100, y: 700, width: 600, height: 10 },
-  { lineWidth: 1, lineColor: 0xf22221, x: 200, y: 400, width: 100, height: 20 },
+  { lineWidth: 1, lineColor: 0xff1111, x: 100, y: 200, width: 600, height: 10 },
+  { lineWidth: 1, lineColor: 0xf22221, x: 200, y: 350, width: 100, height: 20 },
   { lineWidth: 1, lineColor: 0xf33331, x: 300, y: 500, width: 100, height: 30 },
   { lineWidth: 4, lineColor: 0x77777, x: 600, y: 400, width: 100, height: 400 },
   {
@@ -44,6 +44,14 @@ const platformArr = [
     y: 400,
     width: 100,
     height: 400,
+  },
+  {
+    lineWidth: 2,
+    lineColor: 0x88877,
+    x: 1100,
+    y: 340,
+    width: 100,
+    height: 40,
   },
 ];
 

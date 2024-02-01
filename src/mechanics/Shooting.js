@@ -61,14 +61,12 @@ export default class Shooting {
   }
 
   startShooting(platformArr) {
-    if (this.isControlDown) {
-      if (!this.isShooting) {
-        this.addBullet();
-        this.isShooting = true;
-        setTimeout(() => {
-          this.isShooting = false;
-        }, 250);
-      }
+    if (this.isControlDown && !this.isShooting) {
+      this.addBullet();
+      this.isShooting = true;
+      setTimeout(() => {
+        this.isShooting = false;
+      }, 250);
     }
 
     for (let i = 0; i < this.itemArr.length; i++) {
