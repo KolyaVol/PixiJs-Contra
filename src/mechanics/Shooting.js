@@ -57,7 +57,7 @@ export default class Shooting {
 
   removeBullet(item, id) {
     this.itemArr.splice(id, 1);
-    this.worldContainer.removeChild(item);
+    this.worldContainer.removeChild(item.view);
   }
 
   startShooting(platformArr) {
@@ -77,7 +77,7 @@ export default class Shooting {
         item.update(this.shooter);
 
         if (
-          this.col.checkArrCollisionOrientation(item, platformArr).horizontal ||
+          this.col.checkArrCollisionOrientation(item, platformArr).vertical ||
           item.prevPoint.x > 2000
         ) {
           this.removeBullet(item, i);

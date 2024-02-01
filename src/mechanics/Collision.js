@@ -45,14 +45,11 @@ export default class Collision {
   }
 
   isCollide(entity, area) {
-    return entity.name === "Bullet"
-      ? entity.collisionPoint.x < area.x + area.width &&
-          entity.collisionPoint.x + entity.view.collisionBox.width > area.x &&
-          entity.prevPoint.y < area.y + area.height &&
-          entity.prevPoint.y + entity.view.collisionBox.height > area.y
-      : entity.x < area.x + area.width &&
-          entity.x + entity.view.collisionBox.width > area.x &&
-          entity.y < area.y + area.height &&
-          entity.y + entity.view.collisionBox.height > area.y;
+    return (
+      entity.x < area.x + area.width &&
+      entity.x + entity.view.collisionBox.width > area.x &&
+      entity.y < area.y + area.height &&
+      entity.y + entity.view.collisionBox.height > area.y
+    );
   }
 }
