@@ -1,9 +1,6 @@
 import Gun from "../Gun.js";
 import Entity from "../Entity.js";
-import { Graphics } from "../../../libs/pixi.mjs";
 import Gravitation from "../../mechanics/Gravitation.js";
-
-const heroGraphics = new Graphics();
 
 export default class Hero extends Entity {
   worldContainer;
@@ -34,23 +31,6 @@ export default class Hero extends Entity {
     this.isArrowRight = false;
     this.IsArrowUp = false;
   }
-
-  /*drawHero() {
-    heroGraphics.lineStyle(
-      this.stats.lineStyle.lineWidth,
-      this.stats.lineStyle.lineColor
-    );
-    heroGraphics.drawRect(0, 0, this.stats.width - 2, this.stats.height - 2);
-    // heroGraphics.transform.skew.x = -0.1;
-    this.addChild(heroGraphics);
-    this.worldContainer.addChild(this);
-    this.width = this.stats.width;
-    this.isActive = true;
-    this.isDead = false;
-    this.pivot.x = 11;
-    const gun = new Gun(this);
-    gun.drawGun(true);
-  }*/
 
   hadleKeyDown(e) {
     switch (e.code) {

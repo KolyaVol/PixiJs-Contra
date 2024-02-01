@@ -51,7 +51,7 @@ export default class BulletView extends Container {
   drawBullet() {
     const bulletGraphics = new Graphics();
     bulletGraphics.lineStyle(1, 0xff0000);
-    bulletGraphics.drawRect(100, 100, this.stats.width, this.stats.height);
+    bulletGraphics.drawRect(50, 25, this.stats.width, this.stats.height);
     this.#rootNode.addChild(bulletGraphics);
   }
 }

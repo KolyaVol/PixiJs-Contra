@@ -10,12 +10,7 @@ export default class HeroView extends Container {
   #assets;
   #rootNode;
 
-  #bounds = {
-    width: 0,
-    height: 0,
-  };
-
-  #collisionBox = {
+  collisionBox = {
     x: 0,
     y: 0,
     width: 0,
@@ -39,16 +34,17 @@ export default class HeroView extends Container {
     x: 0,
     y: 0,
   };
+
   constructor(assets) {
     super();
-    this.#createNodeStructure();
-    this.#assets = assets;
-    this.#rootNode.x = 10;
-    this.#bounds.width = 20;
-    this.#bounds.height = 90;
 
-    this.#collisionBox.width = this.#bounds.width;
-    this.#collisionBox.height = this.#bounds.height;
+    this.#assets = assets;
+
+    this.#createNodeStructure();
+    this.#rootNode.x = 10;
+
+    this.collisionBox.width = 20;
+    this.collisionBox.height = 90;
 
     this.#rootNode.pivot.x = 10;
 

@@ -11,7 +11,9 @@ export default class Gravitation {
       item.y += 1;
     } else {
       item.stats.fallSpeed = 0;
-      !item.state.isJump ? (item.y = platform.y - item.stats.height) : "";
+      !item.state.isJump
+        ? (item.y = platform.y - item.view.collisionBox.height)
+        : "";
       item.state.isFly = false;
     }
   }
