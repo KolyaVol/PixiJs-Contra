@@ -5,15 +5,6 @@ import Gravitation from "../../mechanics/Gravitation.js";
 export default class Hero extends Entity {
   worldContainer;
 
-  stats = {
-    lineStyle: { lineWidth: 2, lineColor: 0xff0000 },
-    width: 20,
-    height: 60,
-    speed: 4,
-    fallSpeed: 0,
-    jumpPower: -8,
-  };
-
   state = {
     isMoveRight: false,
     isMoveLeft: false,
@@ -108,15 +99,15 @@ export default class Hero extends Entity {
   }
 
   right() {
-    this.view.x += this.stats.speed;
+    this.view.x += this.speed;
   }
 
   left() {
-    this.view.x += -this.stats.speed;
+    this.view.x += -this.speed;
   }
 
   startMove(collisionResult) {
-    if (this.stats.fallSpeed > 0) {
+    if (this.fallSpeed > 0) {
       this.state.isJump = false;
     }
     if (!collisionResult.vertical && !collisionResult.horizontal) {

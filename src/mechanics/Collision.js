@@ -33,7 +33,7 @@ export default class Collision {
       if (!this.isCollide(entity, area)) {
         collisionResult.vertical = true;
         entity.y = prevY;
-        
+
         return collisionResult;
       } else {
         entity.y = prevY;
@@ -45,11 +45,11 @@ export default class Collision {
   }
 
   isCollide(entity, area) {
-    return entity.stats.name === "bullet"
+    return entity.name === "Bullet"
       ? entity.collisionPoint.x < area.x + area.width &&
-          entity.collisionPoint.x + entity.stats.width > area.x &&
+          entity.collisionPoint.x + entity.view.collisionBox.width > area.x &&
           entity.prevPoint.y < area.y + area.height &&
-          entity.prevPoint.y + entity.stats.height > area.y
+          entity.prevPoint.y + entity.view.collisionBox.height > area.y
       : entity.x < area.x + area.width &&
           entity.x + entity.view.collisionBox.width > area.x &&
           entity.y < area.y + area.height &&

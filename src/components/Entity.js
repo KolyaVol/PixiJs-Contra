@@ -6,6 +6,10 @@ export default class Entity extends Container {
   isActive;
   gravitable = false;
   prevPoint = { x: 0, y: 0 };
+  speed = 4;
+  fallSpeed = 0;
+  jumpPower = -8;
+  name = "Entity";
 
   constructor(view) {
     super();

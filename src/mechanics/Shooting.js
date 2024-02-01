@@ -48,7 +48,7 @@ export default class Shooting {
       this.shooter.x,
       this.shooter.y
     );
-    bullet.prevPoint.x = this.shooter.x + this.shooter.stats.width * 0.7;
+    bullet.prevPoint.x = this.shooter.x + this.shooter.view.collisionBox.width * 0.7;
     bullet.prevPoint.y = this.shooter.y + this.shooter.height / 2.4;
     bullet.view.drawBullet();
     this.itemArr.push(bullet);
