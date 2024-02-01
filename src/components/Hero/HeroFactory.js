@@ -10,7 +10,6 @@ export default class HeroFactory {
   }
 
   createHero(x, y) {
-    console.log(this.#assets);
     const heroView = new HeroView(this.#assets);
     heroView.showStay();
     this.worldContainer.addChild(heroView);

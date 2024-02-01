@@ -37,8 +37,8 @@ export default class BulletView extends Container {
     const bulletGraphics = new Graphics();
     bulletGraphics.lineStyle(1, 0xff0000);
     bulletGraphics.drawRect(
-      50,
-      25,
+      this.collisionBox.x,
+      this.collisionBox.y,
       this.collisionBox.width,
       this.collisionBox.height
     );

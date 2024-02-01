@@ -1,10 +1,8 @@
 import { Application, Assets, Container } from "../libs/pixi.mjs";
 import Collision from "./mechanics/Collision.js";
-import Movement from "./mechanics/Movement.js";
 import PlatformFactory from "./components/Platforms/PlatformFactory.js";
 import Shooting from "./mechanics/Shooting.js";
 import Camera from "./mechanics/Camera.js";
-import Hero from "./components/Hero/Hero.js";
 import HeroFactory from "./components/Hero/HeroFactory.js";
 import AssetsFactory from "./AssetsFactory.js";
 //import HeroFactory from "./components/Hero/HeroFactory";
@@ -22,7 +20,7 @@ const heroFactory = new HeroFactory(worldContainer, assets);
 const hero = heroFactory.createHero(100, 100);
 
 const platformFactory = new PlatformFactory(worldContainer);
-//const movement = new Movement(hero, hero.stats.speed);
+
 const bulletArr = [];
 
 const col = new Collision();
@@ -49,19 +47,12 @@ const platformArr = [
   },
 ];
 
-// The application will create a renderer using WebGL, if possible,
-// with a fallback to a canvas render. It will also setup the ticker
-// and the root stage PIXI.Container
 
-//hero.drawHero();
-
-// The application will create a canvas element for you that you
-// can then insert into the DOM
 document.body.appendChild(app.view);
 
 platformFactory.createPlatforms(platformArr);
 
-//movement.startObserve();
+
 hero.startObserve();
 // load the texture we need
 // const texture = await Assets.load(icon);

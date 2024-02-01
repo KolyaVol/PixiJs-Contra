@@ -30,7 +30,7 @@ export default class HeroView extends Container {
     states: {},
   };
 
-  #bulletPointShift = {
+  bulletPointShift = {
     x: 0,
     y: 0,
   };
@@ -78,10 +78,10 @@ export default class HeroView extends Container {
   }
 
   #setBulletPointShift(x, y) {
-    this.#bulletPointShift.x =
+    this.bulletPointShift.x =
       (x + this.#rootNode.pivot.x * this.#rootNode.scale.x) *
       this.#rootNode.scale.x;
-    this.#bulletPointShift.y = y;
+    this.bulletPointShift.y = y;
   }
 
   showStay() {

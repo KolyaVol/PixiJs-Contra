@@ -3,11 +3,7 @@ import Entity from "../Entity.js";
 
 export default class Bullet extends Entity {
   app;
-  //stats = { name: "bullet", x: 100, y: 30, width: 10, height: 10 };
-  currentBullet = {
-    name: "5.45",
-    lineStyle: { lineWidth: 1, lineColor: 0xff0000 },
-  };
+  
   collisionPoint = { x: 0, y: 0 };
   bulletSpeed = 10;
 
