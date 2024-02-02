@@ -14,7 +14,7 @@ export default class BulletView extends Container {
     shiftY: 0,
   };
 
-  collisionBox = {
+  #collisionBox = {
     x: 0,
     y: 0,
     width: 10,
@@ -27,6 +27,12 @@ export default class BulletView extends Container {
     this.#assets = assets;
   }
 
+  get collisionBox() {
+    this.#collisionBox.x = this.x;
+    this.#collisionBox.y = this.y;
+    return this.#collisionBox;
+  }
+
   #createNodeStructure() {
     const rootNode = new Container();
     this.addChild(rootNode);
@@ -37,10 +43,10 @@ export default class BulletView extends Container {
     const bulletGraphics = new Graphics();
     bulletGraphics.lineStyle(1, 0xff0000);
     bulletGraphics.drawRect(
-      this.collisionBox.x,
-      this.collisionBox.y,
-      this.collisionBox.width,
-      this.collisionBox.height
+      this.#collisionBox.x,
+      this.#collisionBox.y,
+      this.#collisionBox.width,
+      this.#collisionBox.height
     );
     this.#rootNode.addChild(bulletGraphics);
   }

@@ -9,7 +9,7 @@ import AssetsFactory from "./AssetsFactory.js";
 
 await Assets.load("../assets/atlas.json");
 
-const app = new Application();
+const app = new Application({ width: 1024, height: 768 });
 const worldContainer = new Container();
 app.stage.addChild(worldContainer);
 
@@ -37,6 +37,7 @@ const platformArr = [
   { lineWidth: 1, lineColor: 0xf22221, x: 200, y: 350, width: 100, height: 20 },
   { lineWidth: 1, lineColor: 0xf33331, x: 300, y: 500, width: 100, height: 30 },
   { lineWidth: 4, lineColor: 0x77777, x: 600, y: 400, width: 100, height: 400 },
+  { lineWidth: 4, lineColor: 0x77777, x: 0, y: 768, width: 10000, height: 30 },
   {
     lineWidth: 4,
     lineColor: 0x77777,
@@ -77,7 +78,6 @@ const camera = new Camera(cameraSettings);
 const shooting = new Shooting(worldContainer, bulletArr, hero, camera);
 shooting.startObserve();
 // Add the hero to the scene we are building
-
 app.ticker.add(() => {
   hero.startMove(col.checkArrCollisionOrientation(hero, platformArr));
   shooting.startShooting(platformArr);

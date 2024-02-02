@@ -1,24 +1,44 @@
-import { Container } from "../../../libs/pixi.mjs";
+import { Container, Graphics } from "../../../libs/pixi.mjs";
 
-export default class PlatformView extends Container{
+export default class PlatformView extends Container {
+  #collisionBox = {
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  };
 
-    #collisionBox = {
-        x:0,
-        y:0,
-        width:0,
-        height:0,
-    }
+  #rootNode;
 
-    constructor(width, height){
-        super();
+  constructor(width, height) {
+    super();
+    this.#collisionBox.width = width;
+    this.#collisionBox.height = height;
+    this.#createNodeStructure();
+  }
 
-        this.#collisionBox.width = width;
-        this.#collisionBox.height = height;
-    }
+  get collisionBox() {
+    this.#collisionBox.x = this.x;
+    this.#collisionBox.y = this.y;
+    return this.#collisionBox;
+  }
 
-    get collisionBox(){
-        this.#collisionBox.x = this.x;
-        this.#collisionBox.y = this.y;
-        return this.#collisionBox;
-    }
+  #createNodeStructure() {
+    const rootNode = new Container();
+    this.addChild(rootNode);
+    this.#rootNode = rootNode;
+  }
+
+  drawPlatform() {
+    const platformGraphics = new Graphics();
+    platformGraphics.lineStyle(1, 0xff0000);
+    platformGraphics.drawRect(
+      this.collisionBox.x,
+      this.collisionBox.y,
+      this.collisionBox.width,
+      this.collisionBox.height
+    );
+    platformGraphics.beginFill(0x00ffff);
+    this.#rootNode.addChild(platformGraphics);
+  }
 }
