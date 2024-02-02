@@ -32,13 +32,26 @@ export default class PlatformView extends Container {
   drawPlatform() {
     const platformGraphics = new Graphics();
     platformGraphics.lineStyle(1, 0xff0000);
+    platformGraphics.beginFill(0x00ffff);
     platformGraphics.drawRect(
       this.collisionBox.x,
       this.collisionBox.y,
       this.collisionBox.width,
       this.collisionBox.height
     );
-    platformGraphics.beginFill(0x00ffff);
+    this.#rootNode.addChild(platformGraphics);
+  }
+
+  drawWater() {
+    const platformGraphics = new Graphics();
+    platformGraphics.lineStyle(1, 0xf21300);
+    platformGraphics.beginFill(0x04342f);
+    platformGraphics.drawRect(
+      this.collisionBox.x,
+      this.collisionBox.y - this.collisionBox.height,
+      this.collisionBox.width,
+      this.collisionBox.height
+    );
     this.#rootNode.addChild(platformGraphics);
   }
 }

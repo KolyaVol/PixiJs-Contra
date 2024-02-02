@@ -6,9 +6,21 @@ export default class PlatformFactory {
     this.worldContainer = worldContainer;
   }
 
-  createPlatform(x, y, width, height) {
+  createPlatform(x, y, width, height, type) {
     const platformView = new PlatformView(width, height);
-    platformView.drawPlatform();
+    switch (type) {
+      case "platform":
+        platformView.drawPlatform();
+        break;
+      case "water":
+        platformView.drawWater();
+        break;
+
+      default:
+        platformView.drawPlatform();
+        break;
+    }
+
     this.worldContainer.addChild(platformView);
     const platform = new Platform(platformView);
     platform.x = x;
@@ -22,7 +34,8 @@ export default class PlatformFactory {
         platform.x,
         platform.y,
         platform.width,
-        platform.height
+        platform.height,
+        platform.type
       );
     });
   }
