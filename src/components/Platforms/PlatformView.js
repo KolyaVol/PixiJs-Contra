@@ -1,4 +1,9 @@
-import { Container, Graphics } from "../../../libs/pixi.mjs";
+import {
+  Container,
+  Graphics,
+  Sprite,
+  TilingSprite,
+} from "../../../libs/pixi.mjs";
 
 export default class PlatformView extends Container {
   #collisionBox = {
@@ -7,14 +12,15 @@ export default class PlatformView extends Container {
     width: 0,
     height: 0,
   };
-
+  #assets;
   #rootNode;
 
-  constructor(width, height) {
+  constructor(width, height, assets) {
     super();
     this.#collisionBox.width = width;
     this.#collisionBox.height = height;
     this.#createNodeStructure();
+    this.#assets = assets;
   }
 
   get collisionBox() {
@@ -44,14 +50,23 @@ export default class PlatformView extends Container {
 
   drawWater() {
     const platformGraphics = new Graphics();
-    platformGraphics.lineStyle(1, 0xf21300);
-    platformGraphics.beginFill(0x04342f);
+    platformGraphics.lineStyle(1, 0xffffff);
+    platformGraphics.beginFill(0xffffff);
+
     platformGraphics.drawRect(
       this.collisionBox.x,
       this.collisionBox.y - this.collisionBox.height,
       this.collisionBox.width,
       this.collisionBox.height
     );
+
+    const view = new TilingSprite(
+      this.#assets.getTexture("water0000"),
+      this.collisionBox.width
+    );
+    view.y = -this.collisionBox.height;
+    view.clampMargin = 1.5;
+    platformGraphics.addChild(view);
     this.#rootNode.addChild(platformGraphics);
   }
 }

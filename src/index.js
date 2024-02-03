@@ -5,21 +5,20 @@ import Shooting from "./mechanics/Shooting.js";
 import Camera from "./mechanics/Camera.js";
 import HeroFactory from "./components/Hero/HeroFactory.js";
 import AssetsFactory from "./AssetsFactory.js";
-//import HeroFactory from "./components/Hero/HeroFactory";
+import World from "./World.js";
 
 await Assets.load("../assets/atlas.json");
 
 const app = new Application({ width: 1024, height: 768 });
-const worldContainer = new Container();
+const worldContainer = new World();
 app.stage.addChild(worldContainer);
 
 const assets = new AssetsFactory();
 
-//const hero = new Hero(worldContainer);
-const heroFactory = new HeroFactory(worldContainer, assets);
+const heroFactory = new HeroFactory(worldContainer.game, assets);
 const hero = heroFactory.createHero(300, 100);
 
-const platformFactory = new PlatformFactory(worldContainer);
+const platformFactory = new PlatformFactory(worldContainer, assets);
 
 const bulletArr = [];
 
@@ -67,7 +66,7 @@ const cameraSettings = {
 };
 const camera = new Camera(cameraSettings);
 
-const shooting = new Shooting(worldContainer, bulletArr, hero, camera);
+const shooting = new Shooting(worldContainer.game, bulletArr, hero, camera);
 shooting.startObserve();
 // Add the hero to the scene we are building
 app.ticker.add(() => {
