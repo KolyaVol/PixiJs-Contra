@@ -22,8 +22,14 @@ export default class Gravitation {
 
   jump(item) {
     if (!item.state.isJump && !item.state.isFly) {
-      item.fallSpeed = item.jumpPower;
       item.state.isJump = true;
+      item.fallSpeed = item.jumpPower;
+    }
+  }
+  forceJump(item) {
+    if (!item.state.isJump) {
+      item.state.isJump = true;
+      item.fallSpeed = item.jumpPower;
     }
   }
 }

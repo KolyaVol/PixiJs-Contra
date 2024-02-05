@@ -16,9 +16,6 @@ export default class Runner extends Entity {
     this.view = view;
 
     this.grav = new Gravitation();
-    this.isArrowLeft = false;
-    this.isArrowRight = false;
-    this.IsArrowUp = false;
   }
 
   right() {
@@ -33,6 +30,12 @@ export default class Runner extends Entity {
     if (this.fallSpeed > 0) {
       this.state.isJump = false;
     }
+
+    // if (this.x >= 700) {
+    //   console.log(999999999999999999999999);
+    //   this.grav.jump(this);
+    // }
+
     if (!collisionResult.vertical && !collisionResult.horizontal) {
       this.prevPoint.y = this.view.y;
       this.state.isFly = true;
@@ -42,8 +45,6 @@ export default class Runner extends Entity {
       if (collisionResult.area) {
         this.grav.stay(this, collisionResult.area);
       } else this.grav.stay(this, this.prevPoint);
-
-      this.IsArrowUp ? this.grav.jump(this) : "";
     } else this.grav.fall(this);
 
     if (collisionResult.horizontal) {

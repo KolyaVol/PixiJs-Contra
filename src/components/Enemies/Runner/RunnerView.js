@@ -1,8 +1,4 @@
-import {
-  AnimatedSprite,
-  Container,
-  Sprite,
-} from "../../../../libs/pixi.mjs";
+import { AnimatedSprite, Container, Sprite } from "../../../../libs/pixi.mjs";
 
 export default class RunnerView extends Container {
   worldContainer;
@@ -12,8 +8,8 @@ export default class RunnerView extends Container {
   collisionBox = {
     x: 0,
     y: 0,
-    width: 0,
-    height: 0,
+    width: 20,
+    height: 90,
   };
 
   #hitBox = {
@@ -36,10 +32,6 @@ export default class RunnerView extends Container {
 
     this.#createNodeStructure();
     this.#rootNode.x = 10;
-
-    this.collisionBox.width = 20;
-    this.collisionBox.height = 90;
-
     this.#rootNode.pivot.x = 10;
 
     this.#stm.states.run = this.#getRunImage();
@@ -103,7 +95,9 @@ export default class RunnerView extends Container {
   }
 
   #getRunImage() {
-    const view = new AnimatedSprite(this.#assets.getAnimationTextures("run"));
+    const view = new AnimatedSprite(
+      this.#assets.getAnimationTextures("runnerrun")
+    );
     view.animationSpeed = 1 / 10;
     view.play();
     view.y -= 3;
@@ -111,16 +105,17 @@ export default class RunnerView extends Container {
   }
 
   #getJumpImage() {
-    const view = new AnimatedSprite(this.#assets.getAnimationTextures("jump"));
-    view.animationSpeed = 1 / 10;
-    view.play();
+    const view = new Sprite(
+      this.#assets.getAnimationTextures("runnerjump0000")
+    );
+
     view.y -= 3;
     view.x -= 10;
     return view;
   }
 
   #getFallImage() {
-    const view = new Sprite(this.#assets.getTexture("run0003"));
+    const view = new Sprite(this.#assets.getTexture("runnerjump0000"));
     return view;
   }
 }
