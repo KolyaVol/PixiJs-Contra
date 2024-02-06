@@ -74,7 +74,10 @@ shooting.startObserve();
 // Add the hero to the scene we are building
 app.ticker.add(() => {
   hero.startMove(col.checkArrCollisionOrientation(hero, platformArr));
-  runner.startMove(col.checkArrCollisionOrientation(runner, platformArr));
+  runner.update(
+    col.checkArrCollisionOrientation(runner, platformArr),
+    col.checkArrCollisionOrientation(runner, bulletArr)
+  );
   shooting.startShooting(platformArr);
   camera.update();
 });

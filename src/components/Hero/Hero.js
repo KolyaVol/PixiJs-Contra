@@ -16,6 +16,10 @@ export default class Hero extends Entity {
   constructor(view) {
     super(view);
     this.view = view;
+    this.name = "Hero";
+    
+    this.maxHp = 1;
+    this.hp = this.maxHp;
 
     this.grav = new Gravitation();
     this.isArrowLeft = false;

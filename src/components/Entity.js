@@ -10,11 +10,14 @@ export default class Entity extends Container {
   fallSpeed = 0;
   jumpPower = -8;
   name = "Entity";
+  maxHp = 999;
+  hp;
 
   constructor(view) {
     super();
 
     this._view = view;
+    this.hp = this.maxHp;
   }
 
   get x() {
@@ -42,6 +45,21 @@ export default class Entity extends Container {
   removeFromStage() {
     if (this._view.parent != null) {
       this._view.removeFromParent();
+    }
+  }
+
+  checkDamage(collisionDamageResult) {
+    if (collisionDamageResult) {
+      if (collisionDamageResult.vertical || collisionDamageResult.horizontal) {
+        this.hp -= 1;
+      }
+    }
+  }
+
+  destroyIfDead() {
+    if (this.hp <= 0) {
+      this.dead();
+      this.removeFromStage();
     }
   }
 

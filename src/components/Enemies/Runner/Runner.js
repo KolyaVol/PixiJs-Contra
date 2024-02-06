@@ -13,7 +13,11 @@ export default class Runner extends Entity {
 
   constructor(view) {
     super(view);
+    this.name = "Runner";
     this.view = view;
+
+    this.maxHp = 2;
+    this.hp = this.maxHp;
 
     this.grav = new Gravitation();
   }
@@ -31,11 +35,6 @@ export default class Runner extends Entity {
       this.state.isJump = false;
     }
 
-    // if (this.x >= 700) {
-    //   console.log(999999999999999999999999);
-    //   this.grav.jump(this);
-    // }
-
     if (!collisionResult.vertical && !collisionResult.horizontal) {
       this.prevPoint.y = this.view.y;
       this.state.isFly = true;
@@ -44,6 +43,9 @@ export default class Runner extends Entity {
     if (collisionResult.vertical) {
       if (collisionResult.area) {
         this.grav.stay(this, collisionResult.area);
+        if (this.x == collisionResult.area.x && Math.random() > 0.4) {
+          this.grav.jump(this);
+        }
       } else this.grav.stay(this, this.prevPoint);
     } else this.grav.fall(this);
 
@@ -52,15 +54,21 @@ export default class Runner extends Entity {
     }
 
     if (this.state.isMoveRight) {
+      this.view.flip(1);
       this.updatePrevPointX();
       this.right();
       //this.item.update();
     } else if (this.state.isMoveLeft) {
+      this.view.flip(-1);
       this.updatePrevPointX();
       this.left();
       //this.item.update();
     }
   }
 
-  update() {}
+  update(collisionResult, collisionDamageResult) {
+    this.startMove(collisionResult);
+    this.checkDamage(collisionDamageResult);
+    this.destroyIfDead();
+  }
 }
