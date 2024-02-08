@@ -13,6 +13,7 @@ const app = new Application({ width: 1024, height: 768 });
 
 const worldContainer = new World();
 app.stage.addChild(worldContainer);
+const platformWidth = 129;
 
 const assets = new AssetsFactory();
 
@@ -28,26 +29,56 @@ const bulletArr = [];
 const col = new Collision();
 const platformArr = [
   {
-    lineWidth: 2,
-    lineColor: 0xfffff,
-    x: app.renderer.width / 2.2,
-    y: 500,
-    width: 1600,
-    height: 30,
+    type: "platform",
+    x: platformWidth,
+    y: 200,
+    width: 6 * platformWidth,
+    height: 10,
   },
-  { type: "platform", x: 100, y: 200, width: 600, height: 10 },
-  { type: "platform", x: 200, y: 350, width: 100, height: 20 },
-  { type: "platform", x: 300, y: 500, width: 100, height: 30 },
-  { type: "platform", x: 600, y: 400, width: 100, height: 400 },
-  { type: "water", x: 0, y: 768, width: 10000, height: 30 },
-  { type: "platform", x: 1600, y: 400, width: 100, height: 400 },
   {
     type: "platform",
-    x: 1100,
+    x: 2 * platformWidth,
+    y: 350,
+    width: platformWidth,
+    height: 20,
+  },
+  {
+    type: "platform",
+    x: 3 * platformWidth,
+    y: 500,
+    width: platformWidth,
+    height: 30,
+  },
+  {
+    type: "platform",
+    x: 6 * platformWidth,
+    y: 400,
+    width: platformWidth,
+    height: 400,
+  },
+
+  {
+    type: "platform",
+    x: 16 * platformWidth,
+    y: 400,
+    width: platformWidth,
+    height: 400,
+  },
+  {
+    type: "platform",
+    x: 11 * platformWidth,
     y: 340,
-    width: 100,
+    width: platformWidth,
     height: 40,
   },
+  {
+    type: "platform",
+    x: 0,
+    y: 500,
+    width: 16 * platformWidth,
+    height: 30,
+  },
+  { type: "water", x: 0, y: 768, width: 50 * platformWidth, height: 30 },
 ];
 
 document.body.appendChild(app.view);

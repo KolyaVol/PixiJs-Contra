@@ -1,4 +1,3 @@
-import Gun from "../Gun.js";
 import Entity from "../Entity.js";
 import Gravitation from "../../mechanics/Gravitation.js";
 

@@ -73,7 +73,11 @@ export default class PlatformView extends Container {
     view.addChild(ground2);
     view.addChild(ground3);
 
+    ground.clampMargin = 1.5;
+    ground2.clampMargin = 1.5;
+    ground3.clampMargin = 1.5;
     view.clampMargin = 1.5;
+
     platformGraphics.addChild(view);
     this.#rootNode.addChild(platformGraphics);
   }

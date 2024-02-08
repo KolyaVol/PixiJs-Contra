@@ -43,7 +43,7 @@ export default class Runner extends Entity {
     if (collisionResult.vertical) {
       if (collisionResult.area) {
         this.grav.stay(this, collisionResult.area);
-        if (this.x == collisionResult.area.x && Math.random() > 0.4) {
+        if (this.x === collisionResult.area.x && Math.random() > 0.4) {
           this.grav.jump(this);
         }
       } else this.grav.stay(this, this.prevPoint);
