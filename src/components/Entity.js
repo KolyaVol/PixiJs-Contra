@@ -37,8 +37,15 @@ export default class Entity extends Container {
   get width() {
     return this._view.collisionBox.width;
   }
+  set width(value) {
+    this._view.collisionBox.width = value;
+  }
+
   get height() {
     return this._view.collisionBox.height;
+  }
+  set height(value) {
+    this._view.collisionBox.height = value;
   }
 
   dead() {

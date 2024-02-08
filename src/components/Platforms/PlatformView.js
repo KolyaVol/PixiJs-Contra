@@ -6,7 +6,7 @@ import {
 } from "../../../libs/pixi.mjs";
 
 export default class PlatformView extends Container {
-  #collisionBox = {
+  collisionBox = {
     x: 0,
     y: 0,
     width: 0,
@@ -17,16 +17,16 @@ export default class PlatformView extends Container {
 
   constructor(width, height, assets) {
     super();
-    this.#collisionBox.width = width;
-    this.#collisionBox.height = height;
+    this.collisionBox.width = width;
+    this.collisionBox.height = height;
     this.#createNodeStructure();
     this.#assets = assets;
   }
 
   get collisionBox() {
-    this.#collisionBox.x = this.x;
-    this.#collisionBox.y = this.y;
-    return this.#collisionBox;
+    this.collisionBox.x = this.x;
+    this.collisionBox.y = this.y;
+    return this.collisionBox;
   }
 
   #createNodeStructure() {

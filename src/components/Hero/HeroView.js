@@ -13,8 +13,8 @@ export default class HeroView extends Container {
   collisionBox = {
     x: 0,
     y: 0,
-    width: 0,
-    height: 0,
+    width: 20,
+    height: 90,
   };
 
   #hitBox = {
@@ -42,9 +42,6 @@ export default class HeroView extends Container {
 
     this.#createNodeStructure();
     this.#rootNode.x = 10;
-
-    this.collisionBox.width = 20;
-    this.collisionBox.height = 90;
 
     this.#rootNode.pivot.x = 10;
 
@@ -155,6 +152,7 @@ export default class HeroView extends Container {
   }
 
   showJump() {
+    console.log(1);
     this.#toState("jump");
     this.#setBulletPointShift(-2, 40);
 

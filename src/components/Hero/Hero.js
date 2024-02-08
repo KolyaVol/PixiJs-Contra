@@ -16,14 +16,16 @@ export default class Hero extends Entity {
     super(view);
     this.view = view;
     this.name = "Hero";
-    
+
     this.maxHp = 1;
     this.hp = this.maxHp;
 
     this.grav = new Gravitation();
     this.isArrowLeft = false;
     this.isArrowRight = false;
-    this.IsArrowUp = false;
+    this.isArrowUp = false;
+    this.isArrowDown = false;
+    this.isShift = false;
   }
 
   hadleKeyDown(e) {
@@ -52,8 +54,16 @@ export default class Hero extends Entity {
         }
         break;
       case "ArrowUp":
-        this.IsArrowUp = true;
+        this.isArrowUp = true;
         this.grav.jump(this);
+        break;
+
+      case "ArrowDown":
+        this.isArrowDown = true;
+        break;
+
+      case "ShiftLeft":
+        this.isShift = true;
         break;
 
       default:
@@ -87,8 +97,17 @@ export default class Hero extends Entity {
         }
         break;
       case "ArrowUp":
-        this.IsArrowUp = false;
+        this.isArrowUp = false;
         this.grav.fall(this);
+        break;
+
+      case "ArrowDown":
+        this.isArrowDown = false;
+        break;
+
+      case "ShiftLeft":
+        this.isShift = false;
+
         break;
 
       default:
@@ -122,23 +141,36 @@ export default class Hero extends Entity {
       if (collisionResult.area) {
         this.grav.stay(this, collisionResult.area);
       } else this.grav.stay(this, this.prevPoint);
-
-      this.IsArrowUp ? this.grav.jump(this) : "";
-    } else this.grav.fall(this);
+      this.isArrowUp ? this.grav.jump(this) : "";
+    } else {
+      this.grav.fall(this);
+      this.view.showFall();
+    }
 
     if (collisionResult.horizontal) {
       this.view.x = this.prevPoint.x;
     }
 
     if (this.state.isMoveRight) {
+      this.view.flip(1);
+      this.view.showRun();
       this.updatePrevPointX();
       this.right();
       //this.item.update();
     } else if (this.state.isMoveLeft) {
+      this.view.showRun();
+      this.view.flip(-1);
       this.updatePrevPointX();
       this.left();
       //this.item.update();
-    }
+    } else this.view.showStay();
+
+    if (this.isShift && this.isArrowDown) {
+      this.grav.fall(this);
+      this.view.showFall();
+    } else if (this.isArrowDown) this.view.showLay();
+
+    this.state.isJump ? this.view.showJump() : "";
   }
 
   update() {}
