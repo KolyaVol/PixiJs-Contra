@@ -168,8 +168,9 @@ export default class Hero extends Entity {
     if (this.isShift && this.isArrowDown) {
       this.grav.fall(this);
       this.view.showFall();
-    } else if (this.isArrowDown) this.view.showLay();
-
+    } else if (this.isArrowDown) {
+      this.view.showLay();
+    } else if (this.isArrowDown && this.state.isFly) this.view.showFall();
     this.state.isJump ? this.view.showJump() : "";
   }
 

@@ -1,4 +1,4 @@
-import { Application, Assets, Container } from "../libs/pixi.mjs";
+import { Application, Assets } from "../libs/pixi.mjs";
 import Collision from "./mechanics/Collision.js";
 import PlatformFactory from "./components/Platforms/PlatformFactory.js";
 import Shooting from "./mechanics/Shooting.js";
@@ -86,11 +86,7 @@ document.body.appendChild(app.view);
 platformFactory.createPlatforms(platformArr);
 
 hero.startObserve();
-// load the texture we need
-// const texture = await Assets.load(icon);
-//hero.x = app.renderer.width / 2;
-//hero.y = app.renderer.height / 2;
-// Setup the position of the hero
+
 const cameraSettings = {
   target: hero,
   world: worldContainer,
@@ -102,7 +98,7 @@ const camera = new Camera(cameraSettings);
 
 const shooting = new Shooting(worldContainer.game, bulletArr, hero, camera);
 shooting.startObserve();
-// Add the hero to the scene we are building
+
 app.ticker.add(() => {
   hero.startMove(col.checkArrCollisionOrientation(hero, platformArr));
   runner.update(
