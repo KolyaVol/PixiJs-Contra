@@ -137,10 +137,11 @@ export default class Hero extends Entity {
       this.state.isFly = true;
     }
 
-    if (collisionResult.vertical) {
+    if (collisionResult.vertical && !this.state.isJump) {
       if (collisionResult.area) {
         this.grav.stay(this, collisionResult.area);
       } else this.grav.stay(this, this.prevPoint);
+
       this.isArrowUp ? this.grav.jump(this) : "";
     } else {
       this.grav.fall(this);
