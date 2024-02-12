@@ -1,9 +1,10 @@
 import Entity from "../Entity.js";
 import Gravitation from "../../mechanics/Gravitation.js";
+import HeroWeaponUnit from "./HeroWeaponUnit.js";
 
 export default class Hero extends Entity {
   worldContainer;
-
+  #heroWeaponUnit;
   state = {
     isMoveRight: false,
     isMoveLeft: false,
@@ -20,12 +21,18 @@ export default class Hero extends Entity {
     this.maxHp = 1;
     this.hp = this.maxHp;
 
+    this.#heroWeaponUnit = new HeroWeaponUnit(view);
+
     this.grav = new Gravitation();
     this.isArrowLeft = false;
     this.isArrowRight = false;
     this.isArrowUp = false;
     this.isArrowDown = false;
     this.isShift = false;
+  }
+
+  get bulletContext() {
+    return this.#heroWeaponUnit.bulletContext;
   }
 
   hadleKeyDown(e) {
