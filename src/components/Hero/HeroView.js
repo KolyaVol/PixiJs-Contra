@@ -16,6 +16,7 @@ export default class HeroView extends Container {
     width: 20,
     height: 90,
   };
+  isFlipped = false;
 
   #hitBox = {
     x: 0,
@@ -25,6 +26,7 @@ export default class HeroView extends Container {
     shiftX: 0,
     shiftY: 0,
   };
+
   #stm = {
     currentState: "default",
     states: {},
@@ -63,7 +65,9 @@ export default class HeroView extends Container {
   flip(direction) {
     switch (direction) {
       case 1:
+        this.isFlipped = false;
       case -1:
+        this.isFlipped = true;
         this.#rootNode.scale.x = direction;
     }
   }

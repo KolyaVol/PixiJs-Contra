@@ -4,12 +4,13 @@ export default class Bullet extends Entity {
   app;
 
   bulletSpeed = 10;
-  #angle = 0;
-  constructor(view, angle) {
+  #angle;
+  constructor(view, bulletContext) {
+    console.log(bulletContext);
     super(view);
     this.view = view;
     this.name = "Bullet";
-    this.#angle = (angle * Math.PI) / 180;
+    this.#angle = bulletContext.angle;
   }
 
   update(shooter) {
@@ -20,7 +21,6 @@ export default class Bullet extends Entity {
     this.prevPoint.y += this.y;
     console.log(this.#angle);
     this.x += this.bulletSpeed * Math.cos(this.#angle);
-    // this.x += this.speed * Math.cos(this.#angle);
-    // this.y += this.speed * Math.sin(this.#angle);
+    this.y += this.bulletSpeed * Math.sin(this.#angle);
   }
 }

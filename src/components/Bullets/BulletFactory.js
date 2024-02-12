@@ -8,13 +8,13 @@ export default class BulletFactory {
     this.worldContainer = worldContainer;
   }
 
-  createBullet(x, y) {
+  createBullet(bulletContext) {
     const bulletView = new BulletView(this.#assets);
     bulletView.drawBullet();
     this.worldContainer.addChild(bulletView);
-    const bullet = new Bullet(bulletView, 0);
-    bullet.x = x;
-    bullet.y = y;
+    const bullet = new Bullet(bulletView, bulletContext);
+    bullet.x = bulletContext.x;
+    bullet.y = bulletContext.y;
     return bullet;
   }
 

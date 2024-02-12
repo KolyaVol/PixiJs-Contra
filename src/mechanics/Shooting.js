@@ -33,10 +33,7 @@ export default class Shooting {
   }
 
   addBullet() {
-    const bullet = this.bulletFactory.createBullet(
-      this.shooter.x + this.shooter.view.bulletPointShift.x,
-      this.shooter.y + this.shooter.view.bulletPointShift.y
-    );
+    const bullet = this.bulletFactory.createBullet(this.shooter.bulletContext);
 
     this.bulletArr.push(bullet);
   }
