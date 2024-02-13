@@ -100,7 +100,7 @@ const shooting = new Shooting(worldContainer.game, bulletArr, hero, camera);
 shooting.startObserve();
 
 app.ticker.add(() => {
-  hero.startMove(col.checkArrCollisionOrientation(hero, platformArr));
+  hero.update(col.checkArrCollisionOrientation(hero, platformArr));
   runner.update(
     col.checkArrCollisionOrientation(runner, platformArr),
     col.checkArrCollisionOrientation(runner, bulletArr)

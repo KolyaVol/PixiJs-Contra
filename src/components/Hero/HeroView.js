@@ -16,6 +16,7 @@ export default class HeroView extends Container {
     width: 20,
     height: 90,
   };
+
   isFlipped = false;
 
   #hitBox = {
@@ -63,13 +64,9 @@ export default class HeroView extends Container {
   }
 
   flip(direction) {
-    switch (direction) {
-      case 1:
-        this.isFlipped = false;
-      case -1:
-        this.isFlipped = true;
-        this.#rootNode.scale.x = direction;
-    }
+    if (direction === 1) this.isFlipped = false;
+    else this.isFlipped = true;
+    this.#rootNode.scale.x = direction;
   }
 
   #createNodeStructure() {
@@ -156,7 +153,6 @@ export default class HeroView extends Container {
   }
 
   showJump() {
-    console.log(1);
     this.#toState("jump");
     this.#setBulletPointShift(-2, 40);
 

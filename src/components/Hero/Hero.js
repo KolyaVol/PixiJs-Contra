@@ -182,5 +182,14 @@ export default class Hero extends Entity {
     this.state.isJump ? this.view.showJump() : "";
   }
 
-  update() {}
+  update(collisionResult) {
+    this.startMove(collisionResult);
+    this.#heroWeaponUnit.setBulletAngle(
+      this.isArrowRight,
+      this.isArrowLeft,
+      this.isArrowDown,
+      this.isArrowUp,
+      this.state.isJump
+    );
+  }
 }
