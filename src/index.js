@@ -25,6 +25,7 @@ const runner = runnerFactory.createRunner(300, 100);
 const platformFactory = new PlatformFactory(worldContainer, assets);
 
 const bulletArr = [];
+const entityArr = [];
 
 const col = new Collision();
 const platformArr = [

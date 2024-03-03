@@ -8,6 +8,8 @@ export default class Shooting {
   shooter;
   col = new Collision();
   bulletFactory;
+  shootingDelay = 250;
+  currentGun = 1;
 
   constructor(worldContainer, bulletArr, shooter, camera) {
     this.worldContainer = worldContainer;
@@ -20,6 +22,12 @@ export default class Shooting {
   hadleKeyDown(e) {
     if (e.code === "ControlLeft") {
       this.isControlDown = true;
+    } else if (e.code === "Digit1") {
+      this.currentGun = 1;
+      this.shootingDelay = 250;
+    } else if (e.code === "Digit2") {
+      this.currentGun = 2;
+      this.shootingDelay = 450;
     }
   }
   hadleKeyUp(e) {
@@ -33,10 +41,48 @@ export default class Shooting {
   }
 
   addBullet() {
-    const bullet = this.bulletFactory.createBullet(this.shooter.bulletContext);
+    switch (this.currentGun) {
+      case 1:
+        console.log(100);
+        const bullet = this.bulletFactory.createBullet(
+          this.shooter.bulletContext
+        );
+        this.bulletArr.push(bullet);
+        break;
 
-    this.bulletArr.push(bullet);
+      case 2:
+        console.log(200);
+        let angleShift = -20;
+        for (let i = 0; i < 5; i++) {
+          const localBulletContext = {
+            x: this.shooter.bulletContext.x,
+            y: this.shooter.bulletContext.y,
+            angle: this.shooter.bulletContext.angle + angleShift,
+          };
+          const fraction =
+            this.bulletFactory.createFraction(localBulletContext);
+          this.bulletArr.push(fraction);
+          angleShift += 10;
+        }
+        break;
+
+      default:
+        break;
+    }
   }
+  // addFraction() {
+  //   let angleShift = -20;
+  //   for (let i = 0; i < 5; i++) {
+  //     const localBulletContext = {
+  //       x: this.bulletContext.x,
+  //       y: this.bulletContext.y,
+  //       angle: this.bulletContext.angle + angleShift,
+  //     };
+  //     const fraction = this.bulletFactory.createFraction(localBulletContext);
+  //     this.bulletArr.push(fraction);
+  //     angleShift += 10;
+  //   }
+  // }
 
   removeBullet(item, id) {
     this.bulletArr.splice(id, 1);
@@ -44,14 +90,16 @@ export default class Shooting {
   }
 
   startShooting(entityArr) {
+    //SHOOTING DELAY
     if (this.isControlDown && !this.isShooting) {
       this.addBullet();
       this.isShooting = true;
       setTimeout(() => {
         this.isShooting = false;
-      }, 250);
+      }, this.shootingDelay);
     }
 
+    // MOVEMENT AND REMOVEMENT OF ALL BULLETS IN ARRAY
     for (let i = 0; i < this.bulletArr.length; i++) {
       if (this.bulletArr[i]) {
         const item = this.bulletArr[i];

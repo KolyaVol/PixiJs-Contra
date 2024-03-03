@@ -43,6 +43,5 @@ export default class HeroWeaponUnit {
         this.#bulletAngle = 0;
       }
     }
-    console.log(this.#bulletAngle);
   }
 }
