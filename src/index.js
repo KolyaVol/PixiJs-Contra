@@ -6,7 +6,6 @@ import Camera from "./mechanics/Camera.js";
 import HeroFactory from "./components/Hero/HeroFactory.js";
 import AssetsFactory from "./AssetsFactory.js";
 import World from "./World.js";
-import RunnerFactory from "./components/Enemies/Runner/RunnerFactory.js";
 import EnemyFactory from "./components/Enemies/EnemyFactory.js";
 
 await Assets.load("../assets/atlas.json");
