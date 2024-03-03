@@ -1,4 +1,4 @@
-import { AnimatedSprite, Container } from "../../../../lib/pixi.mjs";
+import { AnimatedSprite, Container } from "../../../../libs/pixi.mjs";
 
 export default class BossView extends Container{
 

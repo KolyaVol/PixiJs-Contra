@@ -8,7 +8,7 @@ export default class Shooting {
   shooter;
   col = new Collision();
   bulletFactory;
-  shootingDelay = 250;
+  shootingDelay = 350;
   currentGun = 1;
 
   constructor(worldContainer, bulletArr, shooter, camera) {
@@ -24,10 +24,10 @@ export default class Shooting {
       this.isControlDown = true;
     } else if (e.code === "Digit1") {
       this.currentGun = 1;
-      this.shootingDelay = 250;
+      this.shootingDelay = 350;
     } else if (e.code === "Digit2") {
       this.currentGun = 2;
-      this.shootingDelay = 450;
+      this.shootingDelay = 550;
     }
   }
   hadleKeyUp(e) {
@@ -94,6 +94,7 @@ export default class Shooting {
     if (this.isControlDown && !this.isShooting) {
       this.addBullet();
       this.isShooting = true;
+      console.log(this.shootingDelay);
       setTimeout(() => {
         this.isShooting = false;
       }, this.shootingDelay);

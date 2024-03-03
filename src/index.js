@@ -7,6 +7,7 @@ import HeroFactory from "./components/Hero/HeroFactory.js";
 import AssetsFactory from "./AssetsFactory.js";
 import World from "./World.js";
 import RunnerFactory from "./components/Enemies/Runner/RunnerFactory.js";
+import EnemyFactory from "./components/Enemies/EnemyFactory.js";
 
 await Assets.load("../assets/atlas.json");
 const app = new Application({ width: 1024, height: 768 });
@@ -19,8 +20,8 @@ const assets = new AssetsFactory();
 
 const heroFactory = new HeroFactory(worldContainer.game, assets);
 const hero = heroFactory.createHero(300, 100);
-const runnerFactory = new RunnerFactory(worldContainer.game, assets);
-const runner = runnerFactory.createRunner(300, 100);
+const enemyFactory = new EnemyFactory(worldContainer.game, assets);
+const runner = enemyFactory.createRunner(300, 100);
 
 const platformFactory = new PlatformFactory(worldContainer, assets);
 
