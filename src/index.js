@@ -11,6 +11,8 @@ import EnemyFactory from "./components/Enemies/EnemyFactory.js";
 await Assets.load("../assets/atlas.json");
 const app = new Application({ width: 1024, height: 768 });
 
+//----NEED FIX---- Create one bulletFactory for entire game
+
 const worldContainer = new World();
 app.stage.addChild(worldContainer);
 const platformWidth = 129;
@@ -19,8 +21,9 @@ const assets = new AssetsFactory();
 
 const heroFactory = new HeroFactory(worldContainer.game, assets);
 const hero = heroFactory.createHero(300, 100);
-const enemyFactory = new EnemyFactory(worldContainer.game, assets);
+const enemyFactory = new EnemyFactory(worldContainer.game, assets, hero);
 const runner = enemyFactory.createRunner(300, 100);
+const tourelle = enemyFactory.createTourelle(300, 50);
 
 const platformFactory = new PlatformFactory(worldContainer, assets);
 
@@ -106,6 +109,7 @@ app.ticker.add(() => {
     col.checkArrCollisionOrientation(runner, platformArr),
     col.checkArrCollisionOrientation(runner, bulletArr)
   );
+  tourelle.update();
   shooting.startShooting(platformArr);
   camera.update();
 });

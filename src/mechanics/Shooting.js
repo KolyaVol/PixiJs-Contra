@@ -43,7 +43,6 @@ export default class Shooting {
   addBullet() {
     switch (this.currentGun) {
       case 1:
-        console.log(100);
         const bullet = this.bulletFactory.createBullet(
           this.shooter.bulletContext
         );
@@ -51,7 +50,6 @@ export default class Shooting {
         break;
 
       case 2:
-        console.log(200);
         let angleShift = -20;
         for (let i = 0; i < 5; i++) {
           const localBulletContext = {
@@ -94,7 +92,7 @@ export default class Shooting {
     if (this.isControlDown && !this.isShooting) {
       this.addBullet();
       this.isShooting = true;
-      console.log(this.shootingDelay);
+
       setTimeout(() => {
         this.isShooting = false;
       }, this.shootingDelay);

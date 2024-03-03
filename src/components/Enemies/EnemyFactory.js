@@ -6,13 +6,16 @@ import BossView from "./Boss/BossView.js";
 import Boss from "./Boss/Boss.js";
 import BossGunView from "./Boss/BossGunView.js";
 import BossGun from "./Boss/BossGun.js";
+import BulletFactory from "../Bullets/BulletFactory.js";
 
 export default class EnemyFactory {
   worldContainer;
   #assets;
-  constructor(worldContainer, assets) {
+  constructor(worldContainer, assets, target) {
     this.#assets = assets;
     this.worldContainer = worldContainer;
+    this.target = target;
+    this.bulletFactory = new BulletFactory(worldContainer);
   }
 
   createRunner(x, y) {
@@ -29,7 +32,7 @@ export default class EnemyFactory {
     const view = new TourelleView(this.#assets);
     this.worldContainer.addChild(view);
 
-    //const tourelle = new Tourelle(view, this.#target, this.#bulletFactory);
+    const tourelle = new Tourelle(view, this.target, this.bulletFactory);
     tourelle.x = x;
     tourelle.y = y;
 
