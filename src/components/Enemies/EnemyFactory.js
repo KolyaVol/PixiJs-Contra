@@ -11,11 +11,12 @@ import BulletFactory from "../Bullets/BulletFactory.js";
 export default class EnemyFactory {
   worldContainer;
   #assets;
-  constructor(worldContainer, assets, target) {
+  constructor(worldContainer, assets, target, entityArr) {
     this.#assets = assets;
     this.worldContainer = worldContainer;
     this.target = target;
     this.bulletFactory = new BulletFactory(worldContainer);
+    this.entityArr = entityArr;
   }
 
   createRunner(x, y) {
@@ -25,6 +26,7 @@ export default class EnemyFactory {
     const runner = new Runner(runnerView);
     runner.x = x;
     runner.y = y;
+    this.entityArr.push(runner);
     return runner;
   }
 
@@ -36,7 +38,7 @@ export default class EnemyFactory {
     tourelle.x = x;
     tourelle.y = y;
 
-    //this.#entities.push(tourelle);
+    this.entityArr.push(tourelle);
 
     return tourelle;
   }
@@ -49,7 +51,7 @@ export default class EnemyFactory {
     boss.x = x - 35;
     boss.y = y + 95;
 
-    //this.#entities.push(boss);
+    this.entityArr.push(boss);
 
     const gun1 = this.#createBossGun();
     gun1.x = x - 56;
@@ -65,8 +67,8 @@ export default class EnemyFactory {
   #createBossGun() {
     const gunView = new BossGunView(this.#assets);
     this.worldContainer.addChild(gunView);
-    //const bossGun = new BossGun(gunView, this.#target, this.#bulletFactory);
-    //this.#entities.push(bossGun);
+    const bossGun = new BossGun(gunView, this.target, this.bulletFactory);
+    this.entityArr.push(bossGun);
     return bossGun;
   }
 }

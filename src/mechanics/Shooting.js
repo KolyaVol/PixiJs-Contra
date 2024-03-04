@@ -11,12 +11,13 @@ export default class Shooting {
   shootingDelay = 350;
   currentGun = 1;
 
-  constructor(worldContainer, bulletArr, shooter, camera) {
+  constructor(worldContainer, bulletArr, shooter, camera, entityArr) {
     this.worldContainer = worldContainer;
     this.bulletArr = bulletArr;
     this.shooter = shooter;
     this.camera = camera;
     this.bulletFactory = new BulletFactory(this.worldContainer);
+    this.entityArr = entityArr;
   }
 
   hadleKeyDown(e) {
@@ -47,6 +48,7 @@ export default class Shooting {
           this.shooter.bulletContext
         );
         this.bulletArr.push(bullet);
+        this.entityArr.push(bullet);
         break;
 
       case 2:
@@ -60,6 +62,7 @@ export default class Shooting {
           const fraction =
             this.bulletFactory.createFraction(localBulletContext);
           this.bulletArr.push(fraction);
+          this.entityArr.push(fraction);
           angleShift += 10;
         }
         break;
@@ -68,19 +71,6 @@ export default class Shooting {
         break;
     }
   }
-  // addFraction() {
-  //   let angleShift = -20;
-  //   for (let i = 0; i < 5; i++) {
-  //     const localBulletContext = {
-  //       x: this.bulletContext.x,
-  //       y: this.bulletContext.y,
-  //       angle: this.bulletContext.angle + angleShift,
-  //     };
-  //     const fraction = this.bulletFactory.createFraction(localBulletContext);
-  //     this.bulletArr.push(fraction);
-  //     angleShift += 10;
-  //   }
-  // }
 
   removeBullet(item, id) {
     this.bulletArr.splice(id, 1);

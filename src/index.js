@@ -19,16 +19,21 @@ const platformWidth = 129;
 
 const assets = new AssetsFactory();
 
+const bulletArr = [];
+const entityArr = [];
+
 const heroFactory = new HeroFactory(worldContainer.game, assets);
 const hero = heroFactory.createHero(300, 100);
-const enemyFactory = new EnemyFactory(worldContainer.game, assets, hero);
+const enemyFactory = new EnemyFactory(
+  worldContainer.game,
+  assets,
+  hero,
+  entityArr
+);
 const runner = enemyFactory.createRunner(300, 100);
 const tourelle = enemyFactory.createTourelle(300, 50);
 
 const platformFactory = new PlatformFactory(worldContainer, assets);
-
-const bulletArr = [];
-const entityArr = [];
 
 const col = new Collision();
 const platformArr = [
@@ -100,7 +105,13 @@ const cameraSettings = {
 };
 const camera = new Camera(cameraSettings);
 
-const shooting = new Shooting(worldContainer.game, bulletArr, hero, camera);
+const shooting = new Shooting(
+  worldContainer.game,
+  bulletArr,
+  hero,
+  camera,
+  entityArr
+);
 shooting.startObserve();
 
 app.ticker.add(() => {

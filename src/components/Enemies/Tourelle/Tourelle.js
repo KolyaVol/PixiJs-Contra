@@ -10,7 +10,6 @@ export default class Tourelle extends Entity {
 
   constructor(view, target, bulletFactory) {
     super(view);
-    console.log(view);
     this.#target = target;
     this.#bulletFactory = bulletFactory;
     this.collisionBox = view.collisionBox;
