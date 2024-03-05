@@ -2,7 +2,7 @@ import Entity from "../Entity.js";
 
 export default class Bullet extends Entity {
   app;
-
+  shooter;
   bulletSpeed = 10;
   #angle;
   constructor(view, bulletContext) {
@@ -12,7 +12,9 @@ export default class Bullet extends Entity {
     this.#angle = (bulletContext.angle * Math.PI) / 180;
   }
 
-  update(shooter) {
+  update() {
+    let shooter = this.shooter;
+    console.log(shooter);
     this.view.collisionBox.x =
       shooter.x + shooter.view.collisionBox.width + this.prevPoint.x;
     this.view.collisionBox.y = this.prevPoint.y + shooter.y;

@@ -28,7 +28,8 @@ const enemyFactory = new EnemyFactory(
   worldContainer.game,
   assets,
   hero,
-  entityArr
+  entityArr,
+  bulletArr
 );
 const runner = enemyFactory.createRunner(300, 100);
 const tourelle = enemyFactory.createTourelle(300, 50);
@@ -121,6 +122,7 @@ app.ticker.add(() => {
     col.checkArrCollisionOrientation(runner, bulletArr)
   );
   tourelle.update();
-  shooting.startShooting(platformArr);
+  shooting.startShooting(platformArr, hero);
+  bulletArr.forEach((bullet) => bullet.update());
   camera.update();
 });

@@ -8,12 +8,15 @@ export default class Tourelle extends Entity {
 
   type = "enemy";
 
-  constructor(view, target, bulletFactory) {
+  constructor(view, target, bulletFactory, entityArr, bulletArr) {
     super(view);
     this.#target = target;
     this.#bulletFactory = bulletFactory;
     this.collisionBox = view.collisionBox;
     this.isActive = false;
+    this.entityArr = entityArr;
+    this.bulletArr = bulletArr;
+    this.view = view;
   }
 
   update() {
@@ -59,7 +62,9 @@ export default class Tourelle extends Entity {
     bulletContext.angle = (angle / Math.PI) * 180;
     bulletContext.type = "enemyBullet";
 
-    this.#bulletFactory.createBullet(bulletContext);
+    const bullet = this.#bulletFactory.createBullet(bulletContext, this);
+    this.bulletArr.push(bullet);
+    this.entityArr.push(bullet);
 
     this.#timeCounter = 0;
   }

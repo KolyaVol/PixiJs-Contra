@@ -4,7 +4,7 @@ export default class TourelleView extends Container{
 
     #gunView;
 
-    #collisionBox = {
+    collisionBox = {
         x:0,
         y:0,
         width:0,
@@ -32,8 +32,8 @@ export default class TourelleView extends Container{
         this.#gunView.x = view.width/2 - 17;
         this.#gunView.y = view.width/2 - 15;
 
-        this.#collisionBox.width = 128;
-        this.#collisionBox.height = 128;
+        this.collisionBox.width = 128;
+        this.collisionBox.height = 128;
         
         view.addChild(this.#gunView);
     }
@@ -47,9 +47,9 @@ export default class TourelleView extends Container{
     }
 
     get collisionBox(){
-        this.#collisionBox.x = this.x - this.#collisionBox.width/2;
-        this.#collisionBox.y = this.y - this.#collisionBox.height/2;
-        return this.#collisionBox;
+        this.collisionBox.x = this.x - this.collisionBox.width/2;
+        this.collisionBox.y = this.y - this.collisionBox.height/2;
+        return this.collisionBox;
     }
 
     get hitBox() {
@@ -58,8 +58,8 @@ export default class TourelleView extends Container{
 
     showAndGetDeadAnimation(){
         this.#gunView.visible = false;
-        this.#collisionBox.width = 0;
-        this.#collisionBox.height = 0;
+        this.collisionBox.width = 0;
+        this.collisionBox.height = 0;
 
         const explosion = new AnimatedSprite(this.#assets.getAnimationTextures("explosion"));
         explosion.animationSpeed = 1/5;

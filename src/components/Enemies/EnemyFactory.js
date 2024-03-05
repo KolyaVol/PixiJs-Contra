@@ -11,12 +11,13 @@ import BulletFactory from "../Bullets/BulletFactory.js";
 export default class EnemyFactory {
   worldContainer;
   #assets;
-  constructor(worldContainer, assets, target, entityArr) {
+  constructor(worldContainer, assets, target, entityArr, bulletArr) {
     this.#assets = assets;
     this.worldContainer = worldContainer;
     this.target = target;
     this.bulletFactory = new BulletFactory(worldContainer);
     this.entityArr = entityArr;
+    this.bulletArr = bulletArr;
   }
 
   createRunner(x, y) {
@@ -34,7 +35,13 @@ export default class EnemyFactory {
     const view = new TourelleView(this.#assets);
     this.worldContainer.addChild(view);
 
-    const tourelle = new Tourelle(view, this.target, this.bulletFactory);
+    const tourelle = new Tourelle(
+      view,
+      this.target,
+      this.bulletFactory,
+      this.entityArr,
+      this.bulletArr
+    );
     tourelle.x = x;
     tourelle.y = y;
 

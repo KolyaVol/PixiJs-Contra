@@ -45,7 +45,8 @@ export default class Shooting {
     switch (this.currentGun) {
       case 1:
         const bullet = this.bulletFactory.createBullet(
-          this.shooter.bulletContext
+          this.shooter.bulletContext,
+          this.shooter
         );
         this.bulletArr.push(bullet);
         this.entityArr.push(bullet);
@@ -59,8 +60,10 @@ export default class Shooting {
             y: this.shooter.bulletContext.y,
             angle: this.shooter.bulletContext.angle + angleShift,
           };
-          const fraction =
-            this.bulletFactory.createFraction(localBulletContext);
+          const fraction = this.bulletFactory.createFraction(
+            localBulletContext,
+            this.shooter
+          );
           this.bulletArr.push(fraction);
           this.entityArr.push(fraction);
           angleShift += 10;
@@ -77,7 +80,7 @@ export default class Shooting {
     item.removeFromStage();
   }
 
-  startShooting(entityArr) {
+  startShooting(entityArr, shooter) {
     //SHOOTING DELAY
     if (this.isControlDown && !this.isShooting) {
       this.addBullet();
@@ -92,11 +95,10 @@ export default class Shooting {
     for (let i = 0; i < this.bulletArr.length; i++) {
       if (this.bulletArr[i]) {
         const item = this.bulletArr[i];
-        item.update(this.shooter);
 
         if (
           this.col.checkArrCollisionOrientation(item, entityArr).vertical ||
-          item.prevPoint.x > this.shooter.x + 2000
+          item.prevPoint.x > shooter.x + 2000
         ) {
           this.removeBullet(item, i);
         }

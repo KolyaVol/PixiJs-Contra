@@ -8,23 +8,25 @@ export default class BulletFactory {
     this.worldContainer = worldContainer;
   }
 
-  createBullet(bulletContext) {
+  createBullet(bulletContext, shooter) {
     const bulletView = new BulletView(this.#assets);
     bulletView.drawBullet();
     this.worldContainer.addChild(bulletView);
     const bullet = new Bullet(bulletView, bulletContext);
     bullet.x = bulletContext.x;
     bullet.y = bulletContext.y;
+    bullet.shooter = shooter;
     return bullet;
   }
 
-  createFraction(bulletContext) {
+  createFraction(bulletContext, shooter) {
     const fractionView = new BulletView(this.#assets);
     fractionView.drawFraction();
     this.worldContainer.addChild(fractionView);
     const fraction = new Bullet(fractionView, bulletContext);
     fraction.x = bulletContext.x;
     fraction.y = bulletContext.y;
+    fraction.shooter = shooter;
     fraction.bulletSpeed = 8;
     return fraction;
   }
