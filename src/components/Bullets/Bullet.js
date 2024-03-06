@@ -14,12 +14,14 @@ export default class Bullet extends Entity {
 
   update() {
     let shooter = this.shooter;
-    console.log(shooter);
+
     this.view.collisionBox.x =
       shooter.x + shooter.view.collisionBox.width + this.prevPoint.x;
     this.view.collisionBox.y = this.prevPoint.y + shooter.y;
+
     this.prevPoint.x = this.x;
     this.prevPoint.y += this.y;
+
     this.x += this.bulletSpeed * Math.cos(this.#angle);
     this.y += this.bulletSpeed * Math.sin(this.#angle);
   }

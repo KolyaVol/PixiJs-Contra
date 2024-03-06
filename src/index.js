@@ -32,7 +32,7 @@ const enemyFactory = new EnemyFactory(
   bulletArr
 );
 const runner = enemyFactory.createRunner(300, 100);
-const tourelle = enemyFactory.createTourelle(300, 50);
+const tourelle = enemyFactory.createTourelle(1500, 50);
 
 const platformFactory = new PlatformFactory(worldContainer, assets);
 
@@ -71,7 +71,7 @@ const platformArr = [
     type: "platform",
     x: 16 * platformWidth,
     y: 400,
-    width: platformWidth,
+    width: platformWidth * 4,
     height: 400,
   },
   {

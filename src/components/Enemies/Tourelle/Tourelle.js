@@ -24,14 +24,26 @@ export default class Tourelle extends Entity {
       return;
     }
 
-    if (!this.isActive) {
+    if (this.isActive) {
+      if (
+        Math.abs(this.x - this.#target.x) >
+        512 + this.collisionBox.width * 2
+      ) {
+        this.isActive = false;
+
+        return;
+      }
+    } else {
       if (this.x - this.#target.x < 512 + this.collisionBox.width * 2) {
         this.isActive = true;
       }
       return;
     }
 
-    let angle = Math.atan2(this.#target.y - this.y, this.#target.x - this.x);
+    let angle = Math.atan2(
+      this.#target.y + this.#target.view.collisionBox.height / 3 - this.y,
+      this.#target.x - this.x
+    );
     this._view.gunRotation = angle;
 
     this.#fire(angle);
