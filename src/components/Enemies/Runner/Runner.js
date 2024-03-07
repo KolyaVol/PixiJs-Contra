@@ -13,7 +13,7 @@ export default class Runner extends Entity {
 
   constructor(view) {
     super(view);
-    this.name = "Runner";
+    this.type = "Runner";
     this.view = view;
 
     this.maxHp = 2;
@@ -68,7 +68,7 @@ export default class Runner extends Entity {
 
   update(collisionResult, collisionDamageResult) {
     this.startMove(collisionResult);
-    this.checkDamage(collisionDamageResult);
+    this.damage(collisionDamageResult);
     this.destroyIfDead();
   }
 }

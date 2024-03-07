@@ -4,19 +4,24 @@ export default class Collision {
   checkArrCollisionOrientation(entity, areaArr) {
     const collisionResult = {
       area: null,
+      isCollide: false,
       horizontal: false,
       vertical: false,
     };
+
     for (let i = 0; i < areaArr.length; i++) {
       const result = this.checkCollisionOrientation(entity, areaArr[i]);
       if (result.horizontal === true) {
         collisionResult.horizontal = true;
+        collisionResult.isCollide = true;
       }
       if (result.vertical === true) {
         collisionResult.area = areaArr[i];
         collisionResult.vertical = true;
+        collisionResult.isCollide = true;
       }
     }
+    console.log(collisionResult);
     return collisionResult;
   }
 
@@ -33,12 +38,10 @@ export default class Collision {
       if (!this.isCollide(entity, area)) {
         collisionResult.vertical = true;
         entity.y = prevY;
-
         return collisionResult;
       } else {
         entity.y = prevY;
         collisionResult.horizontal = true;
-
         return collisionResult;
       }
     }

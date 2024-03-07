@@ -16,7 +16,7 @@ export default class Hero extends Entity {
   constructor(view) {
     super(view);
     this.view = view;
-    this.name = "Hero";
+    this.type = "Hero";
 
     this.maxHp = 1;
     this.hp = this.maxHp;
@@ -139,15 +139,23 @@ export default class Hero extends Entity {
     if (this.fallSpeed > 0) {
       this.state.isJump = false;
     }
+
+    if (
+      collisionResult.area?.type === "platform" &&
+      collisionResult.isCollide
+    ) {
+      console.log(12);
+    }
+    
     if (!collisionResult.vertical && !collisionResult.horizontal) {
       this.prevPoint.y = this.view.y;
       this.state.isFly = true;
     }
 
     if (collisionResult.vertical && !this.state.isJump) {
-      if (collisionResult.area) {
-        this.grav.stay(this, collisionResult.area);
-      } else this.grav.stay(this, this.prevPoint);
+      collisionResult.area
+        ? this.grav.stay(this, collisionResult.area)
+        : this.grav.stay(this, this.prevPoint);
 
       this.isArrowUp ? this.grav.jump(this) : "";
     } else {
@@ -164,13 +172,11 @@ export default class Hero extends Entity {
       this.view.showRun();
       this.updatePrevPointX();
       this.right();
-      //this.item.update();
     } else if (this.state.isMoveLeft) {
       this.view.showRun();
       this.view.flip(-1);
       this.updatePrevPointX();
       this.left();
-      //this.item.update();
     } else this.view.showStay();
 
     if (this.isShift && this.isArrowDown) {

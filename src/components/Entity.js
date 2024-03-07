@@ -9,7 +9,7 @@ export default class Entity extends Container {
   speed = 4;
   fallSpeed = 0;
   jumpPower = -8;
-  name = "Entity";
+  type = "Entity";
   maxHp = 999;
   hp;
 
@@ -62,7 +62,7 @@ export default class Entity extends Container {
     }
   }
 
-  checkDamage(collisionDamageResult) {
+  damage(collisionDamageResult) {
     if (collisionDamageResult) {
       if (collisionDamageResult.vertical || collisionDamageResult.horizontal) {
         this.hp -= 1;

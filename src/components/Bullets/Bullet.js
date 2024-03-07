@@ -8,11 +8,11 @@ export default class Bullet extends Entity {
   constructor(view, bulletContext) {
     super(view);
     this.view = view;
-    this.name = "Bullet";
+    this.type = "Bullet";
     this.#angle = (bulletContext.angle * Math.PI) / 180;
   }
 
-  update() {
+  update(col, entityArr) {
     let shooter = this.shooter;
 
     this.view.collisionBox.x =
@@ -24,5 +24,9 @@ export default class Bullet extends Entity {
 
     this.x += this.bulletSpeed * Math.cos(this.#angle);
     this.y += this.bulletSpeed * Math.sin(this.#angle);
+
+    if (col.checkArrCollisionOrientation(this, entityArr)) {
+      // console.log(col.checkArrCollisionOrientation(this, entityArr));
+    }
   }
 }

@@ -10,33 +10,7 @@ import EnemyFactory from "./components/Enemies/EnemyFactory.js";
 
 await Assets.load("../assets/atlas.json");
 const app = new Application({ width: 1024, height: 768 });
-
-//----NEED FIX---- Create one bulletFactory for entire game
-
-const worldContainer = new World();
-app.stage.addChild(worldContainer);
 const platformWidth = 129;
-
-const assets = new AssetsFactory();
-
-const bulletArr = [];
-const entityArr = [];
-
-const heroFactory = new HeroFactory(worldContainer.game, assets);
-const hero = heroFactory.createHero(300, 100);
-const enemyFactory = new EnemyFactory(
-  worldContainer.game,
-  assets,
-  hero,
-  entityArr,
-  bulletArr
-);
-const runner = enemyFactory.createRunner(300, 100);
-const tourelle = enemyFactory.createTourelle(1500, 50);
-
-const platformFactory = new PlatformFactory(worldContainer, assets);
-
-const col = new Collision();
 const platformArr = [
   {
     type: "platform",
@@ -90,10 +64,35 @@ const platformArr = [
   },
   { type: "water", x: 0, y: 768, width: 50 * platformWidth, height: 30 },
 ];
+//----NEED FIX---- Create one bulletFactory for entire game
+
+const worldContainer = new World();
+app.stage.addChild(worldContainer);
+
+const assets = new AssetsFactory();
+
+const bulletArr = [];
+const entityArr = [...platformArr];
+
+const heroFactory = new HeroFactory(worldContainer.game, assets);
+const hero = heroFactory.createHero(300, 100);
+const enemyFactory = new EnemyFactory(
+  worldContainer.game,
+  assets,
+  hero,
+  entityArr,
+  bulletArr
+);
+const runner = enemyFactory.createRunner(300, 100);
+const tourelle = enemyFactory.createTourelle(1500, 50);
+
+const platformFactory = new PlatformFactory(worldContainer, assets);
+
+const col = new Collision();
 
 document.body.appendChild(app.view);
 
-platformFactory.createPlatforms(platformArr);
+platformFactory.createPlatforms(platformArr, entityArr);
 
 hero.startObserve();
 
@@ -123,6 +122,6 @@ app.ticker.add(() => {
   );
   tourelle.update();
   shooting.startShooting(platformArr, hero);
-  bulletArr.forEach((bullet) => bullet.update());
+  bulletArr.forEach((bullet) => bullet.update(col, entityArr));
   camera.update();
 });
