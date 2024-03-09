@@ -31,7 +31,8 @@ export default class Collision {
       horizontal: false,
       vertical: false,
     };
-    if (!this.isCollide(entity, area)) {
+
+    if (entity === area || !this.isCollide(entity, area)) {
       return collisionResult;
     } else {
       const prevY = entity.y;
@@ -39,12 +40,10 @@ export default class Collision {
       if (!this.isCollide(entity, area)) {
         collisionResult.vertical = true;
         entity.y = prevY;
-        //console.log(collisionResult);
         return collisionResult;
       } else {
         entity.y = prevY;
         collisionResult.horizontal = true;
-        //console.log(collisionResult);
         return collisionResult;
       }
     }

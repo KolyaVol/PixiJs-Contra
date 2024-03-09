@@ -2,9 +2,10 @@ import Platform from "./Platform.js";
 import PlatformView from "./PlatformView.js";
 
 export default class PlatformFactory {
-  constructor(worldContainer, assets) {
+  constructor(worldContainer, assets, entityArr) {
     this.worldContainer = worldContainer;
     this.assets = assets;
+    this.entityArr = entityArr;
   }
 
   createPlatform(x, y, width, height, type) {
@@ -28,6 +29,7 @@ export default class PlatformFactory {
     const platform = new Platform(platformView);
     platform.x = x;
     platform.y = y;
+    this.entityArr.push(platform);
     return platform;
   }
 

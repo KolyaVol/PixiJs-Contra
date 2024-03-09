@@ -72,7 +72,7 @@ app.stage.addChild(worldContainer);
 const assets = new AssetsFactory();
 
 const bulletArr = [];
-const entityArr = [...platformArr];
+const entityArr = [];
 
 const heroFactory = new HeroFactory(worldContainer.game, assets);
 const hero = heroFactory.createHero(300, 100);
@@ -86,7 +86,7 @@ const enemyFactory = new EnemyFactory(
 const runner = enemyFactory.createRunner(300, 100);
 const tourelle = enemyFactory.createTourelle(1500, 50);
 
-const platformFactory = new PlatformFactory(worldContainer, assets);
+const platformFactory = new PlatformFactory(worldContainer, assets, entityArr);
 
 const col = new Collision();
 
@@ -116,12 +116,11 @@ shooting.startObserve();
 
 app.ticker.add(() => {
   hero.update(col.checkArrCollisionOrientation(hero, platformArr));
-  runner.update(
-    col.checkArrCollisionOrientation(runner, platformArr),
-    col.checkArrCollisionOrientation(runner, bulletArr)
-  );
+  runner.update(col.checkArrCollisionOrientation(runner, platformArr));
   tourelle.update();
   shooting.startShooting(platformArr, hero);
-  bulletArr.forEach((bullet) => bullet.update(col, entityArr));
+  bulletArr.forEach((bullet) =>
+    bullet.update(col.checkArrCollisionOrientation(bullet, entityArr))
+  );
   camera.update();
 });

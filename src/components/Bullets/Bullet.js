@@ -12,7 +12,22 @@ export default class Bullet extends Entity {
     this.#angle = (bulletContext.angle * Math.PI) / 180;
   }
 
-  update(col, entityArr) {
+  doDamage(collisionResult) {
+    let target = null;
+    collisionResult.forEach((result) => {
+      if (
+        (result.area?.type !== "platform" || result.area?.type !== "water") &&
+        result.isCollide
+      ) {
+        target = result.area;
+      }
+    });
+
+    target ? target.damage() : "";
+  }
+
+  update(collisionResult) {
+    console.log(collisionResult);
     let shooter = this.shooter;
 
     this.view.collisionBox.x =
@@ -25,8 +40,6 @@ export default class Bullet extends Entity {
     this.x += this.bulletSpeed * Math.cos(this.#angle);
     this.y += this.bulletSpeed * Math.sin(this.#angle);
 
-    if (col.checkArrCollisionOrientation(this, entityArr)) {
-      // console.log(col.checkArrCollisionOrientation(this, entityArr));
-    }
+    this.doDamage(collisionResult);
   }
 }

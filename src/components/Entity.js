@@ -62,12 +62,8 @@ export default class Entity extends Container {
     }
   }
 
-  damage(collisionDamageResult) {
-    if (collisionDamageResult) {
-      if (collisionDamageResult.vertical || collisionDamageResult.horizontal) {
-        this.hp -= 1;
-      }
-    }
+  damage() {
+    this.hp -= 1;
   }
 
   destroyIfDead() {
@@ -76,8 +72,6 @@ export default class Entity extends Container {
       this.removeFromStage();
     }
   }
-
-  
 
   updatePrevPointX() {
     this.prevPoint.x = this._view.x;

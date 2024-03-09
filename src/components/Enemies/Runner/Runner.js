@@ -58,6 +58,7 @@ export default class Runner extends Entity {
     }
 
     if (verticalCollideArea && !this.state.isJump) {
+      
       this.grav.stay(this, verticalCollideArea);
       if (this.x === verticalCollideArea.x && Math.random() > 0.4) {
         this.grav.jump(this);
@@ -72,18 +73,15 @@ export default class Runner extends Entity {
       this.view.flip(1);
       this.updatePrevPointX();
       this.right();
-      //this.item.update();
     } else if (this.state.isMoveLeft) {
       this.view.flip(-1);
       this.updatePrevPointX();
       this.left();
-      //this.item.update();
     }
   }
 
-  update(collisionResult, collisionDamageResult) {
+  update(collisionResult) {
     this.startMove(collisionResult);
-    this.damage(collisionDamageResult);
     this.destroyIfDead();
   }
 }
