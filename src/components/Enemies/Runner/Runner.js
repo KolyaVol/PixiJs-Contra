@@ -31,25 +31,40 @@ export default class Runner extends Entity {
   }
 
   startMove(collisionResult) {
+    let verticalCollideArea = null;
+    let horizontalCollideArea = null;
+
     if (this.fallSpeed > 0) {
       this.state.isJump = false;
     }
 
-    if (!collisionResult.vertical && !collisionResult.horizontal) {
-      this.prevPoint.y = this.view.y;
+    collisionResult.forEach((result) => {
+      if (
+        (result.area?.type === "platform" || result.area?.type === "water") &&
+        result.isCollide
+      ) {
+        if (result.vertical && !this.state.isJump) {
+          verticalCollideArea = result.area;
+        }
+        if (result.horizontal) {
+          horizontalCollideArea = result.area;
+        }
+      }
+    });
+
+    if (!verticalCollideArea && this.prevPoint.y !== this.y) {
+      this.updatePrevPointY();
       this.state.isFly = true;
     }
 
-    if (collisionResult.vertical) {
-      if (collisionResult.area) {
-        this.grav.stay(this, collisionResult.area);
-        if (this.x === collisionResult.area.x && Math.random() > 0.4) {
-          this.grav.jump(this);
-        }
-      } else this.grav.stay(this, this.prevPoint);
+    if (verticalCollideArea && !this.state.isJump) {
+      this.grav.stay(this, verticalCollideArea);
+      if (this.x === verticalCollideArea.x && Math.random() > 0.4) {
+        this.grav.jump(this);
+      }
     } else this.grav.fall(this);
 
-    if (collisionResult.horizontal) {
+    if (horizontalCollideArea && !this.state.isFly) {
       this.view.x = this.prevPoint.x;
     }
 

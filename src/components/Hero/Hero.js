@@ -148,7 +148,7 @@ export default class Hero extends Entity {
         (result.area?.type === "platform" || result.area?.type === "water") &&
         result.isCollide
       ) {
-        //console.log(result);
+        
         if (result.vertical && !this.state.isJump) {
           verticalCollideArea = result.area;
         }

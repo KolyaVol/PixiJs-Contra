@@ -77,6 +77,8 @@ export default class Entity extends Container {
     }
   }
 
+  
+
   updatePrevPointX() {
     this.prevPoint.x = this._view.x;
   }
