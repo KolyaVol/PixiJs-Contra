@@ -116,10 +116,10 @@ shooting.startObserve();
 
 app.ticker.add(() => {
   hero.update(col.checkArrCollisionOrientation(hero, platformArr));
-  runner.update(
-    col.checkArrCollisionOrientation(runner, platformArr),
-    col.checkArrCollisionOrientation(runner, bulletArr)
-  );
+  // runner.update(
+  //   col.checkArrCollisionOrientation(runner, platformArr),
+  //   col.checkArrCollisionOrientation(runner, bulletArr)
+  // );
   tourelle.update();
   shooting.startShooting(platformArr, hero);
   bulletArr.forEach((bullet) => bullet.update(col, entityArr));

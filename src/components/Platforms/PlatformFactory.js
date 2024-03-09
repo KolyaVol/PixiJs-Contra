@@ -5,7 +5,6 @@ export default class PlatformFactory {
   constructor(worldContainer, assets) {
     this.worldContainer = worldContainer;
     this.assets = assets;
-    console.log(assets);
   }
 
   createPlatform(x, y, width, height, type) {

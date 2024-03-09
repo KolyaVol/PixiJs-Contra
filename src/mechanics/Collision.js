@@ -2,31 +2,32 @@ export default class Collision {
   constructor() {}
 
   checkArrCollisionOrientation(entity, areaArr) {
-    const collisionResult = {
-      area: null,
-      isCollide: false,
-      horizontal: false,
-      vertical: false,
-    };
+    // for (let i = 0; i < areaArr.length; i++) {
+    //   collisionResult.area = areaArr[i];
+    //   const result = this.checkCollisionOrientation(entity, areaArr[i]);
+    //   if (result.horizontal === true) {
+    //     collisionResult.horizontal = true;
+    //     collisionResult.isCollide = true;
+    //   }
+    //   if (result.vertical === true) {
+    //     collisionResult.vertical = true;
+    //     collisionResult.isCollide = true;
+    //   }
+    // }
 
-    for (let i = 0; i < areaArr.length; i++) {
-      const result = this.checkCollisionOrientation(entity, areaArr[i]);
-      if (result.horizontal === true) {
-        collisionResult.horizontal = true;
-        collisionResult.isCollide = true;
+    return areaArr.map((area) => {
+      const result = this.checkCollisionOrientation(entity, area);
+      result.isCollide = false;
+      if (result.horizontal || result.vertical) {
+        result.isCollide = true;
       }
-      if (result.vertical === true) {
-        collisionResult.area = areaArr[i];
-        collisionResult.vertical = true;
-        collisionResult.isCollide = true;
-      }
-    }
-    console.log(collisionResult);
-    return collisionResult;
+      return result;
+    });
   }
 
   checkCollisionOrientation(entity, area) {
     const collisionResult = {
+      area: area,
       horizontal: false,
       vertical: false,
     };
@@ -38,10 +39,12 @@ export default class Collision {
       if (!this.isCollide(entity, area)) {
         collisionResult.vertical = true;
         entity.y = prevY;
+        //console.log(collisionResult);
         return collisionResult;
       } else {
         entity.y = prevY;
         collisionResult.horizontal = true;
+        //console.log(collisionResult);
         return collisionResult;
       }
     }

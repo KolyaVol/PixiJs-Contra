@@ -81,6 +81,10 @@ export default class Entity extends Container {
     this.prevPoint.x = this._view.x;
   }
   updatePrevPointY() {
-    this.prevPoint.y = this._view.y;
+    if (this.prevPoint.y === this._view.y) {
+      return;
+    } else {
+      this.prevPoint.y = this._view.y;
+    }
   }
 }
