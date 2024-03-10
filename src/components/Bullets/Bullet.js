@@ -5,6 +5,7 @@ export default class Bullet extends Entity {
   shooter;
   bulletSpeed = 10;
   #angle;
+  isEnemy = true;
   constructor(view, bulletContext) {
     super(view);
     this.view = view;
@@ -23,7 +24,11 @@ export default class Bullet extends Entity {
       }
     });
 
-    target ? target.damage() : "";
+    if (target) {
+      if (target.type === "Tourelle" && this.isEnemy) {
+        return;
+      } else target.damage();
+    }
   }
 
   update(collisionResult) {

@@ -16,7 +16,7 @@ const platformArr = [
     type: "platform",
     x: platformWidth,
     y: 200,
-    width: 6 * platformWidth,
+    width: 8 * platformWidth,
     height: 10,
   },
   {

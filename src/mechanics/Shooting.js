@@ -48,6 +48,7 @@ export default class Shooting {
           this.shooter.bulletContext,
           this.shooter
         );
+        bullet.isEnemy = false;
         this.bulletArr.push(bullet);
         this.entityArr.push(bullet);
         break;
@@ -64,6 +65,7 @@ export default class Shooting {
             localBulletContext,
             this.shooter
           );
+          fraction.isEnemy = false;
           this.bulletArr.push(fraction);
           this.entityArr.push(fraction);
           angleShift += 10;

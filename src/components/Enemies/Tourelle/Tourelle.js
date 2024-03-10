@@ -6,7 +6,7 @@ export default class Tourelle extends Entity {
   #timeCounter = 0;
   #health = 5;
 
-  type = "enemy";
+  type = "Tourelle";
 
   constructor(view, target, bulletFactory, entityArr, bulletArr) {
     super(view);
@@ -62,22 +62,24 @@ export default class Tourelle extends Entity {
   }
 
   #fire(angle) {
-    this.#timeCounter++;
+    if (!this.isDead) {
+      this.#timeCounter++;
 
-    if (this.#timeCounter < 50) {
-      return;
+      if (this.#timeCounter < 50) {
+        return;
+      }
+
+      const bulletContext = {};
+      bulletContext.x = this.x;
+      bulletContext.y = this.y;
+      bulletContext.angle = (angle / Math.PI) * 180;
+      bulletContext.type = "enemyBullet";
+
+      const bullet = this.#bulletFactory.createBullet(bulletContext, this);
+      this.bulletArr.push(bullet);
+      this.entityArr.push(bullet);
+
+      this.#timeCounter = 0;
     }
-
-    const bulletContext = {};
-    bulletContext.x = this.x;
-    bulletContext.y = this.y;
-    bulletContext.angle = (angle / Math.PI) * 180;
-    bulletContext.type = "enemyBullet";
-
-    const bullet = this.#bulletFactory.createBullet(bulletContext, this);
-    this.bulletArr.push(bullet);
-    this.entityArr.push(bullet);
-
-    this.#timeCounter = 0;
   }
 }
