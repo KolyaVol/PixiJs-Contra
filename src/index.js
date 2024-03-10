@@ -115,8 +115,8 @@ const shooting = new Shooting(
 shooting.startObserve();
 
 app.ticker.add(() => {
-  hero.update(col.checkArrCollisionOrientation(hero, platformArr));
-  runner.update(col.checkArrCollisionOrientation(runner, platformArr));
+  hero.update(col.checkArrCollisionOrientation(hero, entityArr));
+  runner.update(col.checkArrCollisionOrientation(runner, entityArr));
   tourelle.update();
   shooting.startShooting(platformArr, hero);
   bulletArr.forEach((bullet) =>

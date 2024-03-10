@@ -23,16 +23,17 @@ export default class Bullet extends Entity {
         target = result.area;
       }
     });
-
+    console.log(target);
     if (target) {
       if (target.type === "Tourelle" && this.isEnemy) {
         return;
-      } else target.damage();
+      } else {
+        target.damage();
+      }
     }
   }
 
   update(collisionResult) {
-    console.log(collisionResult);
     let shooter = this.shooter;
 
     this.view.collisionBox.x =

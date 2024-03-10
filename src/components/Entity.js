@@ -62,7 +62,10 @@ export default class Entity extends Container {
     }
   }
 
+  
+
   damage() {
+    console.log(this);
     this.hp -= 1;
   }
 

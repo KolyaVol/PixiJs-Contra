@@ -16,7 +16,7 @@ export default class Runner extends Entity {
     this.type = "Runner";
     this.view = view;
 
-    this.maxHp = 2;
+    this.maxHp = 1;
     this.hp = this.maxHp;
 
     this.grav = new Gravitation();
@@ -58,9 +58,21 @@ export default class Runner extends Entity {
     }
 
     if (verticalCollideArea && !this.state.isJump) {
-      
       this.grav.stay(this, verticalCollideArea);
-      if (this.x === verticalCollideArea.x && Math.random() > 0.4) {
+      console.log(verticalCollideArea);
+      if (
+        ((this.x >= verticalCollideArea.x - 20 &&
+          this.x <= verticalCollideArea.x + 20) ||
+          (this.x >=
+            verticalCollideArea.x +
+              verticalCollideArea.view.collisionBox.width -
+              20 &&
+            this.x <=
+              verticalCollideArea.x +
+                verticalCollideArea.view.collisionBox.width +
+                20)) &&
+        Math.random() > 0.4
+      ) {
         this.grav.jump(this);
       }
     } else this.grav.fall(this);
