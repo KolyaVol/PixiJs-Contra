@@ -59,7 +59,7 @@ export default class Runner extends Entity {
 
     if (verticalCollideArea && !this.state.isJump) {
       this.grav.stay(this, verticalCollideArea);
-      console.log(verticalCollideArea);
+
       if (
         ((this.x >= verticalCollideArea.x - 20 &&
           this.x <= verticalCollideArea.x + 20) ||

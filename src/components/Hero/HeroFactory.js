@@ -4,9 +4,10 @@ import HeroView from "./HeroView.js";
 export default class HeroFactory {
   worldContainer;
   #assets;
-  constructor(worldContainer, assets) {
+  constructor(worldContainer, assets, entityArr) {
     this.#assets = assets;
     this.worldContainer = worldContainer;
+    this.entityArr = entityArr;
   }
 
   createHero(x, y) {
@@ -16,6 +17,7 @@ export default class HeroFactory {
     const hero = new Hero(heroView);
     hero.x = x;
     hero.y = y;
+    this.entityArr.push(hero);
     return hero;
   }
 }

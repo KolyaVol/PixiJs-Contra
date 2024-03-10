@@ -148,7 +148,6 @@ export default class Hero extends Entity {
         (result.area?.type === "platform" || result.area?.type === "water") &&
         result.isCollide
       ) {
-        
         if (result.vertical && !this.state.isJump) {
           verticalCollideArea = result.area;
         }
@@ -171,7 +170,7 @@ export default class Hero extends Entity {
       this.view.showFall();
     }
 
-    if (horizontalCollideArea && !this.state.isFly) {
+    if (horizontalCollideArea) {
       this.view.x = this.prevPoint.x;
     }
 

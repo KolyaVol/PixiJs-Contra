@@ -63,10 +63,12 @@ export default class EnemyFactory {
     const gun1 = this.#createBossGun();
     gun1.x = x - 56;
     gun1.y = y;
+    this.entityArr.push(gun1);
 
     const gun2 = this.#createBossGun();
     gun2.x = x + 34;
     gun2.y = y;
+    this.entityArr.push(gun2);
 
     return boss;
   }

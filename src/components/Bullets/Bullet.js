@@ -23,7 +23,7 @@ export default class Bullet extends Entity {
         target = result.area;
       }
     });
-    console.log(target);
+
     if (target) {
       if (target.type === "Tourelle" && this.isEnemy) {
         return;

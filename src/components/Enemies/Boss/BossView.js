@@ -1,88 +1,94 @@
-import { AnimatedSprite, Container } from "../../../../libs/pixi.mjs";
+import { AnimatedSprite, Container, Sprite } from "../../../../libs/pixi.mjs";
 
-export default class BossView extends Container{
+export default class BossView extends Container {
+  #collisionBox = {
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  };
 
-    #collisionBox = {
-        x:0,
-        y:0,
-        width:0,
-        height:0,
-    }
+  #view;
+  #assets;
 
-    #view;
-    #assets;
+  constructor(assets) {
+    super();
 
-    constructor(assets){
-        super();
+    this.#assets = assets;
+    const bossBody = new Sprite(assets.getTexture("boss0000"));
+    bossBody.x -= 20;
+    bossBody.y -= 220;
+    bossBody.scale.x = 1.4;
+    bossBody.scale.y = 1.4;
+    const view = new AnimatedSprite(assets.getAnimationTextures("bossdoor"));
+    view.animationSpeed = 1 / 10;
+    view.scale.x = 1.4;
+    view.scale.y = 1.4;
+    view.rotation = -0.1;
+    view.play();
 
-        this.#assets = assets;
+    this.addChild(bossBody);
+    this.addChild(view);
+    this.#view = view;
 
-        const view = new AnimatedSprite(assets.getAnimationTextures("bossdoor"));
-        view.animationSpeed = 1/10;
-        view.scale.x = 1.4;
-        view.scale.y = 1.4;
-        view.play();
+    this.#collisionBox.width = 64;
+    this.#collisionBox.height = 82;
+  }
 
-        this.addChild(view);
-        this.#view = view;
+  get collisionBox() {
+    this.#collisionBox.x = this.x;
+    this.#collisionBox.y = this.y;
+    return this.#collisionBox;
+  }
 
-        this.#collisionBox.width = 64;
-        this.#collisionBox.height = 82;
+  get hitBox() {
+    return this.collisionBox;
+  }
 
-    }
+  showAndGetDeadAnimation() {
+    this.#view.visible = false;
+    this.#collisionBox.width = 0;
+    this.#collisionBox.height = 0;
 
-    get collisionBox(){
-        this.#collisionBox.x = this.x;
-        this.#collisionBox.y = this.y;
-        return this.#collisionBox;
-    }
+    const explosion1 = this.#createExplosion();
+    const explosion2 = this.#createExplosion();
+    explosion2.y = -explosion1.height;
 
-    get hitBox(){
-        return this.collisionBox;
-    }
+    return explosion1;
+  }
 
-    showAndGetDeadAnimation(){
-        this.#view.visible = false;
-        this.#collisionBox.width = 0;
-        this.#collisionBox.height = 0;
+  showAdditionalExplosions() {
+    const explosion1 = this.#createExplosion();
+    const explosion2 = this.#createExplosion();
+    const explosion3 = this.#createExplosion();
+    const explosion4 = this.#createExplosion();
 
-        const explosion1 = this.#createExplosion();
-        const explosion2 = this.#createExplosion();
-        explosion2.y = -explosion1.height;
+    explosion1.x = 30;
 
-        return explosion1;
-    }
+    explosion2.x = 120;
+    explosion2.y = 60;
 
-    showAdditionalExplosions(){
-        const explosion1 = this.#createExplosion();
-        const explosion2 = this.#createExplosion();
-        const explosion3 = this.#createExplosion();
-        const explosion4 = this.#createExplosion();
+    explosion3.x = 200;
 
-        explosion1.x = 30;
+    explosion4.x = -40;
+    explosion4.y = 40;
+  }
 
-        explosion2.x = 120;
-        explosion2.y = 60;
+  #createExplosion() {
+    const explosion = new AnimatedSprite(
+      this.#assets.getAnimationTextures("explosion")
+    );
+    explosion.animationSpeed = 1 / 5;
+    explosion.scale.x = 2;
+    explosion.scale.y = 2;
+    explosion.loop = false;
+    explosion.play();
+    this.addChild(explosion);
 
-        explosion3.x = 200;
+    explosion.onComplete = () => {
+      explosion.removeFromParent();
+    };
 
-        explosion4.x = -40;
-        explosion4.y = 40;
-    }
-
-    #createExplosion(){
-        const explosion = new AnimatedSprite(this.#assets.getAnimationTextures("explosion"));
-        explosion.animationSpeed = 1/5;
-        explosion.scale.x = 2;
-        explosion.scale.y = 2;
-        explosion.loop = false;
-        explosion.play();
-        this.addChild(explosion);
-
-        explosion.onComplete = () => {
-            explosion.removeFromParent();
-        }
-
-        return explosion;
-    }
+    return explosion;
+  }
 }
