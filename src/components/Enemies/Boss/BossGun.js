@@ -58,7 +58,7 @@ export default class BossGun extends Entity{
         bulletContext.angle = 180;
         bulletContext.type = "enemyBullet";
 
-        this.#bulletFactory.createBossBullet(bulletContext);
+        this.#bulletFactory.createBossBullet(bulletContext, this);
 
         this.#timeCounter = 0;
     }

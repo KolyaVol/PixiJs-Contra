@@ -8,6 +8,8 @@ export default class Bullet extends Entity {
   isEnemy = true;
   constructor(view, bulletContext) {
     super(view);
+    this.maxHp = 1;
+    this.hp = this.maxHp;
     this.view = view;
     this.type = "Bullet";
     this.#angle = (bulletContext.angle * Math.PI) / 180;
@@ -29,6 +31,8 @@ export default class Bullet extends Entity {
         return;
       } else {
         target.damage();
+        this.damage();
+        this.destroyIfDead();
       }
     }
   }
