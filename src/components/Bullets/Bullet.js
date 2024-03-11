@@ -27,7 +27,10 @@ export default class Bullet extends Entity {
     });
 
     if (target) {
-      if (target.type === "Tourelle" && this.isEnemy) {
+      if (
+        (target.type === "Tourelle" && this.isEnemy) ||
+        (!this.isEnemy && target.type === "Bullet")
+      ) {
         return;
       } else {
         target.damage();
