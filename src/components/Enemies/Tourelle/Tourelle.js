@@ -76,9 +76,6 @@ export default class Tourelle extends Entity {
       bulletContext.type = "enemyBullet";
 
       const bullet = this.#bulletFactory.createBullet(bulletContext, this);
-      this.bulletArr.push(bullet);
-      this.entityArr.push(bullet);
-
       this.#timeCounter = 0;
     }
   }

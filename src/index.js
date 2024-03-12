@@ -126,7 +126,6 @@ app.ticker.add(() => {
     }
   });
 
-  boss.update();
   shooting.startShooting(platformArr, hero);
 
   camera.update();

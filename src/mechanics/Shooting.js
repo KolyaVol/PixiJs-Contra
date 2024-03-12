@@ -16,8 +16,8 @@ export default class Shooting {
     this.bulletArr = bulletArr;
     this.shooter = shooter;
     this.camera = camera;
-    this.bulletFactory = new BulletFactory(this.worldContainer);
     this.entityArr = entityArr;
+    this.bulletFactory = new BulletFactory(this.worldContainer, this.entityArr);
   }
 
   hadleKeyDown(e) {
@@ -48,9 +48,9 @@ export default class Shooting {
           this.shooter.bulletContext,
           this.shooter
         );
-        bullet.isEnemy = false;
+        bullet.type = "heroBullet";
         this.bulletArr.push(bullet);
-        this.entityArr.push(bullet);
+       
         break;
 
       case 2:
@@ -65,7 +65,7 @@ export default class Shooting {
             localBulletContext,
             this.shooter
           );
-          fraction.isEnemy = false;
+          fraction.type = "heroFraction";
           this.bulletArr.push(fraction);
           this.entityArr.push(fraction);
           angleShift += 10;

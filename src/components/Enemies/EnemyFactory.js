@@ -15,9 +15,9 @@ export default class EnemyFactory {
     this.#assets = assets;
     this.worldContainer = worldContainer;
     this.target = target;
-    this.bulletFactory = new BulletFactory(worldContainer);
     this.entityArr = entityArr;
     this.bulletArr = bulletArr;
+    this.bulletFactory = new BulletFactory(worldContainer, this.entityArr);
   }
 
   createRunner(x, y) {
@@ -63,12 +63,10 @@ export default class EnemyFactory {
     const gun1 = this.#createBossGun();
     gun1.x = x - 56;
     gun1.y = y;
-    this.entityArr.push(gun1);
 
     const gun2 = this.#createBossGun();
     gun2.x = x + 34;
     gun2.y = y;
-    this.entityArr.push(gun2);
 
     return boss;
   }

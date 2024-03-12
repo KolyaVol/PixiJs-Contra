@@ -4,8 +4,9 @@ import BulletView from "./BulletView.js";
 export default class BulletFactory {
   worldContainer;
   #assets;
-  constructor(worldContainer) {
+  constructor(worldContainer, entityArr) {
     this.worldContainer = worldContainer;
+    this.entityArr = entityArr;
   }
 
   createBullet(bulletContext, shooter) {
@@ -16,6 +17,7 @@ export default class BulletFactory {
     bullet.x = bulletContext.x;
     bullet.y = bulletContext.y;
     bullet.shooter = shooter;
+    this.entityArr.push(bullet);
     return bullet;
   }
 

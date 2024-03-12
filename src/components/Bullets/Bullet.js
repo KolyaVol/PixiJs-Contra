@@ -5,13 +5,12 @@ export default class Bullet extends Entity {
   shooter;
   bulletSpeed = 10;
   #angle;
-  isEnemy = true;
   constructor(view, bulletContext) {
     super(view);
     this.maxHp = 1;
     this.hp = this.maxHp;
     this.view = view;
-    this.type = "Bullet";
+    this.type = "enemyBullet";
     this.#angle = (bulletContext.angle * Math.PI) / 180;
   }
 
@@ -28,8 +27,9 @@ export default class Bullet extends Entity {
 
     if (target) {
       if (
-        (target.type === "Tourelle" && this.isEnemy) ||
-        (!this.isEnemy && target.type === "Bullet")
+        ((target.type === "Tourelle" || target.type === "BossGun") &&
+          this.type === "enemyBullet") ||
+        (this.type === "heroFraction" && target.type === "heroFraction")
       ) {
         return;
       } else {
