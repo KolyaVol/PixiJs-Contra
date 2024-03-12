@@ -67,7 +67,7 @@ export default class Entity extends Container {
   }
 
   destroyIfDead() {
-    if (this.hp <= 0) {
+    if (this.hp <= 0 || this.isDead) {
       this.dead();
       this.removeFromStage();
     }

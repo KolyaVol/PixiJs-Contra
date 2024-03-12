@@ -78,8 +78,9 @@ export default class Shooting {
   }
 
   removeBullet(item, id) {
+    item.dead();
+    item.destroyIfDead();
     this.bulletArr.splice(id, 1);
-    item.removeFromStage();
   }
 
   startShooting(entityArr, shooter) {

@@ -116,7 +116,11 @@ const shooting = new Shooting(
 shooting.startObserve();
 
 app.ticker.add(() => {
-  entityArr.forEach((entity) => {
+  entityArr.forEach((entity, index) => {
+    if (entity.isDead) {
+      entityArr.splice(index, 1);
+      return;
+    }
     if (entity.view && entity.update) {
       entity.update(col.checkArrCollisionOrientation(entity, entityArr));
     }
@@ -126,4 +130,5 @@ app.ticker.add(() => {
   shooting.startShooting(platformArr, hero);
 
   camera.update();
+  console.log(entityArr.length);
 });
