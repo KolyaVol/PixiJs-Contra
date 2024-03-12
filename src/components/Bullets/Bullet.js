@@ -12,6 +12,10 @@ export default class Bullet extends Entity {
     this.view = view;
     this.type = "enemyBullet";
     this.#angle = (bulletContext.angle * Math.PI) / 180;
+    setTimeout(() => {
+      this.dead();
+      this.destroyIfDead();
+    }, 5000);
   }
 
   doDamage(collisionResult) {

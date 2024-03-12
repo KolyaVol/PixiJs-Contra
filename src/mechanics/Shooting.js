@@ -94,18 +94,6 @@ export default class Shooting {
       }, this.shootingDelay);
     }
 
-    // MOVEMENT AND REMOVEMENT OF ALL BULLETS IN ARRAY
-    for (let i = 0; i < this.bulletArr.length; i++) {
-      if (this.bulletArr[i]) {
-        const item = this.bulletArr[i];
-
-        if (
-          this.col.checkArrCollisionOrientation(item, entityArr).vertical ||
-          item.prevPoint.x > shooter.x + 2000
-        ) {
-          this.removeBullet(item, i);
-        }
-      }
-    }
+    
   }
 }
