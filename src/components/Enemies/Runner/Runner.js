@@ -5,20 +5,23 @@ export default class Runner extends Entity {
   worldContainer;
 
   state = {
-    isMoveRight: true,
+    isMoveRight: false,
     isMoveLeft: false,
     isJump: false,
     isFly: false,
   };
 
-  constructor(view) {
+  #target;
+  #timeCounter = 0;
+
+  constructor(view, target) {
     super(view);
     this.type = "Runner";
     this.view = view;
 
     this.maxHp = 1;
     this.hp = this.maxHp;
-
+    this.#target = target;
     this.grav = new Gravitation();
   }
 
@@ -33,6 +36,7 @@ export default class Runner extends Entity {
   startMove(collisionResult) {
     let verticalCollideArea = null;
     let horizontalCollideArea = null;
+    let isCatchHero = false;
 
     if (this.fallSpeed > 0) {
       this.state.isJump = false;
@@ -49,6 +53,9 @@ export default class Runner extends Entity {
         if (result.horizontal) {
           horizontalCollideArea = result.area;
         }
+      }
+      if (result.area.type === "Hero" && result.isCollide) {
+        isCatchHero = true;
       }
     });
 
@@ -79,6 +86,39 @@ export default class Runner extends Entity {
 
     if (horizontalCollideArea && !this.state.isFly) {
       this.view.x = this.prevPoint.x;
+    }
+    //DO DAMAGE TO HERO WHEN COLLIDE
+    if (this.#target && Math.abs(this.x - this.#target.x) < 512) {
+      if (isCatchHero) {
+        if (this.#timeCounter === 0) {
+          this.#timeCounter++;
+          this.#target.damage();
+          this.speed--;
+
+          return;
+        }
+      }
+
+      if (this.#timeCounter === 150) {
+        this.#timeCounter = 0;
+        this.speed++;
+      } else if (this.#timeCounter > 0) {
+        this.#timeCounter++;
+      }
+
+      if (
+        (this.x > this.#target.x + this.#target.view.collisionBox.width ||
+          this.x < this.#target.x) &&
+        (this.#timeCounter === 0 || this.#timeCounter === 30)
+      ) {
+        if (this.x > this.#target.x) {
+          this.state.isMoveLeft = true;
+          this.state.isMoveRight = false;
+        } else {
+          this.state.isMoveLeft = false;
+          this.state.isMoveRight = true;
+        }
+      }
     }
 
     if (this.state.isMoveRight) {

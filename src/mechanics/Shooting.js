@@ -50,7 +50,7 @@ export default class Shooting {
         );
         bullet.type = "heroBullet";
         this.bulletArr.push(bullet);
-       
+
         break;
 
       case 2:
@@ -93,7 +93,5 @@ export default class Shooting {
         this.isShooting = false;
       }, this.shootingDelay);
     }
-
-    
   }
 }

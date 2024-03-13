@@ -83,7 +83,7 @@ const enemyFactory = new EnemyFactory(
   entityArr,
   bulletArr
 );
-const runner = enemyFactory.createRunner(300, 100);
+const runner = enemyFactory.createRunner(600, 100);
 const tourelle = enemyFactory.createTourelle(1500, 50);
 const boss = enemyFactory.createBoss(800, 300);
 
@@ -129,5 +129,4 @@ app.ticker.add(() => {
   shooting.startShooting(platformArr, hero);
 
   camera.update();
-  console.log(entityArr.length);
 });

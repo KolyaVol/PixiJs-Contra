@@ -24,7 +24,7 @@ export default class EnemyFactory {
     const runnerView = new RunnerView(this.#assets);
     runnerView.showRun();
     this.worldContainer.addChild(runnerView);
-    const runner = new Runner(runnerView);
+    const runner = new Runner(runnerView, this.target);
     runner.x = x;
     runner.y = y;
     this.entityArr.push(runner);
