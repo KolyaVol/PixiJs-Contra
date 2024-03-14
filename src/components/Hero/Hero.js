@@ -196,6 +196,7 @@ export default class Hero extends Entity {
   }
 
   update(collisionResult) {
+    //this.destroyIfDead();
     this.startMove(collisionResult);
     this.#heroWeaponUnit.setBulletAngle(
       this.isArrowRight,

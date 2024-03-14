@@ -14,53 +14,38 @@ const platformWidth = 129;
 const platformArr = [
   {
     type: "platform",
+    x: 0,
+    y: 240,
+    width: platformWidth,
+    height: 20000,
+  },
+  {
+    type: "platform",
     x: platformWidth,
-    y: 200,
-    width: 8 * platformWidth,
-    height: 10,
-  },
-  {
-    type: "platform",
-    x: 2 * platformWidth,
-    y: 350,
-    width: platformWidth,
-    height: 20,
-  },
-  {
-    type: "platform",
-    x: 3 * platformWidth,
     y: 500,
-    width: platformWidth,
-    height: 30,
+    width: 16 * platformWidth,
+    height: 40,
   },
   {
-    type: "platform",
+    type: "bPlatform",
     x: 6 * platformWidth,
-    y: 400,
-    width: platformWidth,
-    height: 400,
-  },
-
-  {
-    type: "platform",
-    x: 16 * platformWidth,
-    y: 400,
-    width: platformWidth * 4,
-    height: 400,
-  },
-  {
-    type: "platform",
-    x: 11 * platformWidth,
-    y: 340,
+    y: 420,
     width: platformWidth,
     height: 40,
   },
   {
-    type: "platform",
-    x: 0,
-    y: 500,
-    width: 16 * platformWidth,
-    height: 30,
+    type: "bPlatform",
+    x: 7 * platformWidth,
+    y: 350,
+    width: platformWidth,
+    height: 40,
+  },
+  {
+    type: "bPlatform",
+    x: 8 * platformWidth,
+    y: 400,
+    width: platformWidth * 2,
+    height: 40,
   },
   { type: "water", x: 0, y: 768, width: 50 * platformWidth, height: 30 },
 ];
@@ -83,9 +68,11 @@ const enemyFactory = new EnemyFactory(
   entityArr,
   bulletArr
 );
-const runner = enemyFactory.createRunner(600, 100);
-const tourelle = enemyFactory.createTourelle(1500, 50);
-const boss = enemyFactory.createBoss(800, 300);
+const runner = enemyFactory.createRunner(1600, 100);
+const runner1 = enemyFactory.createRunner(2600, 100);
+const runner2 = enemyFactory.createRunner(3600, 100);
+//const tourelle = enemyFactory.createTourelle(1500, 50);
+const boss = enemyFactory.createBoss(5800, 300);
 
 const platformFactory = new PlatformFactory(worldContainer, assets, entityArr);
 

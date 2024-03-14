@@ -33,7 +33,9 @@ export default class Bullet extends Entity {
       if (
         ((target.type === "Tourelle" || target.type === "BossGun") &&
           this.type === "enemyBullet") ||
-        (this.type === "heroFraction" && target.type === "heroFraction")
+        (this.type === "heroFraction" && target.type === "heroFraction") ||
+        (this.type === "heroFraction" && target.type === "Hero") ||
+        (this.type === "heroBullet" && target.type === "Hero")
       ) {
         return;
       } else {

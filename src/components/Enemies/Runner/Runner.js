@@ -66,7 +66,7 @@ export default class Runner extends Entity {
 
     if (verticalCollideArea && !this.state.isJump) {
       this.grav.stay(this, verticalCollideArea);
-
+      //RANDOM JUMP WHEN NEAR AT THE END OF THE PLATFORM
       if (
         ((this.x >= verticalCollideArea.x - 20 &&
           this.x <= verticalCollideArea.x + 20) ||
@@ -87,8 +87,9 @@ export default class Runner extends Entity {
     if (horizontalCollideArea && !this.state.isFly) {
       this.view.x = this.prevPoint.x;
     }
-    //DO DAMAGE TO HERO WHEN COLLIDE
-    if (this.#target && Math.abs(this.x - this.#target.x) < 512) {
+    // START MOVE WHEN HERO MOVE CLOSER THAN 712PX
+    if (this.#target && Math.abs(this.x - this.#target.x) < 712) {
+      //DO DAMAGE TO HERO WHEN COLLIDE
       if (isCatchHero) {
         if (this.#timeCounter === 0) {
           this.#timeCounter++;
@@ -105,7 +106,7 @@ export default class Runner extends Entity {
       } else if (this.#timeCounter > 0) {
         this.#timeCounter++;
       }
-
+      //MOVE TO HERO WITH DEBOUNCE WHEN COLLIDE
       if (
         (this.x > this.#target.x + this.#target.view.collisionBox.width ||
           this.x < this.#target.x) &&

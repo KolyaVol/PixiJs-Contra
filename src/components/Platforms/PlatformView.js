@@ -1,9 +1,4 @@
-import {
-  Container,
-  Graphics,
-  Sprite,
-  TilingSprite,
-} from "../../../libs/pixi.mjs";
+import { Container, Graphics, TilingSprite } from "../../../libs/pixi.mjs";
 
 export default class PlatformView extends Container {
   collisionBox = {

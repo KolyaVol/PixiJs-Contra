@@ -13,6 +13,10 @@ export default class PlatformFactory {
     switch (type) {
       case "platform":
         platformView.drawPlatform();
+        this.worldContainer.game.addChild(platformView);
+        break;
+      case "bPlatform":
+        platformView.drawPlatform();
         this.worldContainer.background.addChild(platformView);
         break;
       case "water":
