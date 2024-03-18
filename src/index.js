@@ -7,6 +7,7 @@ import HeroFactory from "./components/Hero/HeroFactory.js";
 import AssetsFactory from "./AssetsFactory.js";
 import World from "./World.js";
 import EnemyFactory from "./components/Enemies/EnemyFactory.js";
+import PowerupsFactory from "./components/Powerups/PowerupsFactory.js";
 
 await Assets.load("../assets/atlas.json");
 const app = new Application({ width: 1024, height: 768 });
@@ -24,7 +25,7 @@ const platformArr = [
     x: platformWidth,
     y: 500,
     width: 16 * platformWidth,
-    height: 40,
+    height: 400,
   },
   {
     type: "bPlatform",
@@ -60,7 +61,14 @@ const bulletArr = [];
 const entityArr = [];
 
 const heroFactory = new HeroFactory(worldContainer.game, assets, entityArr);
+
 const hero = heroFactory.createHero(300, 100);
+const powerupsFactory = new PowerupsFactory(
+  assets,
+  worldContainer.game,
+  hero,
+  entityArr
+);
 const enemyFactory = new EnemyFactory(
   worldContainer.game,
   assets,
@@ -73,6 +81,8 @@ const runner1 = enemyFactory.createRunner(2600, 100);
 const runner2 = enemyFactory.createRunner(3600, 100);
 //const tourelle = enemyFactory.createTourelle(1500, 50);
 const boss = enemyFactory.createBoss(5800, 300);
+
+const powerup1 = powerupsFactory.createPowerup(1000, 300);
 
 const platformFactory = new PlatformFactory(worldContainer, assets, entityArr);
 

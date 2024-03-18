@@ -1,4 +1,4 @@
-import { Container, Sprite } from "../../../lib/pixi.mjs";
+import { Container, Sprite } from "../../../libs/pixi.mjs";
 
 export default class SpreadgunPowerupView extends Container{
 
