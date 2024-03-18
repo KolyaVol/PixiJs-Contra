@@ -24,7 +24,7 @@ const platformArr = [
     type: "platform",
     x: platformWidth,
     y: 500,
-    width: 16 * platformWidth,
+    width: 9 * platformWidth,
     height: 400,
   },
   {
@@ -45,8 +45,15 @@ const platformArr = [
     type: "bPlatform",
     x: 8 * platformWidth,
     y: 400,
-    width: platformWidth * 2,
+    width: 2 * platformWidth,
     height: 40,
+  },
+  {
+    type: "platform",
+    x: 10 * platformWidth,
+    y: 500,
+    width: 9 * platformWidth,
+    height: 400,
   },
   { type: "water", x: 0, y: 768, width: 50 * platformWidth, height: 30 },
 ];
@@ -86,6 +93,9 @@ const powerup1 = powerupsFactory.createPowerup(1000, 300);
 
 const platformFactory = new PlatformFactory(worldContainer, assets, entityArr);
 
+const bridge = platformFactory.createBridge(300, 400);
+bridge.setTarget(hero);
+
 const col = new Collision();
 
 document.body.appendChild(app.view);
@@ -111,7 +121,7 @@ const shooting = new Shooting(
   entityArr
 );
 shooting.startObserve();
-
+console.log(entityArr);
 app.ticker.add(() => {
   entityArr.forEach((entity, index) => {
     if (entity.isDead) {

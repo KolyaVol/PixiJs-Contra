@@ -68,16 +68,16 @@ export default class Runner extends Entity {
       this.grav.stay(this, verticalCollideArea);
       //RANDOM JUMP WHEN NEAR AT THE END OF THE PLATFORM
       if (
-        ((this.x >= verticalCollideArea.x - 20 &&
-          this.x <= verticalCollideArea.x + 20) ||
+        ((this.x >= verticalCollideArea.x - 5 &&
+          this.x <= verticalCollideArea.x + 5) ||
           (this.x >=
             verticalCollideArea.x +
               verticalCollideArea.view.collisionBox.width -
-              20 &&
+              5 &&
             this.x <=
               verticalCollideArea.x +
                 verticalCollideArea.view.collisionBox.width +
-                20)) &&
+                5)) &&
         Math.random() > 0.4
       ) {
         this.grav.jump(this);

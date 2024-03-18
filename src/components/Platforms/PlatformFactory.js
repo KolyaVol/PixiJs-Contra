@@ -1,3 +1,5 @@
+import { Sprite } from "../../../libs/pixi.mjs";
+import BridgePlatform from "./BridgePlatform.js";
 import Platform from "./Platform.js";
 import PlatformView from "./PlatformView.js";
 
@@ -6,6 +8,8 @@ export default class PlatformFactory {
     this.worldContainer = worldContainer;
     this.assets = assets;
     this.entityArr = entityArr;
+    this.platformWidth = 129;
+    this.platformHeight = 40;
   }
 
   createPlatform(x, y, width, height, type) {
@@ -33,6 +37,19 @@ export default class PlatformFactory {
     const platform = new Platform(platformView);
     platform.x = x;
     platform.y = y;
+    this.entityArr.push(platform);
+    return platform;
+  }
+
+  createBridge(x, y) {
+    const skin = new Sprite(this.assets.getTexture("bridge0000"));
+    const view = new PlatformView(this.platformWidth, this.platformHeight);
+    view.addChild(skin);
+
+    const platform = new BridgePlatform(view, this.assets);
+    platform.x = x;
+    platform.y = y;
+    this.worldContainer.background.addChild(view);
     this.entityArr.push(platform);
     return platform;
   }
