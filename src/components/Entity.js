@@ -1,7 +1,7 @@
 import { Container } from "../../libs/pixi.mjs";
 
 export default class Entity extends Container {
-  _view;
+  view;
   isDead;
   isActive;
   gravitable = false;

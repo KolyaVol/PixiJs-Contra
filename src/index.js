@@ -17,45 +17,45 @@ const platformArr = [
     type: "platform",
     x: 0,
     y: 240,
-    width: platformWidth,
+    width: 1,
     height: 20000,
   },
   {
     type: "platform",
-    x: platformWidth,
+    x: 1,
     y: 500,
-    width: 9 * platformWidth,
+    width: 9,
     height: 400,
   },
   {
     type: "bPlatform",
-    x: 6 * platformWidth,
+    x: 6,
     y: 420,
-    width: platformWidth,
+    width: 1,
     height: 40,
   },
   {
     type: "bPlatform",
-    x: 7 * platformWidth,
+    x: 7,
     y: 350,
-    width: platformWidth,
+    width: 1,
     height: 40,
   },
   {
     type: "bPlatform",
-    x: 8 * platformWidth,
+    x: 8,
     y: 400,
-    width: 2 * platformWidth,
+    width: 2,
     height: 40,
   },
   {
     type: "platform",
-    x: 10 * platformWidth,
+    x: 10,
     y: 500,
-    width: 9 * platformWidth,
+    width: 9,
     height: 400,
   },
-  { type: "water", x: 0, y: 768, width: 50 * platformWidth, height: 30 },
+  { type: "water", x: 0, y: 768, width: 50, height: 30 },
 ];
 //----NEED FIX---- Create one bulletFactory for entire game
 
@@ -91,10 +91,18 @@ const boss = enemyFactory.createBoss(5800, 300);
 
 const powerup1 = powerupsFactory.createPowerup(1000, 300);
 
-const platformFactory = new PlatformFactory(worldContainer, assets, entityArr);
+const platformFactory = new PlatformFactory(
+  worldContainer,
+  assets,
+  entityArr,
+  hero
+);
 
-const bridge = platformFactory.createBridge(300, 400);
-bridge.setTarget(hero);
+const bridge = platformFactory.createBridge(10, 400);
+const bridge1 = platformFactory.createBridge(11, 400);
+const bridge2 = platformFactory.createBridge(12, 400);
+const bridge3 = platformFactory.createBridge(13, 400);
+const bridge4 = platformFactory.createBridge(14, 400);
 
 const col = new Collision();
 
@@ -121,13 +129,14 @@ const shooting = new Shooting(
   entityArr
 );
 shooting.startObserve();
-console.log(entityArr);
+
 app.ticker.add(() => {
   entityArr.forEach((entity, index) => {
     if (entity.isDead) {
       entityArr.splice(index, 1);
       return;
     }
+    console.log(entityArr);
     if (entity.view && entity.update) {
       entity.update(col.checkArrCollisionOrientation(entity, entityArr));
     }

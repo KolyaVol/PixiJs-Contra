@@ -4,6 +4,7 @@ import Platform from "./Platform.js";
 export default class BridgePlatform extends Platform {
   #target;
   #assets;
+  type = "Bridge";
 
   constructor(view, assets) {
     super(view);
@@ -18,7 +19,6 @@ export default class BridgePlatform extends Platform {
 
   update() {
     if (this.#target != null) {
-      console.log(this.x - this.#target.x);
       if (this.x - this.#target.x < -50 && this.isActive) {
         this.isActive = false;
         const deadAnimation = this.#showAndGetDeadAnimation();

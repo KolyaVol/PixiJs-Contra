@@ -43,8 +43,11 @@ export default class Runner extends Entity {
     }
 
     collisionResult.forEach((result) => {
+      //TODO: CREATE SINGLE METHOD TO ALL ENTITIES
       if (
-        (result.area?.type === "platform" || result.area?.type === "water") &&
+        (result.area?.type === "platform" ||
+          result.area?.type === "water" ||
+          result.area?.type === "Bridge") &&
         result.isCollide
       ) {
         if (result.vertical && !this.state.isJump) {

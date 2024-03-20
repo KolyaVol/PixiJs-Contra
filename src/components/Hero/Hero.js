@@ -136,6 +136,7 @@ export default class Hero extends Entity {
   }
 
   startMove(collisionResult) {
+    //TODO: CREATE SINGLE METHOD TO ALL ENTITIES
     let verticalCollideArea = null;
     let horizontalCollideArea = null;
 
@@ -145,7 +146,9 @@ export default class Hero extends Entity {
 
     collisionResult.forEach((result) => {
       if (
-        (result.area?.type === "platform" || result.area?.type === "water") &&
+        (result.area?.type === "platform" ||
+          result.area?.type === "water" ||
+          result.area?.type === "Bridge") &&
         result.isCollide
       ) {
         if (result.vertical && !this.state.isJump) {

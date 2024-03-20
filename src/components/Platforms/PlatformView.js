@@ -10,9 +10,10 @@ export default class PlatformView extends Container {
   #assets;
   #rootNode;
 
-  constructor(width, height, assets) {
+  constructor(width, height, assets, platformWidth) {
     super();
-    this.collisionBox.width = width;
+    this.platformWidth = platformWidth;
+    this.collisionBox.width = width * platformWidth;
     this.collisionBox.height = height;
     this.#createNodeStructure();
     this.#assets = assets;
@@ -43,24 +44,24 @@ export default class PlatformView extends Container {
     const view = new TilingSprite(
       this.#assets.getTexture("platform0000"),
       this.collisionBox.width,
-      129
+      this.platformWidth
     );
     const ground = new TilingSprite(
       this.#assets.getTexture("ground0000"),
       this.collisionBox.width,
-      129
+      this.platformWidth
     );
     ground.y = view.height - 1;
     const ground2 = new TilingSprite(
       this.#assets.getTexture("ground0000"),
       this.collisionBox.width,
-      129
+      this.platformWidth
     );
     ground2.y = view.height * 2 - 2;
     const ground3 = new TilingSprite(
       this.#assets.getTexture("ground0000"),
       this.collisionBox.width,
-      129
+      this.platformWidth
     );
     ground3.y = view.height * 3 - 4;
 
