@@ -64,6 +64,7 @@ export default class Powerup extends Entity {
     const deadAnimation = this._view.showAndGetDeadAnimation();
     deadAnimation.onComplete = () => {
       this.dead();
+      this.destroyIfDead();
     };
   }
 }

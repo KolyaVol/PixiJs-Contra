@@ -51,5 +51,6 @@ export default class SpreadgunPowerup extends Entity {
 
   damage() {
     this.dead();
+    this.destroyIfDead();
   }
 }
