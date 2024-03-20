@@ -4,7 +4,7 @@ export default class SpreadgunPowerup extends Entity {
   #GRAVITY_FORCE = 0.2;
   #velocityX = 4;
   #velocityY = -5;
-
+  target;
   type = "spreadgunPowerup";
   powerupType = 2;
 
@@ -50,6 +50,8 @@ export default class SpreadgunPowerup extends Entity {
   }
 
   damage() {
+    
+    this.target.changeGun();
     this.dead();
     this.destroyIfDead();
   }

@@ -32,7 +32,8 @@ export default class PowerupsFactory {
 
     powerup.x = x;
     powerup.y = y;
-
+    powerup.target = this.#target;
+    
     this.#worldContainer.addChild(view);
     this.entityArr.push(powerup);
   }

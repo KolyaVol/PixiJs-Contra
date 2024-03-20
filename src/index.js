@@ -136,13 +136,12 @@ app.ticker.add(() => {
       entityArr.splice(index, 1);
       return;
     }
-    console.log(entityArr);
     if (entity.view && entity.update) {
       entity.update(col.checkArrCollisionOrientation(entity, entityArr));
     }
   });
 
-  shooting.startShooting(platformArr, hero);
+  shooting.startShooting();
 
   camera.update();
 });

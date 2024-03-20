@@ -23,12 +23,6 @@ export default class Shooting {
   hadleKeyDown(e) {
     if (e.code === "ControlLeft") {
       this.isControlDown = true;
-    } else if (e.code === "Digit1") {
-      this.currentGun = 1;
-      this.shootingDelay = 350;
-    } else if (e.code === "Digit2") {
-      this.currentGun = 2;
-      this.shootingDelay = 550;
     }
   }
   hadleKeyUp(e) {
@@ -42,8 +36,9 @@ export default class Shooting {
   }
 
   addBullet() {
-    switch (this.currentGun) {
+    switch (this.shooter.currentGun) {
       case 1:
+        this.shootingDelay = 350;
         const bullet = this.bulletFactory.createBullet(
           this.shooter.bulletContext,
           this.shooter
@@ -54,6 +49,7 @@ export default class Shooting {
         break;
 
       case 2:
+        this.shootingDelay = 550;
         let angleShift = -20;
         for (let i = 0; i < 5; i++) {
           const localBulletContext = {
@@ -83,7 +79,7 @@ export default class Shooting {
     this.bulletArr.splice(id, 1);
   }
 
-  startShooting(entityArr, shooter) {
+  startShooting() {
     //SHOOTING DELAY
     if (this.isControlDown && !this.isShooting) {
       this.addBullet();

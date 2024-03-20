@@ -10,8 +10,9 @@ export default class Hero extends Entity {
     isMoveLeft: false,
     isJump: false,
     isFly: false,
-    isWithGun: false,
   };
+
+  currentGun = 1;
 
   constructor(view) {
     super(view);
@@ -42,10 +43,8 @@ export default class Hero extends Entity {
         if (this.isArrowLeft) {
           this.state.isMoveLeft = false;
           this.state.isMoveRight = true;
-          //this.item.update();
         } else {
           this.state.isMoveRight = true;
-          //this.item.update();
         }
 
         break;
@@ -54,10 +53,8 @@ export default class Hero extends Entity {
         if (this.isArrowRight) {
           this.state.isMoveRight = false;
           this.state.isMoveLeft = true;
-          // this.item.update();
         } else {
           this.state.isMoveLeft = true;
-          //this.item.update();
         }
         break;
       case "ArrowUp":
@@ -133,6 +130,15 @@ export default class Hero extends Entity {
 
   left() {
     this.view.x += -this.speed;
+  }
+
+  changeGun() {
+    if (this.currentGun === 1) {
+      this.currentGun = 2;
+      return;
+    }
+    this.currentGun = 1;
+    
   }
 
   startMove(collisionResult) {
