@@ -63,6 +63,7 @@ export default class Powerup extends Entity {
     this.#velocityY = 0;
     const deadAnimation = this._view.showAndGetDeadAnimation();
     deadAnimation.onComplete = () => {
+      //TODO: CREATE SINGLE METHOD TO DEATH AND REMOVE FROM STAGE
       this.dead();
       this.destroyIfDead();
     };
