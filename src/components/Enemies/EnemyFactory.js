@@ -11,12 +11,12 @@ import BulletFactory from "../Bullets/BulletFactory.js";
 export default class EnemyFactory {
   worldContainer;
   #assets;
-  constructor(worldContainer, assets, target, entityArr, bulletArr) {
+  constructor(worldContainer, assets, target, entityArr) {
     this.#assets = assets;
     this.worldContainer = worldContainer;
     this.target = target;
     this.entityArr = entityArr;
-    this.bulletArr = bulletArr;
+
     this.bulletFactory = new BulletFactory(worldContainer, this.entityArr);
   }
 

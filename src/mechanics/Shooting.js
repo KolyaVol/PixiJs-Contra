@@ -4,18 +4,17 @@ import Collision from "./Collision.js";
 export default class Shooting {
   isControlDown = false;
   isShooting = false;
-  bulletArr;
-  shooter;
+
   col = new Collision();
   bulletFactory;
   shootingDelay = 350;
   currentGun = 1;
 
-  constructor(worldContainer, bulletArr, shooter, camera, entityArr) {
+  constructor(worldContainer, shooter, entityArr) {
     this.worldContainer = worldContainer;
-    this.bulletArr = bulletArr;
+
     this.shooter = shooter;
-    this.camera = camera;
+
     this.entityArr = entityArr;
     this.bulletFactory = new BulletFactory(this.worldContainer, this.entityArr);
   }
@@ -36,15 +35,16 @@ export default class Shooting {
   }
 
   addBullet() {
+    console.log(this.shooter);
     switch (this.shooter.currentGun) {
       case 1:
         this.shootingDelay = 350;
+
         const bullet = this.bulletFactory.createBullet(
           this.shooter.bulletContext,
           this.shooter
         );
         bullet.type = "heroBullet";
-        this.bulletArr.push(bullet);
 
         break;
 
@@ -62,8 +62,7 @@ export default class Shooting {
             this.shooter
           );
           fraction.type = "heroFraction";
-          this.bulletArr.push(fraction);
-          this.entityArr.push(fraction);
+
           angleShift += 10;
         }
         break;
@@ -73,10 +72,9 @@ export default class Shooting {
     }
   }
 
-  removeBullet(item, id) {
+  removeBullet(item) {
     item.dead();
     item.destroyIfDead();
-    this.bulletArr.splice(id, 1);
   }
 
   startShooting() {
