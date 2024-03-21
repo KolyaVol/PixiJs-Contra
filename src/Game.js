@@ -68,7 +68,7 @@ export default class Game {
       this.worldContainer,
       this.assets,
       this.entityArr,
-      hero
+      this.hero
     );
     platformFactory.createPlatforms(platformArr, this.entityArr);
 
@@ -103,8 +103,7 @@ export default class Game {
       this.worldContainer.game,
       this.assets,
       this.hero,
-      this.entityArr,
-      
+      this.entityArr
     );
     const runner = enemyFactory.createRunner(1600, 100);
     const runner1 = enemyFactory.createRunner(2600, 100);
@@ -114,38 +113,48 @@ export default class Game {
   }
 
   start() {
-    const entityArr = [];
     const col = new Collision();
     const app = new Application({ width: 1024, height: 768 });
+
+    this.createHero();
+    this.createPlatforms();
+    this.createEnemies();
+    this.createPowerups();
 
     //----NEED FIX---- Create one bulletFactory for entire game
 
     const cameraSettings = {
-      target: hero,
-      world: worldContainer,
+      target: this.hero,
+      world: this.worldContainer,
       screenSize: app.screen,
-      maxWorldWidth: worldContainer.width,
+      maxWorldWidth: this.worldContainer.width,
       isBackScrollX: true,
     };
     const camera = new Camera(cameraSettings);
 
-    const shooting = new Shooting(worldContainer.game, hero, camera, entityArr);
+    const shooting = new Shooting(
+      this.worldContainer.game,
+      this.hero,
+      this.entityArr
+    );
 
-    app.stage.addChild(worldContainer);
+    app.stage.addChild(this.worldContainer);
     document.body.appendChild(app.view);
 
-    hero.startObserve();
+    this.hero.startObserve();
 
     shooting.startObserve();
 
     app.ticker.add(() => {
-      entityArr.forEach((entity, index) => {
+      this.entityArr.forEach((entity, index) => {
         if (entity.isDead) {
-          entityArr.splice(index, 1);
+          this.entityArr.splice(index, 1);
           return;
         }
         if (entity.view && entity.update) {
-          entity.update(col.checkArrCollisionOrientation(entity, entityArr));
+          entity.update(
+            col.checkArrCollisionOrientation(entity, this.entityArr)
+          );
         }
       });
 

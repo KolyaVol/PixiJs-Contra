@@ -35,7 +35,7 @@ export default class Shooting {
   }
 
   addBullet() {
-    console.log(this.shooter);
+    console.log(this.entityArr);
     switch (this.shooter.currentGun) {
       case 1:
         this.shootingDelay = 350;

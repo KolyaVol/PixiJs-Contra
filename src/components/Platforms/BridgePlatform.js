@@ -19,7 +19,7 @@ export default class BridgePlatform extends Platform {
 
   update() {
     if (this.#target != null) {
-      if (this.x - this.#target.x < -50 && this.isActive) {
+      if (this.x - this.#target.x < -30 && this.isActive) {
         this.isActive = false;
         const deadAnimation = this.#showAndGetDeadAnimation();
         deadAnimation.onComplete = () => {

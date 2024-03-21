@@ -10,7 +10,6 @@ export default class BulletFactory {
   }
 
   createBullet(bulletContext, shooter) {
-    console.log(111);
     const bulletView = new BulletView(this.#assets);
     bulletView.drawBullet();
     this.worldContainer.addChild(bulletView);
@@ -32,7 +31,7 @@ export default class BulletFactory {
     fraction.y = bulletContext.y;
     fraction.shooter = shooter;
     fraction.bulletSpeed = 8;
-     this.entityArr.push(fraction);
+    this.entityArr.push(fraction);
     return fraction;
   }
 }
