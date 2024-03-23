@@ -7,7 +7,7 @@ export default class Tourelle extends Entity {
   #health = 5;
 
   type = "Tourelle";
-
+  group = "Enemy";
   constructor(view, target, bulletFactory, entityArr, bulletArr) {
     super(view);
     this.#target = target;

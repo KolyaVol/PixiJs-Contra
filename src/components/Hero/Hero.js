@@ -18,6 +18,7 @@ export default class Hero extends Entity {
     super(view);
     this.view = view;
     this.type = "Hero";
+    this.group = "Hero";
 
     this.maxHp = 1;
     this.hp = this.maxHp;
@@ -138,7 +139,6 @@ export default class Hero extends Entity {
       return;
     }
     this.currentGun = 1;
-    
   }
 
   startMove(collisionResult) {

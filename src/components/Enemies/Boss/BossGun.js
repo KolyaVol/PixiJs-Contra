@@ -7,6 +7,7 @@ export default class BossGun extends Entity {
   #health = 5;
 
   type = "BossGun";
+  group = "Enemy";
 
   constructor(view, target, bulletFactory) {
     super(view);

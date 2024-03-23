@@ -1,4 +1,4 @@
-import { Application, Assets } from "../libs/pixi.mjs";
+import { Application, Assets, TextStyle, Text } from "../libs/pixi.mjs";
 import Collision from "./mechanics/Collision.js";
 import PlatformFactory from "./components/Platforms/PlatformFactory.js";
 import Shooting from "./mechanics/Shooting.js";
@@ -15,9 +15,11 @@ export default class Game {
   worldContainer = new World();
   assets = new AssetsFactory();
   hero = null;
+  #pixiApp = null;
+  #isBossDead = false;
   constructor() {}
 
-  createPlatforms() {
+  #createPlatforms() {
     const platformArr = [
       {
         type: "platform",
@@ -79,7 +81,7 @@ export default class Game {
     const bridge4 = platformFactory.createBridge(14, 400);
   }
 
-  createHero() {
+  #createHero() {
     const heroFactory = new HeroFactory(
       this.worldContainer.game,
       this.assets,
@@ -88,7 +90,7 @@ export default class Game {
     this.hero = heroFactory.createHero(300, 100);
   }
 
-  createPowerups() {
+  #createPowerups() {
     const powerupsFactory = new PowerupsFactory(
       this.assets,
       this.worldContainer.game,
@@ -98,7 +100,7 @@ export default class Game {
     const powerup1 = powerupsFactory.createPowerup(1000, 300);
   }
 
-  createEnemies() {
+  #createEnemies() {
     const enemyFactory = new EnemyFactory(
       this.worldContainer.game,
       this.assets,
@@ -109,24 +111,42 @@ export default class Game {
     const runner1 = enemyFactory.createRunner(2600, 100);
     const runner2 = enemyFactory.createRunner(3600, 100);
     //const tourelle = enemyFactory.createTourelle(1500, 50);
-    const boss = enemyFactory.createBoss(5800, 300);
+    const boss = enemyFactory.createBoss(1600, 300);
+  }
+
+  #showEndGame() {
+    console.log(333);
+    const style = new TextStyle({
+      fontFamily: "Impact",
+      fontSize: 50,
+      fill: [0xffffff, 0xdd0000],
+      stroke: 0x000000,
+      strokeThickness: 5,
+      letterSpacing: 30,
+    });
+
+    const text = new Text("STAGE CLEAR", style);
+    text.x = this.#pixiApp.screen.width / 2 - text.width / 2;
+    text.y = this.#pixiApp.screen.height / 2 - text.height / 2;
+
+    this.#pixiApp.stage.addChild(text);
   }
 
   start() {
     const col = new Collision();
-    const app = new Application({ width: 1024, height: 768 });
+    this.#pixiApp = new Application({ width: 1024, height: 768 });
 
-    this.createHero();
-    this.createPlatforms();
-    this.createEnemies();
-    this.createPowerups();
+    this.#createHero();
+    this.#createPlatforms();
+    this.#createEnemies();
+    this.#createPowerups();
 
     //----NEED FIX---- Create one bulletFactory for entire game
 
     const cameraSettings = {
       target: this.hero,
       world: this.worldContainer,
-      screenSize: app.screen,
+      screenSize: this.#pixiApp.screen,
       maxWorldWidth: this.worldContainer.width,
       isBackScrollX: true,
     };
@@ -138,15 +158,23 @@ export default class Game {
       this.entityArr
     );
 
-    app.stage.addChild(this.worldContainer);
-    document.body.appendChild(app.view);
+    this.#pixiApp.stage.addChild(this.worldContainer);
+    document.body.appendChild(this.#pixiApp.view);
 
     this.hero.startObserve();
 
     shooting.startObserve();
-
-    app.ticker.add(() => {
+    this.#pixiApp.ticker.add(() => {
       this.entityArr.forEach((entity, index) => {
+        if (entity.type === "Boss" && !this.#isBossDead && entity.isDead) {
+          this.#isBossDead = true;
+          this.#showEndGame();
+        }
+
+        if (this.#isBossDead && entity.group === "Enemy") {
+          entity.dead();
+        }
+
         if (entity.isDead) {
           this.entityArr.splice(index, 1);
           return;

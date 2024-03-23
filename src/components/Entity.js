@@ -2,7 +2,7 @@ import { Container } from "../../libs/pixi.mjs";
 
 export default class Entity extends Container {
   view;
-  isDead;
+  isDead = false;
   isActive;
   gravitable = false;
   prevPoint = { x: 0, y: 0 };
@@ -10,6 +10,7 @@ export default class Entity extends Container {
   fallSpeed = 0;
   jumpPower = -8;
   type = "Entity";
+  group = "Empty";
   maxHp = 999;
   hp;
 

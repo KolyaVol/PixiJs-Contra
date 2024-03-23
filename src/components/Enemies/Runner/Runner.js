@@ -4,6 +4,8 @@ import Gravitation from "../../../mechanics/Gravitation.js";
 export default class Runner extends Entity {
   worldContainer;
 
+  type = "Runner";
+  group = "Enemy";
   state = {
     isMoveRight: false,
     isMoveLeft: false,
@@ -16,7 +18,6 @@ export default class Runner extends Entity {
 
   constructor(view, target) {
     super(view);
-    this.type = "Runner";
     this.view = view;
 
     this.maxHp = 1;

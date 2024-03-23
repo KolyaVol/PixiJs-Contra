@@ -1,33 +1,31 @@
 import Entity from "../../Entity.js";
 
-export default class Boss extends Entity{
+export default class Boss extends Entity {
+  type = "Boss";
+  group = "Enemy";
+  isBoss = true;
 
-    #health = 5;
+  constructor(view) {
+    super(view);
+    this.hp = 5;
+    this.view = view;
+    this.isActive = true;
+  }
 
-    type = "enemy";
-    isBoss = true;
+  update() {}
 
-    constructor(view){
-        super(view);
+  damage() {
+    this.hp--;
 
-        this.isActive = true;
+    if (this.hp < 1) {
+      this.isActive = false;
+
+      const deadAnimation = this._view.showAndGetDeadAnimation();
+      deadAnimation.onComplete = () => {
+        this._view.showAdditionalExplosions();
+        deadAnimation.removeFromParent();
+        this.dead();
+      };
     }
-
-    update(){
-
-    }
-
-    damage(){
-        this.#health--;
-
-        if(this.#health < 1){
-            this.isActive = false;
-
-            const deadAnimation = this._view.showAndGetDeadAnimation();
-            deadAnimation.onComplete = () => {
-                this._view.showAdditionalExplosions();
-                deadAnimation.removeFromParent();
-            }
-        }
-    }
+  }
 }
