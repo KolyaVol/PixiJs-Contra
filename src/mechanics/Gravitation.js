@@ -2,8 +2,10 @@ export default class Gravitation {
   constructor() {}
 
   fall(item) {
-    item.y += item.fallSpeed;
-    item.fallSpeed += 0.2;
+    if (!item.state.isPaused) {
+      item.y += item.fallSpeed;
+      item.fallSpeed += 0.2;
+    }
   }
 
   stay(item, platform) {
@@ -26,5 +28,4 @@ export default class Gravitation {
       item.fallSpeed = item.jumpPower;
     }
   }
-  
 }

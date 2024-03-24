@@ -5,6 +5,7 @@ export default class Bullet extends Entity {
   shooter;
   bulletSpeed = 10;
   #angle;
+  #selfDestroyCounter;
   constructor(view, bulletContext) {
     super(view);
     this.maxHp = 1;
@@ -12,10 +13,6 @@ export default class Bullet extends Entity {
     this.view = view;
     this.type = "enemyBullet";
     this.#angle = (bulletContext.angle * Math.PI) / 180;
-    setTimeout(() => {
-      this.dead();
-      this.destroyIfDead();
-    }, 5000);
   }
 
   doDamage(collisionResult) {
@@ -47,6 +44,11 @@ export default class Bullet extends Entity {
   }
 
   update(collisionResult) {
+    this.#selfDestroyCounter++;
+    if (this.#selfDestroyCounter === 5000) {
+      this.dead();
+      this.destroyIfDead();
+    }
     let shooter = this.shooter;
 
     this.view.collisionBox.x =

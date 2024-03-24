@@ -35,39 +35,41 @@ export default class Shooting {
   }
 
   addBullet() {
-    switch (this.shooter.currentGun) {
-      case 1:
-        this.shootingDelay = 350;
+    if (!this.shooter.state.isPaused) {
+      switch (this.shooter.currentGun) {
+        case 1:
+          this.shootingDelay = 350;
 
-        const bullet = this.bulletFactory.createBullet(
-          this.shooter.bulletContext,
-          this.shooter
-        );
-        bullet.type = "heroBullet";
-
-        break;
-
-      case 2:
-        this.shootingDelay = 550;
-        let angleShift = -20;
-        for (let i = 0; i < 5; i++) {
-          const localBulletContext = {
-            x: this.shooter.bulletContext.x,
-            y: this.shooter.bulletContext.y,
-            angle: this.shooter.bulletContext.angle + angleShift,
-          };
-          const fraction = this.bulletFactory.createFraction(
-            localBulletContext,
+          const bullet = this.bulletFactory.createBullet(
+            this.shooter.bulletContext,
             this.shooter
           );
-          fraction.type = "heroFraction";
+          bullet.type = "heroBullet";
 
-          angleShift += 10;
-        }
-        break;
+          break;
 
-      default:
-        break;
+        case 2:
+          this.shootingDelay = 550;
+          let angleShift = -20;
+          for (let i = 0; i < 5; i++) {
+            const localBulletContext = {
+              x: this.shooter.bulletContext.x,
+              y: this.shooter.bulletContext.y,
+              angle: this.shooter.bulletContext.angle + angleShift,
+            };
+            const fraction = this.bulletFactory.createFraction(
+              localBulletContext,
+              this.shooter
+            );
+            fraction.type = "heroFraction";
+
+            angleShift += 10;
+          }
+          break;
+
+        default:
+          break;
+      }
     }
   }
 

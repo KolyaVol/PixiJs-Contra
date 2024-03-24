@@ -10,6 +10,7 @@ export default class Hero extends Entity {
     isMoveLeft: false,
     isJump: false,
     isFly: false,
+    isPaused: false,
   };
 
   currentGun = 1;

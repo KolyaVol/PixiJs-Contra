@@ -1,4 +1,4 @@
-import { Application, Assets, TextStyle, Text } from "../libs/pixi.mjs";
+import { Application, TextStyle, Text } from "../libs/pixi.mjs";
 import Collision from "./mechanics/Collision.js";
 import PlatformFactory from "./components/Platforms/PlatformFactory.js";
 import Shooting from "./mechanics/Shooting.js";
@@ -9,7 +9,6 @@ import World from "./World.js";
 import EnemyFactory from "./components/Enemies/EnemyFactory.js";
 import PowerupsFactory from "./components/Powerups/PowerupsFactory.js";
 
-//await Assets.load("../assets/atlas.json");
 export default class Game {
   entityArr = [];
   worldContainer = new World();
@@ -17,6 +16,7 @@ export default class Game {
   hero = null;
   #pixiApp = null;
   #isBossDead = false;
+  #gameStage = "In progress";
   constructor() {}
 
   #createPlatforms() {
@@ -165,26 +165,31 @@ export default class Game {
 
     shooting.startObserve();
     this.#pixiApp.ticker.add(() => {
-      this.entityArr.forEach((entity, index) => {
-        if (entity.type === "Boss" && !this.#isBossDead && entity.isDead) {
-          this.#isBossDead = true;
-          this.#showEndGame();
-        }
+      if (this.#gameStage === "In progress") {
+        this.entityArr.forEach((entity, index) => {
+          if (entity.type === "Boss" && !this.#isBossDead && entity.isDead) {
+            this.#isBossDead = true;
+            this.#showEndGame();
+            this.#gameStage = "Complited";
+            this.hero.state.isPaused = true;
+          }
 
-        if (this.#isBossDead && entity.group === "Enemy") {
-          entity.dead();
-        }
+          // if (this.#isBossDead && entity.group === "Enemy") {
+          //   entity.dead();
+          // }
 
-        if (entity.isDead) {
-          this.entityArr.splice(index, 1);
-          return;
-        }
-        if (entity.view && entity.update) {
-          entity.update(
-            col.checkArrCollisionOrientation(entity, this.entityArr)
-          );
-        }
-      });
+          if (entity.isDead) {
+            this.entityArr.splice(index, 1);
+            return;
+          }
+
+          if (entity.view && entity.update) {
+            entity.update(
+              col.checkArrCollisionOrientation(entity, this.entityArr)
+            );
+          }
+        });
+      }
 
       shooting.startShooting();
 
