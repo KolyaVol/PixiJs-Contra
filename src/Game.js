@@ -8,6 +8,7 @@ import AssetsFactory from "./AssetsFactory.js";
 import World from "./World.js";
 import EnemyFactory from "./components/Enemies/EnemyFactory.js";
 import PowerupsFactory from "./components/Powerups/PowerupsFactory.js";
+import Menu from "./Menu.js";
 
 export default class Game {
   entityArr = [];
@@ -16,7 +17,7 @@ export default class Game {
   hero = null;
   #pixiApp = null;
   #isBossDead = false;
-  #gameStage = "In progress";
+  #gameStage = "Ready to start";
   constructor() {}
 
   #createPlatforms() {
@@ -115,7 +116,6 @@ export default class Game {
   }
 
   #showEndGame() {
-    console.log(333);
     const style = new TextStyle({
       fontFamily: "Impact",
       fontSize: 50,
@@ -132,8 +132,28 @@ export default class Game {
     this.#pixiApp.stage.addChild(text);
   }
 
+  get gameStage() {
+    return this.#gameStage;
+  }
+  set gameStage(value) {
+    this.#gameStage = value;
+  }
+
+  restartGame() {
+    this.#pixiApp.stop();
+    document.body.removeChild(this.#pixiApp.view);
+    this.entityArr = [];
+    this.hero = null;
+    this.worldContainer = null;
+    this.#pixiApp = null;
+    this.#isBossDead = false;
+    this.start();
+  }
+
   start() {
-    const col = new Collision();
+    this.worldContainer = new World();
+    this.#gameStage = "In progress";
+
     this.#pixiApp = new Application({ width: 1024, height: 768 });
 
     this.#createHero();
@@ -161,10 +181,17 @@ export default class Game {
     this.#pixiApp.stage.addChild(this.worldContainer);
     document.body.appendChild(this.#pixiApp.view);
 
+    const menu = new Menu(this.#pixiApp, this.worldContainer, this);
+
+    menu.showMenu();
+
     this.hero.startObserve();
 
     shooting.startObserve();
-    this.#pixiApp.ticker.add(() => {
+
+    const col = new Collision();
+
+    const f = () => {
       if (this.#gameStage === "In progress") {
         this.entityArr.forEach((entity, index) => {
           if (entity.type === "Boss" && !this.#isBossDead && entity.isDead) {
@@ -194,6 +221,8 @@ export default class Game {
       shooting.startShooting();
 
       camera.update();
-    });
+    };
+
+    this.#pixiApp.ticker.add(f);
   }
 }
