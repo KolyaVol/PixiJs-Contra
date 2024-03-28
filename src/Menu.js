@@ -5,11 +5,8 @@ export default class Menu {
     this.worldContainer = worldContainer;
     this.app = app;
     this.game = game;
-  }
 
-  showMenu() {
-    console.log(this.game);
-    const style = new TextStyle({
+    this.style = new TextStyle({
       fontFamily: "Impact",
       fontSize: 50,
       fill: [0xffffff, 0xdd0000],
@@ -17,7 +14,8 @@ export default class Menu {
       strokeThickness: 5,
       letterSpacing: 30,
     });
-    const style1 = new TextStyle({
+
+    this.style1 = new TextStyle({
       fontFamily: "Impact",
       fontSize: 50,
       fill: [0x111111, 0xff0000],
@@ -26,40 +24,72 @@ export default class Menu {
       letterSpacing: 30,
     });
 
+    this.newGameText = new Text("New Game", this.style);
+    this.continueText = new Text("Continue", this.style);
+  }
+
+  handleKeyDown(e) {
+    if (e.code === "Escape") {
+      this.showMenu();
+      this.game.pauseGame();
+    }
+  }
+
+  createMenu() {
+    document.addEventListener("keydown", (e) => this.handleKeyDown(e));
+
     const newGame = () => {
-      newGameText._style = style1;
-      continueText._style = style;
+      this.newGameText._style = this.style1;
+      this.continueText._style = this.style;
       setTimeout(() => {
         this.game.restartGame();
       }, 500);
     };
-    function ll() {
-      continueText._style = style1;
-      newGameText._style = style;
-    }
+    const continueGame = () => {
+      this.continueText._style = this.style1;
+      this.newGameText._style = this.style;
+      setTimeout(() => {
+        this.game.continueGame();
+      }, 500);
+    };
 
-    const container = new Container();
-
-    const newGameText = new Text("New Game", style);
-    const continueText = new Text("Continue", style);
-
-    newGameText.x = this.app.screen.width / 2 - newGameText.width / 2;
-    newGameText.y = this.app.screen.height / 2 - newGameText.height / 2;
-    continueText.x = this.app.screen.width / 2 - continueText.width / 2;
-    continueText.y =
+    this.newGameText.x = this.app.screen.width / 2 - this.newGameText.width / 2;
+    this.newGameText.y =
+      this.app.screen.height / 2 - this.newGameText.height / 2;
+    this.continueText.x =
+      this.app.screen.width / 2 - this.continueText.width / 2;
+    this.continueText.y =
       this.app.screen.height / 2 +
-      continueText.height +
+      this.continueText.height +
       20 -
-      continueText.height / 2;
+      this.continueText.height / 2;
 
-    container.addChild(newGameText);
-    container.addChild(continueText);
+    this.newGameText.eventMode = "dynamic";
+    this.continueText.eventMode = "dynamic";
+    this.newGameText.on("pointerdown", newGame);
+    this.continueText.on("pointerdown", continueGame);
 
-    newGameText.eventMode = "dynamic";
-    continueText.eventMode = "dynamic";
-    newGameText.on("pointerdown", newGame);
-    continueText.on("pointerdown", ll);
+    this.worldContainer.foreground.addChild(this.newGameText);
+    this.worldContainer.foreground.addChild(this.continueText);
+    setTimeout(() => {
+      this.hideMenu();
+    }, 500);
+    setTimeout(() => {
+      this.showMenu();
+    }, 1000);
+  }
 
-    this.worldContainer.foreground.addChild(container);
+  hideMenu() {
+    this.continueText.alpha = 0.5;
+    this.newGameText.alpha = 0.5;
+    console.log(11111);
+  }
+
+  showMenu() {
+    this.newGameText.eventMode = "dynamic";
+    this.continueText.eventMode = "dynamic";
+    this.continueText.alpha = 1;
+    this.newGameText.alpha = 1;
+    console.log(this.newGameText);
   }
 }

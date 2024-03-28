@@ -18,6 +18,7 @@ export default class Game {
   #pixiApp = null;
   #isBossDead = false;
   #gameStage = "Ready to start";
+  menu;
   constructor() {}
 
   #createPlatforms() {
@@ -136,7 +137,14 @@ export default class Game {
     return this.#gameStage;
   }
   set gameStage(value) {
-    this.#gameStage = value;
+    if (
+      value === "Ready to start" ||
+      value === "In progress" ||
+      value === "Complited" ||
+      value === "Paused"
+    ) {
+      this.#gameStage = value;
+    }
   }
 
   restartGame() {
@@ -150,7 +158,20 @@ export default class Game {
     this.start();
   }
 
+  pauseGame() {
+    this.#gameStage === "Paused";
+    this.#pixiApp.stop();
+  }
+
+  continueGame() {
+    this.#pixiApp.start();
+    this.menu.hideMenu();
+  }
+
+  
+
   start() {
+    
     this.worldContainer = new World();
     this.#gameStage = "In progress";
 
@@ -181,9 +202,9 @@ export default class Game {
     this.#pixiApp.stage.addChild(this.worldContainer);
     document.body.appendChild(this.#pixiApp.view);
 
-    const menu = new Menu(this.#pixiApp, this.worldContainer, this);
+    this.menu = new Menu(this.#pixiApp, this.worldContainer, this);
 
-    menu.showMenu();
+    this.menu.createMenu();
 
     this.hero.startObserve();
 
@@ -191,7 +212,7 @@ export default class Game {
 
     const col = new Collision();
 
-    const f = () => {
+    this.#pixiApp.ticker.add(() => {
       if (this.#gameStage === "In progress") {
         this.entityArr.forEach((entity, index) => {
           if (entity.type === "Boss" && !this.#isBossDead && entity.isDead) {
@@ -221,8 +242,6 @@ export default class Game {
       shooting.startShooting();
 
       camera.update();
-    };
-
-    this.#pixiApp.ticker.add(f);
+    });
   }
 }
